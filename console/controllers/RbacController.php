@@ -1,4 +1,4 @@
-<<?php
+<?php
 namespace console\controllers;
 
 use Yii;
@@ -21,6 +21,11 @@ class RbacController extends Controller
         $updatePost->description = 'Update post';
         $auth->add($updatePost);
 
+        // add "accessBackEnd" permission
+        $accessBackend = $auth->createPermission('accessBackend');
+        $accessBackend->description = 'Access the Back-Office';
+        $auth->add($accessBackend);
+
         // add "author" role and give this role the "createPost" permission
         $author = $auth->createRole('author');
         $auth->add($author);
@@ -32,6 +37,7 @@ class RbacController extends Controller
         $auth->add($admin);
         $auth->addChild($admin, $updatePost);
         $auth->addChild($admin, $author);
+        $auth->addChild($admin, $accessBackend);
 
         // Assign roles to users. 1 and 2 are IDs returned by IdentityInterface::getId()
         // usually implemented in your User model.
