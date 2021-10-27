@@ -32,7 +32,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['index'],
                         'allow' => true,
-                        'roles' => ['accessBackend'],
+                        'roles' => ['admin'],
                     ],
                     [
                         'actions' => ['logout'],
