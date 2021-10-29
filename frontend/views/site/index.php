@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'Healthyfi - Home';
+$this->title = 'Healthify - Home';
 
 use frontend\assets\CustomJs;
 use frontend\assets\CustomCss;
@@ -16,7 +16,7 @@ $customImg = CustomImg::register($this);
 <title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="<?= $customCss->baseUrl.'/customCss.css'?>" >
+<link rel="stylesheet" href="/healthify/frontend/web/css/customCss.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
 
 <!-- Header with image -->
@@ -24,13 +24,13 @@ $customImg = CustomImg::register($this);
     <img src="<?=$customImg->baseUrl.'/menuBg.jpg' ?>" class="customBackground">
 
     <div class="w3-display-bottomleft w3-center w3-padding-large w3-hide-small">
-        <span class="w3-tag">Open from 6am to 5pm</span>
+        <span class="w3-tag">Open from <?php echo date('l jS \of F Y h:i:s A'); ?></span>
     </div>
     <div class="w3-display-middle w3-center">
-        <span class="w3-text-black" style="font-size:90px">Healthyfi</span>
+        <span class="w3-text-black" style="font-size:90px">Healthify</span>
     </div>
     <div class="w3-display-bottomright w3-center w3-padding-large">
-        <span class="w3-text-white">15 Adr street, 5015</span>
+        <span class="w3-tag">15 Adr street, 5015</span>
     </div>
 </header>
 
@@ -40,14 +40,14 @@ $customImg = CustomImg::register($this);
     <!-- About Container -->
     <div class="w3-container" id="about">
         <div class="w3-content" style="max-width:700px">
-            <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">ABOUT HEALTHYFI</span></h5>
-            <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">ABOUT HEALTHIFY</span></h5>
+            <p>The Cafe was founded in Leiria by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p>
             <div class="w3-panel w3-leftbar w3-light-grey">
                 <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
                 <p>Chef, Coffeeist and Owner: Liam Brown</p>
             </div>
-            <img src="/w3images/coffeeshop.jpg" style="width:100%;max-width:1000px" class="w3-margin-top">
+            <img src="<?=$customImg->baseUrl.'/placeholder.png' ?>" style="width:100%;max-width:1000px" class="w3-margin-top">
             <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
             <p><strong>Address:</strong> 15 Adr street, 5015, NY</p>
         </div>
@@ -101,7 +101,7 @@ $customImg = CustomImg::register($this);
                 <h5>Soda</h5>
                 <p class="w3-text-grey">Coke, Sprite, Fanta, etc. 2.50</p>
             </div>
-            <img src="/w3images/coffeehouse2.jpg" style="width:100%;max-width:1000px;margin-top:32px;">
+            <img src="<?=$customImg->baseUrl.'/placeholder.png' ?>" style="width:100%;max-width:1000px;margin-top:32px;">
         </div>
     </div>
 
@@ -110,7 +110,7 @@ $customImg = CustomImg::register($this);
         <div class="w3-content" style="max-width:700px">
             <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">WHERE TO FIND US</span></h5>
             <p>Find us at some address at some place.</p>
-            <img src="/w3images/map.jpg" class="w3-image" style="width:100%">
+            <img src="<?=$customImg->baseUrl.'/placeholder.png' ?>" class="w3-image" style="width:100%">
             <p><span class="w3-tag">FYI!</span> We offer full-service catering for any event, large or small. We understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look and taste.</p>
             <p><strong>Reserve</strong> a table, ask for today's special or just send us a message:</p>
             <form action="" target="_blank">
