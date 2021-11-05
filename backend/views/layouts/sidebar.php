@@ -1,9 +1,12 @@
+<?php
+use yii\helpers\Html;
+?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="<?=\yii\helpers\Url::home()?>" class="brand-link">
-        <img src="<?=$assetDir?>/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        <img src="<?=$assetDir?>/img/AdminLTELogo.png" alt="Healthify Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">Healthify</span>
     </a>
 
     <!-- Sidebar -->
@@ -34,28 +37,6 @@
                         ]
                     ],
                     ['label' => 'Simple Link', 'icon' => 'th', 'badge' => '<span class="right badge badge-danger">New</span>'],
-                    ['label' => 'Yii2 PROVIDED', 'header' => true],
-                    ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
-                    ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
-                    ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank'],
-                    ['label' => 'MULTI LEVEL EXAMPLE', 'header' => true],
-                    ['label' => 'Level1'],
-                    [
-                        'label' => 'Level1',
-                        'items' => [
-                            ['label' => 'Level2', 'iconStyle' => 'far'],
-                            [
-                                'label' => 'Level2',
-                                'iconStyle' => 'far',
-                                'items' => [
-                                    ['label' => 'Level3', 'iconStyle' => 'far', 'icon' => 'dot-circle'],
-                                    ['label' => 'Level3', 'iconStyle' => 'far', 'icon' => 'dot-circle'],
-                                    ['label' => 'Level3', 'iconStyle' => 'far', 'icon' => 'dot-circle']
-                                ]
-                            ],
-                            ['label' => 'Level2', 'iconStyle' => 'far']
-                        ]
-                    ],
                     ['label' => 'Level1'],
                     ['label' => 'LABELS', 'header' => true],
                     ['label' => 'Important', 'iconStyle' => 'far', 'iconClassAdded' => 'text-danger'],
@@ -64,6 +45,8 @@
                 ],
             ]);
             ?>
+            <a href="#" class="btn"></a>
+            <?= Html::a('Sign out', ['site/logout'], ['data-method' => 'post', 'class' => 'btn btn-default btn-flat float-right']) ?>
         </nav>
         <!-- /.sidebar-menu -->
     </div>

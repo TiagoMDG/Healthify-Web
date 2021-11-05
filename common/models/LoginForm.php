@@ -64,9 +64,10 @@ class LoginForm extends Model
 
             if (Yii::$app->user->can('accessBackend')) {
                 return true;
+
             } else {
                 Yii::$app->user->logout();
-                Yii::$app->response->redirect('index');
+                Yii::$app->response->redirect('/psi_plsi_pl1/frontend/web/');
                 return false;
             }
 
