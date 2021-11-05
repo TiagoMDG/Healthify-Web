@@ -58,8 +58,8 @@ class SignupForm extends Model
         $user->save(false);
 
         $auth = \Yii::$app->authManager;
-        $adminRole = $auth->getRole('admin');
-        $auth->assign($adminRole, $user->getId());
+        $role = $auth->getRole('client');
+        $auth->assign($role, $user->getId());
 
 
         return  $user;
