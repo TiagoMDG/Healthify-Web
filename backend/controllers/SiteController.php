@@ -3,11 +3,12 @@
 namespace backend\controllers;
 
 use common\models\LoginForm;
+use common\models\User;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\ForbiddenHttpException;
+use yii\db\ActiveRecord;
 use yii\web\Response;
 
 /**
@@ -31,7 +32,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['index'],
                         'allow' => true,
-                        'roles' => ['accessBackend'],
+                        'roles' => ['admin'],
                     ],
                     [
                         'actions' => ['logout'],

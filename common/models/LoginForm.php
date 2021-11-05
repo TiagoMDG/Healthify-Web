@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\base\Model;
+use yii\web\Controller;
 
 /**
  * Login form
@@ -56,10 +57,22 @@ class LoginForm extends Model
      */
     public function login()
     {
+        $user = $this->getUser();
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
+            /** Usar Auth manager para verificar o role, verificar acesso (for each)*/
+
+            if (Yii::$app->user->can('accessBackend')) {
+                return true;
+
+            } else {
+                Yii::$app->user->logout();
+                Yii::$app->response->redirect('/psi_plsi_pl1/frontend/web/');
+                return false;
+            }
+
         }
-        
+
         return false;
     }
 
