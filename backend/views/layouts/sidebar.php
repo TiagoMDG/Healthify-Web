@@ -1,9 +1,10 @@
 <?php
+use yii\helpers\URL;
 use yii\helpers\Html;
 ?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="<?=\yii\helpers\Url::home()?>" class="brand-link">
+    <a href="<?=Url::home()?>" class="brand-link">
         <img src="<?=$assetDir?>/img/AdminLTELogo.png" alt="Healthify Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
         <span class="brand-text font-weight-light">Healthify</span>
@@ -47,6 +48,8 @@ use yii\helpers\Html;
             ?>
             <a href="#" class="btn"></a>
             <?= Html::a('Sign out', ['site/logout'], ['data-method' => 'post', 'class' => 'btn btn-default btn-flat float-right']) ?>
+            <?= HTML::a('UserManager', ['/user/index'], ['data-method' => 'post', 'class' => 'btn btn-default btn-flat float-right']) ?>
+
         </nav>
         <!-- /.sidebar-menu -->
     </div>

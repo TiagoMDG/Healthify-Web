@@ -1,20 +1,17 @@
 <?php
 
-namespace backend\controllers;
+namespace app\controllers;
 
 use app\models\AuthAssignment;
 use app\models\AuthAssignmentSearch;
-use app\models\User;
-use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-
 /**
- * UserController implements the CRUD actions for User model.
+ * AuthAssignmentController implements the CRUD actions for AuthAssignment model.
  */
-class UserController extends Controller
+class AuthAssignmentController extends Controller
 {
     /**
      * @inheritDoc
@@ -35,45 +32,46 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all User models.
+     * Lists all AuthAssignment models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
-
+        $searchModel = new AuthAssignmentSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-        return $this->render('index', [
+
+        return $this->render('../user/index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single User model.
-     * @param int $id ID
+     * Displays a single AuthAssignment model.
+     * @param string $item_name Item Name
+     * @param string $user_id User ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($item_name, $user_id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($item_name, $user_id),
         ]);
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new AuthAssignment model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new AuthAssignment();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'item_name' => $model->item_name, 'user_id' => $model->user_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -85,18 +83,19 @@ class UserController extends Controller
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing AuthAssignment model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
+     * @param string $item_name Item Name
+     * @param string $user_id User ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($item_name, $user_id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($item_name, $user_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'item_name' => $model->item_name, 'user_id' => $model->user_id]);
         }
 
         return $this->render('update', [
@@ -105,29 +104,31 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing AuthAssignment model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
+     * @param string $item_name Item Name
+     * @param string $user_id User ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($item_name, $user_id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($item_name, $user_id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the AuthAssignment model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return User the loaded model
+     * @param string $item_name Item Name
+     * @param string $user_id User ID
+     * @return AuthAssignment the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($item_name, $user_id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = AuthAssignment::findOne(['item_name' => $item_name, 'user_id' => $user_id])) !== null) {
             return $model;
         }
 
