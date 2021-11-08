@@ -65,7 +65,7 @@ class User extends \yii\db\ActiveRecord
 
     public function getRole($userId){
         $findRole = AuthAssignment::find()->where(['user_id' =>$userId])->all();
-        return $findRole[0]['item_name'];
+        return $findRole[0];
 
     }
 }

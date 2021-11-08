@@ -6,6 +6,8 @@ use app\models\AuthAssignment;
 use app\models\AuthAssignmentSearch;
 use app\models\User;
 use app\models\UserSearch;
+use Yii;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -106,13 +108,23 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $role =$model->getRole($model->id);
+        $redefinedRole="";
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost && $model->save() && $model->load($this->request->post()) && $model->save()) {
+
+            $redefinedRole = Yii::$app->request->post();
+            $auth = Yii::$app->authManager;
+            Yii::$app->authManager->revokeAll( $model->id );
+            $authRole = $auth->getRole($redefinedRole['AuthAssignment']['item_name']);
+            $auth->assign($authRole, $model->id);
+
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'role' => $role,
         ]);
     }
 

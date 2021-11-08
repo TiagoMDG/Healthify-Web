@@ -22,12 +22,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <tr>
                 <td><?=$user->id?></td>
                 <td><?=$user->username?></td>
-                <td><?= $user->getRole($user->id) ?></td>
+                <td><?= $user->getRole($user->id)->item_name?></td>
 
                 <td>
-                    <a href="" class="btn btn-info" role="button">Show</a>
-                    <a href="" class="btn btn-info" role="button">Edit</a>
-                    <a href="" class="btn btn-warning" role="button">Delete</a>
+                    <?= Html::a('Edit', ['update', 'id' => $user->id], ['class' => 'btn btn-primary']) ?>
                 </td>
             </tr>
         <?php } ?>
