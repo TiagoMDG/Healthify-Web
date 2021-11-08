@@ -1,5 +1,6 @@
 <?php
 
+use app\models\AuthAssignment;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -15,22 +16,22 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php  //echo $this->render('_search', ['model' => $searchModel]); ?>
+    <table>
+        <thead><th><h3>Id</h3></th><th><h3>Name</h3></th><th><h3>Role</h3></th></thead>
+        <?php foreach ($allUsers as $user) { ?>
+            <tr>
+                <td><?=$user->id?></td>
+                <td><?=$user->username?></td>
+                <td><?= $user->getRole($user->id) ?></td>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'username',
-            'email:email',
-            'item_name',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                <td>
+                    <a href="" class="btn btn-info" role="button">Show</a>
+                    <a href="" class="btn btn-info" role="button">Edit</a>
+                    <a href="" class="btn btn-warning" role="button">Delete</a>
+                </td>
+            </tr>
+        <?php } ?>
+    </table>
 
 
 </div>

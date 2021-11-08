@@ -9,6 +9,8 @@ use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
+use function Sodium\add;
 
 
 /**
@@ -38,14 +40,24 @@ class UserController extends Controller
      * Lists all User models.
      * @return mixed
      */
+    /**
+    $searchModel = new UserSearch();
+    $dataProvider = $searchModel->search($this->request->queryParams);
+
+    return $this->render('index', [
+    'searchModel' => $searchModel,
+    'dataProvider' => $dataProvider,
+    ]);
+     **/
+
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $allUsers = User::find()
+        ->indexBy('id')
+        ->all();
 
-        $dataProvider = $searchModel->search($this->request->queryParams);
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'allUsers' => $allUsers,
         ]);
     }
 

@@ -1,7 +1,7 @@
 <?php
 
 namespace app\models;
-
+use app\models\AuthAssignment;
 use Yii;
 
 /**
@@ -61,5 +61,11 @@ class User extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'verification_token' => 'Verification Token',
         ];
+    }
+
+    public function getRole($userId){
+        $findRole = AuthAssignment::find()->where(['user_id' =>$userId])->all();
+        return $findRole[0]['item_name'];
+
     }
 }
