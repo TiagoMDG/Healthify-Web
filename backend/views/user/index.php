@@ -1,19 +1,17 @@
 <?php
 
-use app\models\AuthAssignment;
 use yii\helpers\Html;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = 'Users';
+$this->title = 'Utilizadores';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
     <p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar Utilizador', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <table>
@@ -25,7 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <td><?= $user->getRole($user->id)->item_name?></td>
 
                 <td>
-                    <?= Html::a('Edit', ['update', 'id' => $user->id], ['class' => 'btn btn-primary']) ?>
+                    <?= Html::a('Editar Utilizador', ['update', 'id' => $user->id], ['class' => 'btn btn-primary']) ?>
+                    <?= Html::a('Apagar', ['delete', 'id' => $user->id], ['class' => 'btn btn-warning']) ?>
                 </td>
             </tr>
         <?php } ?>
