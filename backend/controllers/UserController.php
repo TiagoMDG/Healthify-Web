@@ -2,17 +2,13 @@
 
 namespace backend\controllers;
 
-use app\models\AuthAssignment;
-use app\models\AuthAssignmentSearch;
+
 use app\models\User;
-use app\models\UserSearch;
+use backend\models\UserCreateForm;
 use Yii;
-use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\Json;
-use function Sodium\add;
 
 
 /**
@@ -83,14 +79,10 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new User();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
+        $model = new UserCreateForm();
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            return $this->goHome();
         }
 
         return $this->render('create', [

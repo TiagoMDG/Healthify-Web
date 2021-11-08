@@ -1,20 +1,32 @@
 <?php
 
-use yii\helpers\Html;
-
 /* @var $this yii\web\View */
-/* @var $model app\models\User */
+/* @var $form yii\bootstrap4\ActiveForm */
+/* @var $model \frontend\models\SignupForm */
 
-$this->title = 'Create User';
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+use yii\bootstrap4\Html;
+use yii\bootstrap4\ActiveForm;
+
+$this->title = 'Criar Utilizador';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-create">
+<div class="site-signup">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="row">
+        <div class="col-lg-5">
+            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
+                <?= $form->field($model, 'email') ?>
+
+                <?= $form->field($model, 'password')->passwordInput() ?>
+
+                <div class="form-group">
+                    <?= Html::submitButton('Gravar novo utilizador', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                </div>
+
+            <?php ActiveForm::end(); ?>
+        </div>
+    </div>
 </div>
