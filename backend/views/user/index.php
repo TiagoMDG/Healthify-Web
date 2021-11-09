@@ -15,16 +15,21 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <table>
-        <thead><th><h3>Id</h3></th><th><h3>Name</h3></th><th><h3>Role</h3></th></thead>
-        <?php foreach ($allUsers as $user) { ?>
+        <thead>
+        <th><h3>Id</h3></th>
+        <th><h3>Name</h3></th>
+        <th><h3>Role</h3></th>
+        </thead>
+        <?php foreach ($filterUsers as $user) { ?>
             <tr>
-                <td><?=$user->id?></td>
-                <td><?=$user->username?></td>
-                <td><?= $user->getRole($user->id)->item_name?></td>
+
+                <td><?= $user->id ?></td>
+                <td><?= $user->username ?></td>
+                <td><?= $user->getRole($user->id)->item_name ?></td>
 
                 <td>
                     <?= Html::a('Editar Utilizador', ['update', 'id' => $user->id], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a('Apagar', ['delete', 'id' => $user->id], ['class' => 'btn btn-warning', 'data-method'=>'post']) ?>
+                    <?= Html::a('Apagar', ['delete', 'id' => $user->id], ['class' => 'btn btn-warning', 'data-method' => 'post']) ?>
                 </td>
             </tr>
         <?php } ?>
