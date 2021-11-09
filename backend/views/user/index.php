@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <td>
                     <?= Html::a('Editar Utilizador', ['update', 'id' => $user->id], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a('Apagar', ['delete', 'id' => $user->id], ['class' => 'btn btn-warning']) ?>
+                    <?= Html::a('Apagar', ['delete', 'id' => $user->id], ['class' => 'btn btn-warning', 'data-method'=>'post']) ?>
                 </td>
             </tr>
         <?php } ?>
