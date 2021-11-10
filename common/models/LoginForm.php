@@ -60,7 +60,6 @@ class LoginForm extends Model
         $user = $this->getUser();
         if ($this->validate()) {
             Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
-            /** Usar Auth manager para verificar o role, verificar acesso (for each)*/
 
             if (Yii::$app->user->can('accessBackend')) {
                 return true;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 05, 2021 at 11:49 AM
+-- Generation Time: Nov 10, 2021 at 01:11 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -44,7 +44,11 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('admin', '1', 1636111142),
 ('admin', '5', 1636112894),
 ('chef', '3', 1636111142),
+('chef', '7', 1636545246),
+('client', '12', 1636548290),
+('client', '13', 1636548310),
 ('client', '4', 1636111142),
+('staff', '14', 1636549589),
 ('staff', '2', 1636111142);
 
 -- --------------------------------------------------------
@@ -169,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `user`
@@ -177,7 +181,11 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`) VALUES
 (2, 'testeuser', 'IA_ROg-7282xyzU7Eb0x9Ip0z6PhW9ZK', '$2y$13$DpRGCCjE5qk2RqGRWrsL1.8UF9LpQSJx5duJTPnQD9rb7Y3zN3NNG', NULL, 'tiago.gil277@gmail.com', 10, 1634293795, 1634293795, '0HHcgxm6BfuNjOH9vwHra6rj9MLPdlOW_1634293795'),
-(5, 'admin', 'GmkIltBSetHrfbFpRL2669P7WqWGshGG', '$2y$13$osVyRKNcEjuJECi0Oja/SOEQ1w5nl43EO/xVEhjnvFE/uEJGETPGC', NULL, 'admin@hoje.pt', 10, 1636112894, 1636112894, 'ewMU_207-OoIxy63axz_h5Yl2rh2NK-C_1636112894');
+(5, 'admin', 'GmkIltBSetHrfbFpRL2669P7WqWGshGG', '$2y$13$osVyRKNcEjuJECi0Oja/SOEQ1w5nl43EO/xVEhjnvFE/uEJGETPGC', NULL, 'admin@hoje.pt', 10, 1636112894, 1636112894, 'ewMU_207-OoIxy63axz_h5Yl2rh2NK-C_1636112894'),
+(7, 'chef', '7-CrwoMKmTQM0YZjZBVtcIxQAeG3XNm1', '$2y$13$Z1yHcGXuP2tuDKh9rxTZjOgHDRWw2DDrZpVKDsd60Wc0AbLHaWadS', NULL, 'chef@chef.pt', 10, 1636544887, 1636544887, 'Dqo0MNf0NGA4IQJFh02urwx8vsGMpus-_1636544887'),
+(12, 'cliente', 'L0EfRqBnwlBnYFnIc6LRLYLAA81SfGLg', '$2y$13$E8iiaXfwDnMNi/OxJlcS.uTIrYwFDbgNZ/LTIQ0UzXae52OND8Wuq', NULL, 'cliente@cliente.pt', 10, 1636548290, 1636548290, '0MUmIqzD5ZnmVHkfqVGiKv4AF0vZgNij_1636548290'),
+(13, 'clientegiro', '3yw9R5FVIpcvyZbD8hiYaQjcAXmA5_uy', '$2y$13$PKkV6BiJrXOyTCSZ/XYwXO4/cmW6X97dC/Dc.X7Ufo01bGZESCjW2', NULL, 'sougiro@lindo.pt', 10, 1636548310, 1636548310, 'ejkN73mJJyH1tyI0t-7eORhmiJwZk5lT_1636548310'),
+(14, 'pedro', 'ufPowaDlv0QRwXhURfWGDAbRc2kqBevQ', '$2y$13$EhFGyTQuwLmLjgRkKNXTW.sZu76lx0bq/8McxgIrxzxKCRUBlHduW', NULL, 'pedro.eu@leiria.pt', 10, 1636548349, 1636548349, 'IGsndb9xJPdO3fyImare8S8vLxLfsOcj_1636548349');
 
 --
 -- Constraints for dumped tables
