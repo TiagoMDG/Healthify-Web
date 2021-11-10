@@ -6,6 +6,7 @@ namespace backend\controllers;
 use app\models\User;
 use backend\models\UserCreateForm;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
