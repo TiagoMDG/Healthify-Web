@@ -58,7 +58,7 @@ class UserCreateForm extends Model
         $user->save(false);
 
         $auth = \Yii::$app->authManager;
-        $role = $auth->getRole('client');
+        $role = $auth->getRole('staff');
         $auth->assign($role, $user->getId());
 
 

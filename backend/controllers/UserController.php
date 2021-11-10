@@ -2,14 +2,11 @@
 
 namespace backend\controllers;
 
-
 use app\models\AuthAssignment;
 use app\models\User;
 use backend\models\UserCreateForm;
 use Yii;
-use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -58,7 +55,8 @@ class UserController extends Controller
             ->all();
 
         foreach ($allUsers as $user) {
-            if ($user->username != 'admin') {
+
+            if ($user->getRole($user->id)->item_name != 'admin' /*&& $user->getRole($user->id)->item_name != 'client'*/) {
                 $filterUsers[] = $user;
             }}
 
@@ -92,7 +90,7 @@ class UserController extends Controller
             $model = new UserCreateForm();
             if ($model->load(Yii::$app->request->post()) && $model->signup()) {
                 Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-                return $this->goHome();
+                return $this->redirect(['index']);
             }
 
             return $this->render('create', [
@@ -117,10 +115,6 @@ class UserController extends Controller
             if ($this->request->isPost && $model->save() && $model->load($this->request->post()) && $model->save()) {
 
                 $redefinedRole = Yii::$app->request->post();
-
-                if($redefinedRole['AuthAssignment']['item_name']!='chef'&& $redefinedRole['AuthAssignment']['item_name']!='staff'
-                    && $redefinedRole['AuthAssignment']['item_name']!='client')
-                    throw new HttpException(403, 'Tentativa de alteração para um role indefinido ');
 
                 $auth = Yii::$app->authManager;
                 Yii::$app->authManager->revokeAll($model->id);
