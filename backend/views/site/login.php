@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 ?>
 <div class="card">
+    <img class="card-img-top" src="/resources/images/logo.png" alt="Card image cap"/>
     <div class="card-body login-card-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
@@ -37,17 +38,6 @@ use yii\helpers\Html;
         </div>
 
         <?php \yii\bootstrap4\ActiveForm::end(); ?>
-
-        <div class="social-auth-links text-center mb-3">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-primary">
-                <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-            </a>
-            <a href="#" class="btn btn-block btn-danger">
-                <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-            </a>
-        </div>
-        <!-- /.social-auth-links -->
 
         <p class="mb-1">
             <a href="forgot-password.html">I forgot my password</a>

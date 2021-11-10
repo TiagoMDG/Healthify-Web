@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Criar Utilizador', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <table>
+    <table class="table">
         <thead>
         <th><h3>Id</h3></th>
         <th><h3>Name</h3></th>

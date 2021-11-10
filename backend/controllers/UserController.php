@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-
+use app\models\AuthAssignment;
 use app\models\User;
 use backend\models\UserCreateForm;
 use Yii;
@@ -55,7 +55,8 @@ class UserController extends Controller
             ->all();
 
         foreach ($allUsers as $user) {
-            if ($user->username != 'admin') {
+
+            if ($user->getRole($user->id)->item_name != 'admin' /*&& $user->getRole($user->id)->item_name != 'client'*/) {
                 $filterUsers[] = $user;
             }}
 
@@ -89,7 +90,7 @@ class UserController extends Controller
             $model = new UserCreateForm();
             if ($model->load(Yii::$app->request->post()) && $model->signup()) {
                 Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-                return $this->goHome();
+                return $this->redirect(['index']);
             }
 
             return $this->render('create', [
@@ -109,21 +110,22 @@ class UserController extends Controller
         {
             $model = $this->findModel($id);
             $role = $model->getRole($model->id);
-            $redefinedRole = "";
+            $modelAuth=AuthAssignment::find()->all();
 
             if ($this->request->isPost && $model->save() && $model->load($this->request->post()) && $model->save()) {
 
                 $redefinedRole = Yii::$app->request->post();
+
                 $auth = Yii::$app->authManager;
                 Yii::$app->authManager->revokeAll($model->id);
                 $authRole = $auth->getRole($redefinedRole['AuthAssignment']['item_name']);
                 $auth->assign($authRole, $model->id);
-
                 return $this->redirect(['index']);
             }
 
             return $this->render('update', [
                 'model' => $model,
+                'modelAuth' =>$modelAuth,
                 'role' => $role,
             ]);
         }
