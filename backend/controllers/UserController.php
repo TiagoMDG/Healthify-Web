@@ -3,11 +3,13 @@
 namespace backend\controllers;
 
 
+use app\models\AuthAssignment;
 use app\models\User;
 use backend\models\UserCreateForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -110,21 +112,26 @@ class UserController extends Controller
         {
             $model = $this->findModel($id);
             $role = $model->getRole($model->id);
-            $redefinedRole = "";
+            $modelAuth=AuthAssignment::find()->all();
 
             if ($this->request->isPost && $model->save() && $model->load($this->request->post()) && $model->save()) {
 
                 $redefinedRole = Yii::$app->request->post();
+
+                if($redefinedRole['AuthAssignment']['item_name']!='chef'&& $redefinedRole['AuthAssignment']['item_name']!='staff'
+                    && $redefinedRole['AuthAssignment']['item_name']!='client')
+                    throw new HttpException(403, 'Tentativa de alteração para um role indefinido ');
+
                 $auth = Yii::$app->authManager;
                 Yii::$app->authManager->revokeAll($model->id);
                 $authRole = $auth->getRole($redefinedRole['AuthAssignment']['item_name']);
                 $auth->assign($authRole, $model->id);
-
                 return $this->redirect(['index']);
             }
 
             return $this->render('update', [
                 'model' => $model,
+                'modelAuth' =>$modelAuth,
                 'role' => $role,
             ]);
         }
