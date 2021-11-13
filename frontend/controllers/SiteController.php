@@ -75,6 +75,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if (!Yii::$app->user->identity != 'guest'){
+            $this->layout = 'loggedclient';
+        }
+
         return $this->render('index');
     }
 
@@ -144,6 +148,12 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionProfile()
+    {
+        $this->layout = 'loggedclient';
+        return $this->render('profile');
     }
 
     /**

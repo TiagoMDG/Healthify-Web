@@ -9,6 +9,10 @@ body, html {
     font-family: "Inconsolata", sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .bgimg {
     background-position: center;
     background-size: cover;
@@ -1635,6 +1639,7 @@ a {
 
 .w3-text-black, .w3-hover-text-black:hover {
     background-color: #000;
+    padding: 30px;
     color: #fff
 }
 

@@ -13,3 +13,14 @@ function openMenu(evt, menuName) {
     evt.currentTarget.firstElementChild.className += " w3-dark-grey";
 }
 document.getElementById("myLink").click();
+
+function onLinkClick(id) {
+    switch (id) {
+        case "aboutButton":
+            document.getElementById("about").scrollIntoView();
+            break;
+
+        default:
+            break;
+    }
+}
