@@ -152,8 +152,11 @@ class SiteController extends Controller
 
     public function actionProfile()
     {
+        $nome = Yii::$app->getUser()->identity->getName();
+        $email = Yii::$app->getUser()->identity->getEmail();
+
         $this->layout = 'loggedclient';
-        return $this->render('profile');
+        return $this->render('profile', ['nome'=> $nome, 'email'=> $email]);
     }
 
     /**

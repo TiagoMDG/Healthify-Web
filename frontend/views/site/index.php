@@ -6,6 +6,14 @@ $this->title = 'Healthify - Home';
 
 ?>
 
+<div id="float">
+    <a class="nav-link" href="javascript:;" id="homeButton" onclick="onLinkClick(this.id);">Home</a>
+    <a class="nav-link" href="javascript:;" id="aboutButton" onclick="onLinkClick(this.id);">About</a>
+    <a class="nav-link" href="javascript:;" id="menuButton" onclick="onLinkClick(this.id);">Menu</a>
+    <a class="nav-link" href="javascript:;" id="contactButton" onclick="onLinkClick(this.id);">Contact</a>
+</div>
+
+
 <!-- Header with image -->
 <header class="bgimg w3-display-container w3-grayscale-min" id="home">
     <img src="/healthify/frontend/web/assets/600dece8/menuBg.jpg" class="customBackground" alt="Menu Image">

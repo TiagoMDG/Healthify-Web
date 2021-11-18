@@ -16,8 +16,20 @@ document.getElementById("myLink").click();
 
 function onLinkClick(id) {
     switch (id) {
+        case "homeButton":
+            document.getElementById("home").scrollIntoView();
+            break;
+
         case "aboutButton":
             document.getElementById("about").scrollIntoView();
+            break;
+
+        case "menuButton":
+            document.getElementById("menu").scrollIntoView();
+            break;
+
+        case "contactButton":
+            document.getElementById("where").scrollIntoView();
             break;
 
         default:

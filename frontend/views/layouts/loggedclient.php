@@ -19,7 +19,7 @@ AppAsset::register($this);
 $customCss = CustomCss::register($this);
 $customImg = CustomImg::register($this);
 
-$cena = '#cena';
+$nome = Yii::$app->getUser()->identity->getName();
 
 $imgsrc = $customImg->baseUrl . '/menuBg.jpg';
 
@@ -49,14 +49,10 @@ $imgsrc = $customImg->baseUrl . '/menuBg.jpg';
             ],
         ]);
 
-        $menuItems[] = ['label' => 'Home', 'url' => ['/site/index']];
-
-        $menuItems[] = '<ul id="w1" class="navbar-nav nav">
-            <li class="nav-item"><a class="nav-link" href="javascript:;" id="aboutButton" onclick="onLinkClick(this.id);">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
-            <li class="nav-item"><a class="nav-link" href="#where">Contact</a></li>';
-
-        $menuItems[] = ['label' => 'Profile', 'url' => ['/site/profile']];
+        $menuItems = [
+            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Profile', 'url' => ['/site/profile']],
+        ];
 
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])

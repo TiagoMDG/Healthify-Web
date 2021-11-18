@@ -41,11 +41,9 @@ AppAsset::register($this);
         ],
     ]);
 
-    $menuItems[] = '<ul id="w1" class="navbar-nav nav">
-            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
-            <li class="nav-item"><a class="nav-link" href="#where">Contact</a></li>';
+    $menuItems = [
+        ['label' => 'Home', 'url' => ['/site/index']],
+    ];
 
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
