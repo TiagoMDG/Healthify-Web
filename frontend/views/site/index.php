@@ -16,7 +16,7 @@ $this->title = 'Healthify - Home';
 
 <!-- Header with image -->
 <header class="bgimg w3-display-container w3-grayscale-min" id="home">
-    <img src="/healthify/frontend/web/assets/600dece8/menuBg.jpg" class="customBackground" alt="Menu Image">
+    <img src="/healthify/frontend/web/img/menuBg.jpg" class="customBackground" alt="Menu Image">
 
     <div class="w3-display-bottomleft w3-center w3-padding-large w3-hide-small">
         <span class="w3-tag">Open from <?php echo date('l jS \of F Y h:i:s A'); ?></span>
@@ -46,7 +46,7 @@ $this->title = 'Healthify - Home';
                         new sweet.</i></p>
                 <p>Chef, Coffeeist and Owner: Liam Brown</p>
             </div>
-            <img src="/healthify/frontend/web/assets/600dece8/placeholder.png" style="width:100%;max-width:1000px"
+            <img src="/healthify/frontend/web/img/placeholder.png" style="width:100%;max-width:1000px"
                  class="w3-margin-top" alt="Menu Image">
             <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
             <p><strong>Address:</strong> 15 Adr street, 5015, NY</p>
@@ -101,7 +101,7 @@ $this->title = 'Healthify - Home';
                 <h5>Soda</h5>
                 <p class="w3-text-grey">Coke, Sprite, Fanta, etc. 2.50</p>
             </div>
-            <img src="/healthify/frontend/web/assets/600dece8/placeholder.png" style="width:100%;max-width:1000px;margin-top:32px;" alt="Menu Image">
+            <img src="/healthify/frontend/web/img/placeholder.png" style="width:100%;max-width:1000px;margin-top:32px;" alt="Menu Image">
         </div>
     </div>
 
@@ -110,7 +110,7 @@ $this->title = 'Healthify - Home';
         <div class="w3-content" style="max-width:700px">
             <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">WHERE TO FIND US</span></h5>
             <p>Find us at some address at some place.</p>
-            <img src="/healthify/frontend/web/assets/600dece8/placeholder.png" class="w3-image" style="width:100%">
+            <img src="/healthify/frontend/web/img/placeholder.png" class="w3-image" style="width:100%">
             <p><span class="w3-tag">FYI!</span> We offer full-service catering for any event, large or small. We
                 understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look
                 and taste.</p>
