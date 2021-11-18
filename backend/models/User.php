@@ -68,4 +68,8 @@ class User extends \yii\db\ActiveRecord
         return $findRole[0];
 
     }
+
+    public function getLastId(){
+        return User::find()->where(max('id'))->all();
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use app\models\User;
+use app\models\Userprofile;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -167,9 +169,13 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
+        $modelinfo =new Userprofile();
+
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+            Yii::$app->session->setFlash('success', 'Obrigado pelo seu registo. Por favor complete as suas informaçoes.');
+            return $this->render('completeuserinfo', [
+                'model' => $modelinfo,
+            ]);
         }
 
         return $this->render('signup', [

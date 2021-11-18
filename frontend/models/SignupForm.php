@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+
 use Yii;
 use yii\base\Model;
 use common\models\User;
@@ -11,11 +12,10 @@ use common\models\User;
  */
 class SignupForm extends Model
 {
+    //tabela user
     public $username;
     public $email;
     public $password;
-
-
     /**
      * {@inheritdoc}
      */
@@ -48,7 +48,6 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
-        
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
@@ -61,8 +60,8 @@ class SignupForm extends Model
         $role = $auth->getRole('client');
         $auth->assign($role, $user->getId());
 
-
         return  $user;
+
     }
 
     /**
