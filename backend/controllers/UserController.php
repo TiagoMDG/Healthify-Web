@@ -53,13 +53,12 @@ class UserController extends Controller
         $allUsers = User::find()
             ->indexBy('id')
             ->all();
-
         foreach ($allUsers as $user) {
 
-            if ($user->getRole($user->id)->item_name != 'admin' /*&& $user->getRole($user->id)->item_name != 'client'*/) {
+            if ($user->getAttribute('status')==10&&$user->getRole($user->id) != 'admin'/*&& $user->getRole($user->id)->item_name != 'client'*/) {
                 $filterUsers[] = $user;
-            }}
-
+            }
+        }
             return $this->render('index', [
                 'filterUsers' => $filterUsers,
             ]);
@@ -140,8 +139,10 @@ class UserController extends Controller
         public
         function actionDelete($id)
         {
-            Yii::$app->authManager->revokeAll($this->findModel($id)->id);
-            $this->findModel($id)->delete();
+            //Yii::$app->authManager->revokeAll($this->findModel($id)->id);
+            $model = $this->findModel($id);
+            $model->status=\common\models\User::STATUS_DELETED;
+            $model->save();
             return $this->redirect(['index']);
         }
 
