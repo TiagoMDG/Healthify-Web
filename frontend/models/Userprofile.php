@@ -42,35 +42,6 @@ class Userprofile extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
 
-    public $name;
-    public $nif;
-    public $cellphone;
-    public $street;
-    public $door;
-    public $floor;
-    public $city;
-    public $userid;
-
-    public function completesignup()
-    {
-        if (!$this->validate()) {
-            return null;
-        }
-
-        $userinfo = new Userprofile();
-        $userinfo->name=$this->name;
-        $userinfo->nif=$this->nif;
-        $userinfo->cellphone=$this->cellphone;
-        $userinfo->street=$this->street;
-        $userinfo->door=$this->door;
-        $userinfo->floor=$this->floor;
-        $userinfo->city=$this->city;
-        $userinfo->userid = \app\models\User::getLastId();
-
-        $userinfo->save(false);
-        return  $userinfo;
-    }
-
     public function rules()
     {
         return [

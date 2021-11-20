@@ -51,7 +51,7 @@ $imgsrc = $customImg->baseUrl . '/menuBg.jpg';
 
         $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Profile', 'url' => ['/site/profile']],
+            ['label' => 'Profile', 'url' => ['/userprofile/create']],
         ];
 
         $menuItems[] = '<li>'

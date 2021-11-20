@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <td><?= $user->id ?></td>
                 <td><?= $user->username ?></td>
-                <td><?= $user->getRole($user->id)->item_name ?></td>
+                <td><?= $user->getRole($user->id) ?></td>
 
                 <td>
                     <?= Html::a('Editar Utilizador', ['update', 'id' => $user->id], ['class' => 'btn btn-primary']) ?>

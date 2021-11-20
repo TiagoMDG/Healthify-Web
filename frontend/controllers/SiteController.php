@@ -169,13 +169,11 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
-        $modelinfo =new Userprofile();
-
+        $modelUserProfile =new Userprofile();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Obrigado pelo seu registo. Por favor complete as suas informaçoes.');
-            return $this->render('completeuserinfo', [
-                'model' => $modelinfo,
-            ]);
+            return $this->render('..\userprofile\create',
+                ['userid'=>$this->id,'model'=>$modelUserProfile]);
         }
 
         return $this->render('signup', [
