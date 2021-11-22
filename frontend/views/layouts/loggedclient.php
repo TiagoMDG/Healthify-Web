@@ -51,7 +51,7 @@ $imgsrc = $customImg->baseUrl . '/menuBg.jpg';
 
         $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Profile', 'url' => ['/userprofile/view']],
+            ['label' => 'Perfil', 'url' => ['/userprofile/selection']],
         ];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])

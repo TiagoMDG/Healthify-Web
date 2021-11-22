@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use app\models\Userprofile;
 use app\models\UserprofileSearch;
+use common\models\User;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -47,16 +48,26 @@ class UserprofileController extends Controller
         ]);
     }
 
+    public function actionSelection(){
+        $userid = Yii::$app->user->identity->getId();
+        $profile = Userprofile::find()->where(['userid' =>$userid])->one();
+        if ($profile!=null){
+           return $this->actionView($profile->getAttribute('id'));
+
+        }else {
+            return $this->actionCreate();
+        }
+
+    }
+
     /**
      * Displays a single Userprofile model.
      * @param int $id ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView()
+    public function actionView($id)
     {
-        $id=Yii::$app->user->identity->getId();
-
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -71,6 +82,9 @@ class UserprofileController extends Controller
     {
         $model = new Userprofile();
 
+        $userid = Yii::$app->user->identity->getId();
+        $username = Yii::$app->user->identity->username;
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -81,6 +95,8 @@ class UserprofileController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'userid'=> $userid,
+            'username' => $username,
         ]);
     }
 
