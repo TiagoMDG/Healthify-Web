@@ -8,27 +8,83 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="userprofile-form">
+<div class="container">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nif')->textInput() ?>
+    <div class="main-body">
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Admin"
+                                 class="rounded-circle" width="150">
+                            <div class="mt-3">
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                                <p class="text-secondary mb-1"><?php echo $username?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
 
-    <?= $form->field($model, 'cellphone')->textInput() ?>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Full Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                            </div>
+                        </div>
+                        <hr>
 
-    <?= $form->field($model, 'street')->textInput(['maxlength' => true]) ?>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Nif</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <?= $form->field($model, 'nif')->textInput() ?>
+                            </div>
+                        </div>
+                        <hr>
 
-    <?= $form->field($model, 'door')->textInput() ?>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Phone</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                 <?= $form->field($model, 'cellphone')->textInput() ?>
+                            </div>
+                        </div>
+                        <hr>
 
-    <?= $form->field($model, 'floor')->textInput() ?>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Address</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <?= $form->field($model, 'street')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model, 'door')->textInput() ?>
 
-    <?= $form->field($model, 'nib')->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model, 'floor')->textInput() ?>
 
-    <?= $form->field($model, 'userid')->textInput() ?>
+                                <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?= $form->field($model, 'userid')->hiddenInput(['value'=>$userid])->label(false); ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

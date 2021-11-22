@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use app\models\Userprofile;
 use app\models\UserprofileSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -52,8 +53,10 @@ class UserprofileController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView()
     {
+        $id=Yii::$app->user->identity->getId();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

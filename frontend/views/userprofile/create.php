@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Userprofile */
+//* @var $userid app\models\Userprofile */
 
 $this->title = 'Create Userprofile';
 $this->params['breadcrumbs'][] = ['label' => 'Userprofiles', 'url' => ['index']];
@@ -15,6 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'userid' => $userid,
+        'username'=>$username,
     ]) ?>
 
 </div>

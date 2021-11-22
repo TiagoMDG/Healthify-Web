@@ -142,16 +142,4 @@ class Userprofile extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Userschedulesregistry::className(), ['userprofilesid' => 'id']);
     }
-
-    public function signup()
-    {
-        if (!$this->validate()) {
-            return null;
-        }
-        var_dump($this);
-        die();
-
-
-    }
-
 }
