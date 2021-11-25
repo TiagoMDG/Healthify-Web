@@ -74,22 +74,19 @@ use yii\widgets\ActiveForm;
                                 <?= $form->field($model, 'floor')->textInput() ?>
 
                                 <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
+
+                                <?= $form->field($model, 'userid')->hiddenInput(['value'=>$userid])->label(false); ?>
                             </div>
                         </div>
                         <hr>
+                        <div class="form-group">
+                            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <?= $form->field($model, 'userid')->hiddenInput(['value'=>$userid])->label(false); ?>
-
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
     <?php ActiveForm::end(); ?>
 
 </div>

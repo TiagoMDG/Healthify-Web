@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap4\Nav;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -7,6 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Userprofile */
 
 $this->title = $model->name;
+
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="container">
@@ -64,10 +66,23 @@ $this->title = $model->name;
                                 <h6 class="mb-0">Address</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Rua <?php echo $model->street ?>, Nº <?php echo $model->door ?>, <?php echo $model->city ?>
+                                Rua <?php echo $model->street ?>, <?php echo $model->floor ?> Nº <?php echo $model->door ?>, <?php echo $model->city ?>
                             </div>
                         </div>
                         <hr>
+                        <?php
+                        $menuItems[] = '<li>'
+                            . Html::beginForm(['/userprofile/update','id'=>$model->id], 'post', ['class' => 'form-inline'])
+                            . Html::submitButton(
+                            'Atulizar Informação',
+                            ['class' => 'btn btn-secondary']
+                            )
+                            . Html::endForm()
+                            . '</li>';
+                        echo Nav::widget([
+                            'options' => ['class' => 'navbar-nav'],
+                            'items' => $menuItems,]);
+                        ?>
                     </div>
                 </div>
             </div>

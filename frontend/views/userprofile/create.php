@@ -6,9 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Userprofile */
 //* @var $userid app\models\Userprofile */
 
-$this->title = 'Create Userprofile';
-$this->params['breadcrumbs'][] = ['label' => 'Userprofiles', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Completao inscrição';
 ?>
 <div class="userprofile-create">
 
