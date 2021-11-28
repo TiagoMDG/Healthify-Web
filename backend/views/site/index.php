@@ -34,6 +34,16 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             ]) ?>
     </div>
     <!-- Custom tabs (Charts with tabs)-->
+
+    <div class="info-box bg-info">
+        <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
+        <div class="info-box-content">
+            <span class="info-box-text">Bookmarks</span>
+            <span class="info-box-number">41,410</span>
+        </div>
+        <!-- /.info-box-content -->
+    </div>
+
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">

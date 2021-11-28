@@ -20,14 +20,15 @@ use yii\widgets\Menu;
 
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="pull-left image">
-                <img src="<?= $assetDir ?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="pull-left info">
-                <a href="#" class="d-block"><?= Yii::$app->getUser()->identity->getName() ?></a>
-
-            </div>
-            <?= Html::a('Sign out', ['site/logout'], ['data-method' => 'post', 'class' => 'nav-icon']) ?>
+            <table style="width: 100%" align="center">
+                <tr>
+                    <td rowspan="2" align="center"><img src="<?= $assetDir ?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" width="120px" height="120px"></td>
+                    <td><a href="#" class="d-block"><?= Yii::$app->getUser()->identity->getName() ?></td>
+                </tr>
+                <tr>
+                    <td><?= Html::a('Sign out', ['site/logout'], ['data-method' => 'post', 'class' => 'nav-icon']) ?></td>
+                </tr>
+            </table>
         </div>
 
         <!-- Sidebar Menu -->
@@ -46,17 +47,17 @@ use yii\widgets\Menu;
                 </li>
 
                 <li class="nav-item">
-                    <button class="dropdown-btn nav-link">Meals
+                    <button class="dropdown-btn nav-link"><?= Html::a('Meals', ['meals/index', 'meal' => $meal = 'entree'], ['data-method' => 'post']) ?>
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <div class="dropdown-container">
-                        <?= Html::a('Entree', ['meals/index', 'meal'=>$meal = 'entree'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
-                        <?= Html::a('Soup', ['meals/index', 'meal'=>$meal = 'soup'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
-                        <?= Html::a('Meat', ['meals/index', 'meal'=>$meal = 'meat'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
-                        <?= Html::a('Fish', ['meals/index', 'meal'=>$meal = 'fish'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
-                        <?= Html::a('Vegan', ['meals/index', 'meal'=>$meal = 'vegan'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
-                        <?= Html::a('Drinks', ['meals/index', 'meal'=>$meal = 'drinks'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
-                        <?= Html::a('Dessert', ['meals/index', 'meal'=>$meal = 'dessert'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('Entree', ['meals/category', 'meal' => $meal = 'entree'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('Soup', ['meals/category', 'meal' => $meal = 'soup'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('Meat', ['meals/category', 'meal' => $meal = 'meat'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('Fish', ['meals/category', 'meal' => $meal = 'fish'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('Vegan', ['meals/category', 'meal' => $meal = 'vegan'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('Drinks', ['meals/category', 'meal' => $meal = 'drinks'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('Dessert', ['meals/category', 'meal' => $meal = 'dessert'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                     </div>
                 </li>
             </ul>

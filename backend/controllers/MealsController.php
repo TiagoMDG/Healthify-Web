@@ -35,14 +35,61 @@ class MealsController extends Controller
      * Lists all Meals models.
      * @return mixed
      */
-    public function actionIndex($meal)
+    public function actionIndex()
+    {
+        $meals = Meals::find()->all();
+
+        $mealCount = array (
+            array("meat",0),
+            array("fish",0),
+            array("dessert",0),
+            array("drinks",0),
+            array("vegan",0),
+            array("entree",0),
+            array("soup",0)
+        );
+
+        foreach ($meals as $meal){
+            foreach ($meal as $field){
+                switch ($field){
+                    case 'meat':
+                        $mealCount[0][1]++;
+                        break;
+                    case 'fish':
+                        $mealCount[1][1]++;
+                        break;
+                    case 'dessert':
+                        $mealCount[2][1]++;
+                        break;
+                    case 'drinks':
+                        $mealCount[3][1]++;
+                        break;
+                    case 'vegan':
+                        $mealCount[4][1]++;
+                        break;
+                    case 'entree':
+                        $mealCount[5][1]++;
+                        break;
+                    case 'soup':
+                        $mealCount[6][1]++;
+                        break;
+                }
+            }
+        }
+
+        return $this->render('index', [
+            'mealCount' => $mealCount
+        ]);
+    }
+
+    public function actionCategory($meal)
     {
         $searchModel = new MealsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         $dataProvider->query->andWhere(['category'=>$meal]);
 
-        return $this->render('index', [
+        return $this->render('category', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'meal' => $meal
