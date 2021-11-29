@@ -121,3 +121,23 @@ a.desc:after {
     float: right;
     padding-right: 8px;
   }
+
+#griddascenas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+#panados{
+    background: url("https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg") no-repeat;
+    width: 250px;
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+#panados:hover{
+    background: url("https://3.imimg.com/data3/AR/PY/MY-3746163/fish-finger-500x500.jpg") no-repeat;
+    width: 250px;
+    height: 250px;
+    background-size: 100% 100%;
+}

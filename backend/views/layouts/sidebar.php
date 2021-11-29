@@ -26,7 +26,7 @@ use yii\widgets\Menu;
                     <td><a href="#" class="d-block"><?= Yii::$app->getUser()->identity->getName() ?></td>
                 </tr>
                 <tr>
-                    <td><?= Html::a('Sign out', ['site/logout'], ['data-method' => 'post', 'class' => 'nav-icon']) ?></td>
+                    <td><?= Html::a('Sign out ', ['site/logout'], ['data-method' => 'post', 'class' => 'nav-icon']) ?></td>
                 </tr>
             </table>
         </div>
