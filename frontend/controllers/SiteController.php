@@ -2,8 +2,7 @@
 
 namespace frontend\controllers;
 
-use common\models\User;
-use app\models\Userprofile;
+use app\models\Meals;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -80,8 +79,15 @@ class SiteController extends Controller
         if (!Yii::$app->user->identity != 'guest'){
             $this->layout = 'loggedclient';
         }
+        //$menu = $this->actionMenuShow();
 
-        return $this->render('index');
+        $entree = Meals::find()->where(['category' =>'entree'])->all();
+        $soup = Meals::find()->where(['category' =>'soup'])->all();
+        $dessert = Meals::find()->where(['category' =>'dessert'])->all();
+        $drinks = Meals::find()->where(['category' =>'drinks'])->all();
+        $mains = Meals::find()->where(['category' =>'meat'])->orWhere(['category' =>'fish'])->orWhere(['category' =>'vegan'])->orderBy('category')->all();
+
+        return $this->render('index',['entradas'=>$entree,'pratos'=>$mains,'sopas'=>$soup,'sobremesas'=>$dessert,'bebidas'=>$drinks]);
     }
 
     /**
@@ -271,4 +277,5 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+
 }

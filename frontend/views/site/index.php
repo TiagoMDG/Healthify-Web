@@ -60,47 +60,68 @@ $this->title = 'Healthify - Home';
             <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">THE MENU</span></h5>
 
             <div class="w3-row w3-center w3-card w3-padding">
-                <a href="javascript:void(0)" onclick="openMenu(event, 'Eat');" id="myLink">
-                    <div class="w3-col s6 tablink">Eat</div>
+                <a href="javascript:void(0)" onclick="openMenu(event, 'Entradas');" id="myLink">
+                    <div class="w3-col s6 tablink">Entradas</div>
                 </a>
-                <a href="javascript:void(0)" onclick="openMenu(event, 'Drinks');">
-                    <div class="w3-col s6 tablink">Drink</div>
+                <a href="javascript:void(0)" onclick="openMenu(event, 'Sopas');" id="myLink">
+                    <div class="w3-col s6 tablink">Sopas</div>
+                </a>
+                <a href="javascript:void(0)" onclick="openMenu(event, 'Pratos');">
+                    <div class="w3-col s6 tablink">Pratos</div>
+                </a>
+                <a href="javascript:void(0)" onclick="openMenu(event, 'Sobremesas');">
+                    <div class="w3-col s6 tablink">Sobremesas</div>
                 </a>
             </div>
 
-            <div id="Eat" class="w3-container menu w3-padding-48 w3-card">
-                <h5>Bread Basket</h5>
-                <p class="w3-text-grey">Assortment of fresh baked fruit breads and muffins 5.50</p><br>
-
-                <h5>Honey Almond Granola with Fruits</h5>
-                <p class="w3-text-grey">Natural cereal of honey toasted oats, raisins, almonds and dates 7.00</p><br>
-
-                <h5>Belgian Waffle</h5>
-                <p class="w3-text-grey">Vanilla flavored batter with malted flour 7.50</p><br>
-
-                <h5>Scrambled eggs</h5>
-                <p class="w3-text-grey">Scrambled eggs, roasted red pepper and garlic, with green onions 7.50</p><br>
-
-                <h5>Blueberry Pancakes</h5>
-                <p class="w3-text-grey">With syrup, butter and lots of berries 8.50</p>
+            <div id="Entradas" class="w3-container menu w3-padding-48 w3-card">
+                <?php
+                if($entradas!=null){
+                    foreach ($entradas as $entrada){
+                        echo '<h5>'.$entrada['name'].'</h5>';
+                        echo'<p class="w3-text-grey">'.$entrada['description'].' '.$entrada['price'].'€<br>'.$entrada['category'].'</p><br>';
+                    }
+                }else
+                    echo '<h3>Sem ementa inserida nesta categoria</h3>';
+                ?>
             </div>
 
-            <div id="Drinks" class="w3-container menu w3-padding-48 w3-card">
-                <h5>Coffee</h5>
-                <p class="w3-text-grey">Regular coffee 2.50</p><br>
-
-                <h5>Chocolato</h5>
-                <p class="w3-text-grey">Chocolate espresso with milk 4.50</p><br>
-
-                <h5>Corretto</h5>
-                <p class="w3-text-grey">Whiskey and coffee 5.00</p><br>
-
-                <h5>Iced tea</h5>
-                <p class="w3-text-grey">Hot tea, except not hot 3.00</p><br>
-
-                <h5>Soda</h5>
-                <p class="w3-text-grey">Coke, Sprite, Fanta, etc. 2.50</p>
+            <div id="Sopas" class="w3-container menu w3-padding-48 w3-card">
+                <?php
+                if($sopas!=null){
+                    foreach ($sopas as $sopa){
+                        echo '<h5>'.$sopa['name'].'</h5>';
+                        echo'<p class="w3-text-grey">'.$sopa['description'].' '.$sopa['price'].'€<br>'.$sopa['category'].'</p><br>';
+                    }
+                }else
+                    echo '<h3>Sem ementa inserida nesta categoria</h3>';
+                ?>
             </div>
+
+            <div id="Pratos" class="w3-container menu w3-padding-48 w3-card">
+                <?php
+                if($pratos!=null){
+                    foreach ($pratos as $prato){
+                        echo '<h5>'.$prato['name'].'</h5>';
+                        echo'<p class="w3-text-grey">'.$prato['description'].' '.$prato['price'].'€<br>'.$prato['category'].'</p><br>';
+                    }
+                }else
+                    echo '<h3>Sem ementa inserida nesta categoria</h3>';
+                ?>
+            </div>
+
+            <div id="Sobremesas" class="w3-container menu w3-padding-48 w3-card">
+                <?php
+                if($sobremesas!=null){
+                    foreach ($sobremesas as $sobremesa){
+                        echo '<h5>'.$sobremesa['name'].'</h5>';
+                        echo'<p class="w3-text-grey">'.$sobremesa['description'].' '.$sobremesa['price'].'€<br>'.$sobremesa['category'].'</p><br>';
+                    }
+                }else
+                    echo '<h3>Sem ementa inserida nesta categoria</h3>';
+                ?>
+            </div>
+
             <img src="/healthify/frontend/web/img/placeholder.png" style="width:100%;max-width:1000px;margin-top:32px;" alt="Menu Image">
         </div>
     </div>

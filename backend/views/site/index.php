@@ -22,16 +22,6 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 </div>
                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-            <?= Alert::widget([
-                'type' => 'success',
-                'body' => '<h3>Welcome!!!</h3>',
-            ]) ?>
-
-            <?= Callout::widget([
-                'type' => 'danger',
-                'head' => 'I am a danger callout!',
-                'body' => 'There is a problem that we need to fix. A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.'
-            ]) ?>
     </div>
     <!-- Custom tabs (Charts with tabs)-->
 
