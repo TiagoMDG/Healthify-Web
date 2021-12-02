@@ -30,6 +30,7 @@ class MealIngredients extends \yii\db\ActiveRecord
             [['mealsid', 'ingredientsid', 'ammout'], 'required'],
             [['mealsid', 'ingredientsid'], 'integer'],
             [['ammout'], 'number'],
+            [['mealsid', 'ingredientsid'], 'unique', 'targetAttribute' => ['mealsid', 'ingredientsid']],
         ];
     }
 
@@ -39,9 +40,9 @@ class MealIngredients extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'mealsid' => 'Id Refeições',
-            'ingredientsid' => 'Id Ingredientes',
-            'ammout' => 'Quantidade',
+            'mealsid' => 'Mealsid',
+            'ingredientsid' => 'Ingredientsid',
+            'ammout' => 'Ammout',
         ];
     }
 }

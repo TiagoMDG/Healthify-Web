@@ -20,8 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `healthify`
 --
-drop database healthify;
+drop database if exists healthify;
 create database healthify;
+use healthify; 
 -- --------------------------------------------------------
 
 --
@@ -220,7 +221,6 @@ CREATE TABLE IF NOT EXISTS `meal_ingredients` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `migration`
 --
@@ -411,7 +411,6 @@ CREATE TABLE IF NOT EXISTS `userprofiles` (
   PRIMARY KEY (`id`),
   KEY `fk_user_id` (`userid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
 --
 -- Dumping data for table `userprofiles`
 --
@@ -452,29 +451,59 @@ CREATE TABLE IF NOT EXISTS `vitamins` (
   PRIMARY KEY (`id`),
   KEY `fk_ingredientsid_vitamins` (`ingredientsid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+-- ------------------------------------------
 --
--- Constraints for dumped tables
+-- Constraints for table `meal_ingredients`
 --
-
+ALTER TABLE `meal_ingredients`
+  ADD CONSTRAINT `fk_ingredientsid_mealingredients` FOREIGN KEY (`ingredientsid`) REFERENCES `ingredients` (`id`),
+  ADD CONSTRAINT `fk_meals_id_mealingredients` FOREIGN KEY (`mealsid`) REFERENCES `meals` (`id`);
+--
+-- Constraints for table `minerals`
+--
+ALTER TABLE `minerals`
+  ADD CONSTRAINT `fk_ingredientsid_minerals` FOREIGN KEY (`ingredientsid`) REFERENCES `ingredients` (`id`);
+--
+-- Constraints for table `reservations`
+--
+ALTER TABLE `reservations`
+  ADD CONSTRAINT `fk_userprofile_id` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`);
+--
+-- Constraints for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `fk_userprofile_id_reviews` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`),
+  ADD CONSTRAINT `fk_salesmeals_idmeal_reviews` FOREIGN KEY (`sales_mealsidmeal`) REFERENCES `sales_meals` (`mealid`),
+  ADD CONSTRAINT `fk_salesmeals_idsales_reviews` FOREIGN KEY (`sales_mealsidsales`) REFERENCES `sales_meals` (`salesid`);
+  --
+-- Constraints for table `sales`
+--
+ALTER TABLE `sales`
+  ADD CONSTRAINT `fk_userprofile_id_sales` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`);
+--
+-- Constraints for table `sales_meals`
+--
+ALTER TABLE `sales_meals`
+  ADD CONSTRAINT `fk_meal_id_salesmeals` FOREIGN KEY (`mealid`) REFERENCES `meals` (`id`),
+  ADD CONSTRAINT `fk_sales_id_salesmeals` FOREIGN KEY (`salesid`) REFERENCES `sales` (`id`);
 --
 -- Constraints for table `userprofiles`
 --
 ALTER TABLE `userprofiles`
   ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`userid`) REFERENCES `user` (`id`);
-
 --
 -- Constraints for table `userschedulesregistry`
 --
 ALTER TABLE `userschedulesregistry`
   ADD CONSTRAINT `fk_schedules_id` FOREIGN KEY (`schedulesid`) REFERENCES `schedules` (`id`),
   ADD CONSTRAINT `fk_userprofiles_id` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`);
-
+-- CONSTRAINTS FOR TABLES
 --
 -- Constraints for table `vitamins`
 --
 ALTER TABLE `vitamins`
   ADD CONSTRAINT `fk_ingredientsid_vitamins` FOREIGN KEY (`ingredientsid`) REFERENCES `ingredients` (`id`);
+-- ------------------------------------------
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

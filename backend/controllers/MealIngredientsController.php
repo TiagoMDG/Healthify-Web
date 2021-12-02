@@ -48,8 +48,8 @@ class MealIngredientsController extends Controller
 
     /**
      * Displays a single MealIngredients model.
-     * @param int $mealsid Id Refeições
-     * @param int $ingredientsid Id Ingredientes
+     * @param int $mealsid Mealsid
+     * @param int $ingredientsid Ingredientsid
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -85,8 +85,8 @@ class MealIngredientsController extends Controller
     /**
      * Updates an existing MealIngredients model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $mealsid Id Refeições
-     * @param int $ingredientsid Id Ingredientes
+     * @param int $mealsid Mealsid
+     * @param int $ingredientsid Ingredientsid
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -106,8 +106,8 @@ class MealIngredientsController extends Controller
     /**
      * Deletes an existing MealIngredients model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $mealsid Id Refeições
-     * @param int $ingredientsid Id Ingredientes
+     * @param int $mealsid Mealsid
+     * @param int $ingredientsid Ingredientsid
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -121,8 +121,8 @@ class MealIngredientsController extends Controller
     /**
      * Finds the MealIngredients model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $mealsid Id Refeições
-     * @param int $ingredientsid Id Ingredientes
+     * @param int $mealsid Mealsid
+     * @param int $ingredientsid Ingredientsid
      * @return MealIngredients the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
