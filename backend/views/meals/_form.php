@@ -14,16 +14,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'totalcalories')->textInput() ?>
-
-    <?= $form->field($model, 'totalproteins')->textInput() ?>
-
-    <?= $form->field($model, 'totalcarbohidrates')->textInput() ?>
-
-    <?= $form->field($model, 'totalfats')->textInput() ?>
-
-    <?= $form->field($model, 'totalfibers')->textInput() ?>
-
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>

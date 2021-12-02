@@ -39,7 +39,7 @@ use yii\widgets\Menu;
                      with font-awesome or any other icon font library -->
 
                 <li class="nav-item">
-                    <?= HTML::a('Gestor de Utilizadores', ['/user/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                    <?= HTML::a('Gestor de Utilizadores', ['user/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                 </li>
 
                 <li class="nav-item">
@@ -47,17 +47,17 @@ use yii\widgets\Menu;
                 </li>
 
                 <li class="nav-item">
-                    <button class="dropdown-btn nav-link"><?= Html::a('Meals', ['meals/index', 'meal' => $meal = 'entree'], ['data-method' => 'post']) ?>
+                    <button class="dropdown-btn nav-link"><?= Html::a('Gerir Ementa', ['meals/index', 'meal' => $meal = 'entree'], ['data-method' => 'post']) ?>
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <div class="dropdown-container">
-                        <?= Html::a('Entree', ['meals/category', 'meal' => $meal = 'entree'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
-                        <?= Html::a('Soup', ['meals/category', 'meal' => $meal = 'soup'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
-                        <?= Html::a('Meat', ['meals/category', 'meal' => $meal = 'meat'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
-                        <?= Html::a('Fish', ['meals/category', 'meal' => $meal = 'fish'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('Entradas', ['meals/category', 'meal' => $meal = 'entree'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('Sopas', ['meals/category', 'meal' => $meal = 'soup'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('Carne', ['meals/category', 'meal' => $meal = 'meat'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('peixe', ['meals/category', 'meal' => $meal = 'fish'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                         <?= Html::a('Vegan', ['meals/category', 'meal' => $meal = 'vegan'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
-                        <?= Html::a('Drinks', ['meals/category', 'meal' => $meal = 'drinks'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
-                        <?= Html::a('Dessert', ['meals/category', 'meal' => $meal = 'dessert'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('Bebidas', ['meals/category', 'meal' => $meal = 'drinks'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('Sobremesa', ['meals/category', 'meal' => $meal = 'dessert'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                     </div>
                 </li>
             </ul>

@@ -10,7 +10,6 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Meals';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div>
@@ -33,8 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
         <?php } ?>
-
-        <img src="" id="panados">
 
     </div>
 </div>
