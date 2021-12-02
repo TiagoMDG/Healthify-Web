@@ -17,8 +17,7 @@ class MealIngredientsSearch extends MealIngredients
     public function rules()
     {
         return [
-            [['mealsid', 'ingredientsid'], 'integer'],
-            [['ammout'], 'number'],
+            [['id', 'mealsid', 'ingredientsid'], 'integer'],
         ];
     }
 
@@ -58,9 +57,9 @@ class MealIngredientsSearch extends MealIngredients
 
         // grid filtering conditions
         $query->andFilterWhere([
+            'id' => $this->id,
             'mealsid' => $this->mealsid,
             'ingredientsid' => $this->ingredientsid,
-            'ammout' => $this->ammout,
         ]);
 
         return $dataProvider;

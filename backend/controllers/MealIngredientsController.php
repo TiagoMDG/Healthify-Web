@@ -48,15 +48,14 @@ class MealIngredientsController extends Controller
 
     /**
      * Displays a single MealIngredients model.
-     * @param int $mealsid Mealsid
-     * @param int $ingredientsid Ingredientsid
+     * @param int $id ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($mealsid, $ingredientsid)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($mealsid, $ingredientsid),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -71,7 +70,7 @@ class MealIngredientsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'mealsid' => $model->mealsid, 'ingredientsid' => $model->ingredientsid]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -85,17 +84,16 @@ class MealIngredientsController extends Controller
     /**
      * Updates an existing MealIngredients model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $mealsid Mealsid
-     * @param int $ingredientsid Ingredientsid
+     * @param int $id ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($mealsid, $ingredientsid)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($mealsid, $ingredientsid);
+        $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'mealsid' => $model->mealsid, 'ingredientsid' => $model->ingredientsid]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -106,14 +104,13 @@ class MealIngredientsController extends Controller
     /**
      * Deletes an existing MealIngredients model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $mealsid Mealsid
-     * @param int $ingredientsid Ingredientsid
+     * @param int $id ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($mealsid, $ingredientsid)
+    public function actionDelete($id)
     {
-        $this->findModel($mealsid, $ingredientsid)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -121,14 +118,13 @@ class MealIngredientsController extends Controller
     /**
      * Finds the MealIngredients model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $mealsid Mealsid
-     * @param int $ingredientsid Ingredientsid
+     * @param int $id ID
      * @return MealIngredients the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($mealsid, $ingredientsid)
+    protected function findModel($id)
     {
-        if (($model = MealIngredients::findOne(['mealsid' => $mealsid, 'ingredientsid' => $ingredientsid])) !== null) {
+        if (($model = MealIngredients::findOne($id)) !== null) {
             return $model;
         }
 

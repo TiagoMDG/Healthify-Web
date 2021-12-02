@@ -7,9 +7,12 @@ use Yii;
 /**
  * This is the model class for table "meal_ingredients".
  *
+ * @property int $id
  * @property int $mealsid
  * @property int $ingredientsid
- * @property float $ammout
+ *
+ * @property Ingredients $ingredients
+ * @property Meals $meals
  */
 class MealIngredients extends \yii\db\ActiveRecord
 {
@@ -27,10 +30,10 @@ class MealIngredients extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mealsid', 'ingredientsid', 'ammout'], 'required'],
+            [['mealsid', 'ingredientsid'], 'required'],
             [['mealsid', 'ingredientsid'], 'integer'],
-            [['ammout'], 'number'],
-            [['mealsid', 'ingredientsid'], 'unique', 'targetAttribute' => ['mealsid', 'ingredientsid']],
+            [['ingredientsid'], 'exist', 'skipOnError' => true, 'targetClass' => Ingredients::className(), 'targetAttribute' => ['ingredientsid' => 'id']],
+            [['mealsid'], 'exist', 'skipOnError' => true, 'targetClass' => Meals::className(), 'targetAttribute' => ['mealsid' => 'id']],
         ];
     }
 
@@ -40,9 +43,29 @@ class MealIngredients extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
             'mealsid' => 'Mealsid',
             'ingredientsid' => 'Ingredientsid',
-            'ammout' => 'Ammout',
         ];
+    }
+
+    /**
+     * Gets query for [[Ingredients]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIngredients()
+    {
+        return $this->hasOne(Ingredients::className(), ['id' => 'ingredientsid']);
+    }
+
+    /**
+     * Gets query for [[Meals]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMeals()
+    {
+        return $this->hasOne(Meals::className(), ['id' => 'mealsid']);
     }
 }
