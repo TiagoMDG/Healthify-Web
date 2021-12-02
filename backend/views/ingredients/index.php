@@ -8,11 +8,8 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Ingredients';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ingredients-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Create Ingredients', ['create'], ['class' => 'btn btn-success']) ?>
@@ -26,14 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'name',
             'calories',
             'proteins',
             'carbohidrates',
-            //'fats',
-            //'fibers',
-            //'weight',
+            'fats',
+            'fibers',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

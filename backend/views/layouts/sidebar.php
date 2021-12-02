@@ -39,11 +39,11 @@ use yii\widgets\Menu;
                      with font-awesome or any other icon font library -->
 
                 <li class="nav-item">
-                    <?= HTML::a(' UserManager', ['/user/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                    <?= HTML::a('Gestor de Utilizadores', ['/user/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                 </li>
 
                 <li class="nav-item">
-                    <?= Html::a('Sign out', ['site/logout'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                    <?= Html::a('Lista de Ingredientes', ['ingredients/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                 </li>
 
                 <li class="nav-item">

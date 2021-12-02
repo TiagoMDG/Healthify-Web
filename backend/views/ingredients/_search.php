@@ -15,8 +15,6 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
     <?= $form->field($model, 'name') ?>
 
     <?= $form->field($model, 'calories') ?>
@@ -25,11 +23,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'carbohidrates') ?>
 
-    <?php // echo $form->field($model, 'fats') ?>
+    <?php echo $form->field($model, 'fats') ?>
 
-    <?php // echo $form->field($model, 'fibers') ?>
-
-    <?php // echo $form->field($model, 'weight') ?>
+    <?php echo $form->field($model, 'fibers') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

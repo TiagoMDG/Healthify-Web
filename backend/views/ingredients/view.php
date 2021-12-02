@@ -6,9 +6,6 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Ingredients */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Ingredients', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="ingredients-view">
@@ -29,14 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'name',
             'calories',
             'proteins',
             'carbohidrates',
             'fats',
             'fibers',
-            'weight',
         ],
     ]) ?>
 
