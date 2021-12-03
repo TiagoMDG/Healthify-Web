@@ -158,21 +158,16 @@ DROP TABLE IF EXISTS `ingredients`;
 CREATE TABLE IF NOT EXISTS `ingredients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(15) NOT NULL,
+  `sugar_g` float NOT NULL,
   `calories` float NOT NULL,
-  `proteins` float NOT NULL,
-  `carbohidrates` float NOT NULL,
-  `fats` float NOT NULL,
-  `fibers` float NOT NULL,
-  `weight` decimal(3,0) NOT NULL,
+  `protein_g` float NOT NULL,
+  `carbohydrates_total_g` float NOT NULL,
+  `fat_saturated_g` float NOT NULL,
+  `fat_total_g` float NOT NULL,
+  `fiber_g` float NOT NULL,
+  `cholesterol_mg` float NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ingredients`
---
-
-INSERT INTO `ingredients` (`id`, `name`, `calories`, `proteins`, `carbohidrates`, `fats`, `fibers`, `weight`) VALUES
-(1, 'Laranja', 50.4, 0.9, 12.4, 0.1, 2.2, '100');
 
 -- --------------------------------------------------------
 
@@ -184,27 +179,11 @@ DROP TABLE IF EXISTS `meals`;
 CREATE TABLE IF NOT EXISTS `meals` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
-  `totalcalories` float DEFAULT NULL,
-  `totalproteins` float DEFAULT NULL,
-  `totalcarbohidrates` float DEFAULT NULL,
-  `totalfats` float DEFAULT NULL,
-  `totalfibers` float DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `description` varchar(100) DEFAULT NULL,
   `category` enum('entree','soup','meat','fish','vegan','drinks','dessert') NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `meals`
---
-
-INSERT INTO `meals` (`id`, `name`, `totalcalories`, `totalproteins`, `totalcarbohidrates`, `totalfats`, `totalfibers`, `price`, `description`, `category`) VALUES
-(1, 'Chocolate', 666, 666, 666, 666, 666, '27.00', 'Tastes plenty good', 'dessert'),
-(2, 'Smelly Fish', 313, 313, 313, 313, 313, '9.99', 'Pretty evil', 'fish'),
-(3, 'Canteen Secret Meat', 125, 125, 125, 125, 125, '14.99', 'So secret you won\'t even know what you\'re eating', 'meat'),
-(4, 'Areias o Camelo', 852, 852, 852, 852, 852, '10.69', 'Tem muita bossa e pouco pelo', 'dessert'),
-(5, 'Coca-Cola Man', 696, 696, 696, 696, 696, '5.69', 'It\'s coca-cola man, what else?', 'drinks');
 
 -- --------------------------------------------------------
 
@@ -214,10 +193,21 @@ INSERT INTO `meals` (`id`, `name`, `totalcalories`, `totalproteins`, `totalcarbo
 
 DROP TABLE IF EXISTS `meal_ingredients`;
 CREATE TABLE IF NOT EXISTS `meal_ingredients` (
-  `mealsid` int(11) NOT NULL,
-  `ingredientsid` int(11) NOT NULL,
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+    `serving_size_g` float DEFAULT NULL,
+    `total_sugar_g` float NOT NULL,
+	`total_calories` float NOT NULL,
+	`total_protein_g` float NOT NULL,
+	`total_carbohydrates_total_g` float NOT NULL,
+	`total_fat_saturated_g` float NOT NULL,
+	`total_fat_total_g` float NOT NULL,
+	`total_fiber_g` float NOT NULL,
+	`total_cholesterol_mg` float NOT NULL,
+	`mealsid` int(11) NOT NULL,
+	`ingredientsid` int(11) NOT NULL,
   KEY `fk_ingredientsid_mealingredients` (`ingredientsid`),
-  KEY `fk_meals_id_mealingredients` (`mealsid`)
+  KEY `fk_meals_id_mealingredients` (`mealsid`),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

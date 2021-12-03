@@ -25,16 +25,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'totalcarbohidrates') ?>
 
-    <?php // echo $form->field($model, 'totalfats') ?>
-
-    <?php // echo $form->field($model, 'totalfibers') ?>
-
-    <?php // echo $form->field($model, 'price') ?>
-
-    <?php // echo $form->field($model, 'description') ?>
-
-    <?php // echo $form->field($model, 'category') ?>
-
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>

@@ -19,7 +19,7 @@ class IngredientsSearch extends Ingredients
         return [
             [['id'], 'integer'],
             [['name'], 'safe'],
-            [['calories', 'proteins', 'carbohidrates', 'fats', 'fibers', 'weight'], 'number'],
+            [['sugar_g', 'calories', 'protein_g', 'carbohydrates_total_g', 'fat_saturated_g', 'fat_total_g', 'fiber_g', 'cholesterol_mg'], 'number'],
         ];
     }
 
@@ -60,12 +60,14 @@ class IngredientsSearch extends Ingredients
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'sugar_g' => $this->sugar_g,
             'calories' => $this->calories,
-            'proteins' => $this->proteins,
-            'carbohidrates' => $this->carbohidrates,
-            'fats' => $this->fats,
-            'fibers' => $this->fibers,
-            'weight' => $this->weight,
+            'protein_g' => $this->protein_g,
+            'carbohydrates_total_g' => $this->carbohydrates_total_g,
+            'fat_saturated_g' => $this->fat_saturated_g,
+            'fat_total_g' => $this->fat_total_g,
+            'fiber_g' => $this->fiber_g,
+            'cholesterol_mg' => $this->cholesterol_mg,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);

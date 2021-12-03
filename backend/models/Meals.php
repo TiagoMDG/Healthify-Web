@@ -38,8 +38,8 @@ class Meals extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'totalcalories', 'totalproteins', 'totalcarbohidrates', 'totalfats', 'totalfibers', 'price', 'category'], 'required'],
-            [['totalcalories', 'totalproteins', 'totalcarbohidrates', 'totalfats', 'totalfibers', 'price'], 'number'],
+            [['name', 'price', 'category'], 'required'],
+            [['price'], 'number'],
             [['category'], 'string'],
             [['name'], 'string', 'max' => 40],
             [['description'], 'string', 'max' => 100],
@@ -54,11 +54,6 @@ class Meals extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'totalcalories' => 'Totalcalories',
-            'totalproteins' => 'Totalproteins',
-            'totalcarbohidrates' => 'Totalcarbohidrates',
-            'totalfats' => 'Totalfats',
-            'totalfibers' => 'Totalfibers',
             'price' => 'Price',
             'description' => 'Description',
             'category' => 'Category',

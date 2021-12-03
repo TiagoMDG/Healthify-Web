@@ -19,7 +19,7 @@ class MealsSearch extends Meals
         return [
             [['id'], 'integer'],
             [['name', 'description', 'category'], 'safe'],
-            [['totalcalories', 'totalproteins', 'totalcarbohidrates', 'totalfats', 'totalfibers', 'price'], 'number'],
+            [['price'], 'number'],
         ];
     }
 
@@ -60,11 +60,6 @@ class MealsSearch extends Meals
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'totalcalories' => $this->totalcalories,
-            'totalproteins' => $this->totalproteins,
-            'totalcarbohidrates' => $this->totalcarbohidrates,
-            'totalfats' => $this->totalfats,
-            'totalfibers' => $this->totalfibers,
             'price' => $this->price,
         ]);
 

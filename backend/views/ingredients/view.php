@@ -6,11 +6,11 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Ingredients */
 
+$this->title = $model->name;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="ingredients-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -26,12 +26,16 @@ use yii\widgets\DetailView;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            'id',
             'name',
+            'sugar_g',
             'calories',
-            'proteins',
-            'carbohidrates',
-            'fats',
-            'fibers',
+            'protein_g',
+            'carbohydrates_total_g',
+            'fat_saturated_g',
+            'fat_total_g',
+            'fiber_g',
+            'cholesterol_mg',
         ],
     ]) ?>
 

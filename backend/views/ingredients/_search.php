@@ -15,17 +15,25 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
+    <?= $form->field($model, 'id') ?>
+
     <?= $form->field($model, 'name') ?>
+
+    <?= $form->field($model, 'sugar_g') ?>
 
     <?= $form->field($model, 'calories') ?>
 
-    <?= $form->field($model, 'proteins') ?>
+    <?= $form->field($model, 'protein_g') ?>
 
-    <?= $form->field($model, 'carbohidrates') ?>
+    <?php // echo $form->field($model, 'carbohydrates_total_g') ?>
 
-    <?php echo $form->field($model, 'fats') ?>
+    <?php // echo $form->field($model, 'fat_saturated_g') ?>
 
-    <?php echo $form->field($model, 'fibers') ?>
+    <?php // echo $form->field($model, 'fat_total_g') ?>
+
+    <?php // echo $form->field($model, 'fiber_g') ?>
+
+    <?php // echo $form->field($model, 'cholesterol_mg') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -16,11 +16,6 @@ $this->title = $model->name;
         'attributes' => [
             'id',
             'name',
-            'totalcalories',
-            'totalproteins',
-            'totalcarbohidrates',
-            'totalfats',
-            'totalfibers',
             'price',
             'description',
             'category',
