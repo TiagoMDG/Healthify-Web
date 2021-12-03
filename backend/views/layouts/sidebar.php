@@ -43,7 +43,7 @@ use yii\widgets\Menu;
                 </li>
 
                 <li class="nav-item">
-                    <?= HTML::a('MealIngredients', ['mealingredients/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                    <?= HTML::a('MealIngredients', ['meal-ingredients/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                 </li>
 
                 <li class="nav-item">

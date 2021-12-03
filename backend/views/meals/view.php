@@ -24,7 +24,7 @@ $this->title = $model->name;
 
 </div>
 <p>
-    <?= Html::a('Adicionar Ingredientes', ['mealIngredients/index'], ['class' => 'btn btn-success']) ?>
+    <?= Html::a('Adicionar Ingredientes', ['meal-ingredients/index'], ['class' => 'btn btn-success']) ?>
     <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     <?= Html::a('Apagar', ['delete', 'id' => $model->id], [
         'class' => 'btn btn-danger',
