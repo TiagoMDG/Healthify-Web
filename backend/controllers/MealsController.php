@@ -170,6 +170,7 @@ class MealsController extends Controller
      * Finds the Meals model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
+     * @param int $id ID
      * @return Meals the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

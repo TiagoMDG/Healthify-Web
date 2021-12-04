@@ -37,13 +37,16 @@ use yii\widgets\Menu;
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                    <?= HTML::a('meal_ingredients', ['meal-ingredients/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                </li>
 
                 <li class="nav-item">
                     <?= HTML::a('Gestor de Utilizadores', ['user/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                 </li>
 
                 <li class="nav-item">
-                    <?= HTML::a('MealIngredients', ['meal-ingredients/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                    <?= HTML::a('Planeador de Ementa', ['mealplaner/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                 </li>
 
                 <li class="nav-item">

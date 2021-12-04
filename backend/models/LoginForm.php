@@ -5,7 +5,6 @@ namespace backend\models;
 use common\models\User;
 use Yii;
 use yii\base\Model;
-use yii\web\Controller;
 
 /**
  * Login form

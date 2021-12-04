@@ -1,10 +1,10 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Ingredients;
+use backend\models\Ingredients;
 
 /**
  * IngredientsSearch represents the model behind the search form of `app\models\Ingredients`.

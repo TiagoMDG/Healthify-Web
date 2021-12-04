@@ -14,8 +14,35 @@ for (i = 0; i < dropdown.length; i++) {
     });
 }
 
+function addIngredientstoMeal(mealId){
+    var ingredientsIDs = "";
+    $('input[name="selection[]"]:checked').each(function() {
+        if(ingredientsIDs!="")
+            ingredientsIDs = ingredientsIDs + ","+this.value;
+        else
+            ingredientsIDs = this.value;
+    });
+
+    $.ajax({
+        type: "POST",
+            url: 'http://localhost/healthify/backend/web/index.php?r=mealplaner%2Fadd&ingredientsIDs='+ingredientsIDs+'&mealId='+mealId,
+        data: $('#' + 'grid').serialize(),
+        cache: false,
+        dataType: 'html',
+        success: function (result) {
+            if (result == '200') {
+                alert('successfuly inserted');
+            }
+            else {
+                alert('some error occured: '+result);
+            }
+        }
+    });
+}
+
 function pesquisa(){
     var valorPesquisa = $('#idPesquisa').val();
+    reload();
     var apiKey = 'GiK7y+Gve0eExGd5SaB6QA==TewdC6kAdnR9dj6V';
     if (valorPesquisa!=="") {
         $.ajax({
@@ -24,7 +51,6 @@ function pesquisa(){
             headers: { 'X-Api-Key': apiKey},
             contentType: 'application/json',
             success: function(result) {
-                reload();
                 document.getElementById('ingredients-name').value=result['items'][0]['name'];
                 document.getElementById('ingredients-calories').value=result['items'][0]['calories'];
                 document.getElementById('ingredients-carbohydrates_total_g').value=result['items'][0]['carbohydrates_total_g'];

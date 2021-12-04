@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Ingredients */
+/* @var $model backend\models\Ingredients */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
             <div>
                 <h3>Pesquisa de Ingredientes</h3>
                 <input type="text" name="Pesquisa" id="idPesquisa" placeholder="Pesquisa..">
-                <button class="btn-pesquisa icon" id="idBtSearch"><img src="../web/img/search.svg" onclick="pesquisa();"></button>
+                <button class="btn-pesquisa icon" id="idBtSearch" onclick="pesquisa();"><img src="../web/img/search.svg"></button>
             </div>
         </th>
         <th>

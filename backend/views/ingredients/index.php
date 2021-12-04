@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\IngredientsSearch */
+/* @var $searchModel backend\models\IngredientsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Ingredients';
@@ -31,11 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'sugar_g',
             'calories',
             'protein_g',
-            //'carbohydrates_total_g',
-            //'fat_saturated_g',
-            //'fat_total_g',
-            //'fiber_g',
-            //'cholesterol_mg',
+            'carbohydrates_total_g',
+            'fat_saturated_g',
+            'fat_total_g',
+            'fiber_g',
+            'cholesterol_mg',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

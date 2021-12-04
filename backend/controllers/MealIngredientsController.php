@@ -2,16 +2,16 @@
 
 namespace backend\controllers;
 
-use backend\models\Ingredients;
-use backend\models\IngredientsSearch;
+use backend\models\MealIngredients;
+use backend\models\MealIngredientsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * IngredientsController implements the CRUD actions for Ingredients model.
+ * MealingredientsController implements the CRUD actions for Mealingredients model.
  */
-class IngredientsController extends Controller
+class MealIngredientsController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,12 +32,12 @@ class IngredientsController extends Controller
     }
 
     /**
-     * Lists all Ingredients models.
+     * Lists all Mealingredients models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new IngredientsSearch();
+        $searchModel = new MealingredientsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +47,7 @@ class IngredientsController extends Controller
     }
 
     /**
-     * Displays a single Ingredients model.
+     * Displays a single Mealingredients model.
      * @param int $id ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -60,13 +60,13 @@ class IngredientsController extends Controller
     }
 
     /**
-     * Creates a new Ingredients model.
+     * Creates a new Mealingredients model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Ingredients();
+        $model = new Mealingredients();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -82,7 +82,7 @@ class IngredientsController extends Controller
     }
 
     /**
-     * Updates an existing Ingredients model.
+     * Updates an existing Mealingredients model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return mixed
@@ -102,7 +102,7 @@ class IngredientsController extends Controller
     }
 
     /**
-     * Deletes an existing Ingredients model.
+     * Deletes an existing Mealingredients model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return mixed
@@ -116,15 +116,15 @@ class IngredientsController extends Controller
     }
 
     /**
-     * Finds the Ingredients model based on its primary key value.
+     * Finds the Mealingredients model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Ingredients the loaded model
+     * @return Mealingredients the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Ingredients::findOne($id)) !== null) {
+        if (($model = Mealingredients::findOne($id)) !== null) {
             return $model;
         }
 
