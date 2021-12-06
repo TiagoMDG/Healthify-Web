@@ -262,10 +262,24 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   `reservedday` date NOT NULL,
   `reservedtime` timestamp NOT NULL,
   `userprofilesid` int(11) NOT NULL,
+  `tableid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_userprofile_id` (`userprofilesid`)
+  KEY `fk_userprofile_id` (`userprofilesid`),
+  KEY `fk_table_id` (`tableid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tables`
+--
+
+DROP TABLE IF EXISTS `tables`;
+CREATE TABLE IF NOT EXISTS `tables` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ocupancy_state` set('occupied', 'free') NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 -- --------------------------------------------------------
 
 --
@@ -299,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `sales` (
   `precototal` decimal(10,2) NOT NULL,
   `discount` decimal(10,2) DEFAULT NULL,
   `paidamount` decimal(10,2) DEFAULT NULL,
-  `paymentmethod` set('cash','card','mbway') DEFAULT NULL,
+  `paymentmethod` set('cash','card') DEFAULT NULL,
   `paymentstate` enum('paid','not paid') NOT NULL,
   `userprofilesid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -457,6 +471,7 @@ ALTER TABLE `minerals`
 -- Constraints for table `reservations`
 --
 ALTER TABLE `reservations`
+  ADD CONSTRAINT `fk_table_id` FOREIGN KEY (`tableid`) REFERENCES `tables` (`id`),
   ADD CONSTRAINT `fk_userprofile_id` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`);
 --
 -- Constraints for table `reviews`

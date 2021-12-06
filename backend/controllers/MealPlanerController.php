@@ -51,7 +51,7 @@ class MealplanerController extends Controller
         $addIngredients->total_fat_total_g=$ingredient->fat_total_g;
         $addIngredients->total_fiber_g=$ingredient->fiber_g;
         $addIngredients->total_cholesterol_mg=$ingredient->cholesterol_mg;
-        
+
         $addIngredients->mealsid=$mealId;
         $addIngredients->ingredientsid=$ingredientsIDs;
 
