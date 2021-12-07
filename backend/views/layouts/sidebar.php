@@ -46,10 +46,6 @@ use yii\widgets\Menu;
                 </li>
 
                 <li class="nav-item">
-                    <?= HTML::a('Planeador de Ementa', ['mealplaner/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
-                </li>
-
-                <li class="nav-item">
                     <?= Html::a('Lista de Ingredientes', ['ingredients/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                 </li>
 

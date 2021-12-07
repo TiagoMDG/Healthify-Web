@@ -3,6 +3,7 @@
 namespace  backend\controllers;
 
 use backend\models\Mealplaner;
+use yii\debug\panels\EventPanel;
 use yii\helpers\Console;
 use yii\web\Controller;
 use Yii;
@@ -20,10 +21,6 @@ use backend\models\MealingredientsSearch;
 
 class MealplanerController extends Controller
 {
-    public function actionIndex(){
-        return $this->render('index');
-    }
-
     public function actionView($id)
     {
         $searchModel = new IngredientsSearch();
@@ -38,25 +35,49 @@ class MealplanerController extends Controller
 
     public function actionAdd($ingredientsIDs,$mealId){
 
-        $addIngredients = new Mealingredients();
+        //adicionar controlo de adiçao para fazer os totais
 
-        $ingredient = Ingredients::findOne($ingredientsIDs);
+        $ingredientID=explode(",",$ingredientsIDs);
 
-        $addIngredients->serving_size_g=100;
-        $addIngredients->total_sugar_g=$ingredient->sugar_g;
-        $addIngredients->total_calories=$ingredient->calories;
-        $addIngredients->total_protein_g=$ingredient->protein_g;
-        $addIngredients->total_carbohydrates_total_g=$ingredient->carbohydrates_total_g;
-        $addIngredients->total_fat_saturated_g=$ingredient->fat_saturated_g;
-        $addIngredients->total_fat_total_g=$ingredient->fat_total_g;
-        $addIngredients->total_fiber_g=$ingredient->fiber_g;
-        $addIngredients->total_cholesterol_mg=$ingredient->cholesterol_mg;
+        foreach ($ingredientID as $id) {
+            $ingredient = Ingredients::findOne($id);//bloco save caso nao haja o ingrediente adicionado
+            $addIngredients = Mealingredients::find()->where(['ingredientsid' =>$id])->one();
 
-        $addIngredients->mealsid=$mealId;
-        $addIngredients->ingredientsid=$ingredientsIDs;
-
-        $addIngredients->save(false);
-
+            if ($addIngredients == null) {
+                $newAddIngredients = new Mealingredients();
+                $newAddIngredients->serving_size_g = 100;
+                $newAddIngredients->total_sugar_g = $ingredient->sugar_g;
+                $newAddIngredients->total_calories = $ingredient->calories;
+                $newAddIngredients->total_protein_g = $ingredient->protein_g;
+                $newAddIngredients->total_carbohydrates_total_g = $ingredient->carbohydrates_total_g;
+                $newAddIngredients->total_fat_saturated_g = $ingredient->fat_saturated_g;
+                $newAddIngredients->total_fat_total_g = $ingredient->fat_total_g;
+                $newAddIngredients->total_fiber_g = $ingredient->fiber_g;
+                $newAddIngredients->total_cholesterol_mg = $ingredient->cholesterol_mg;
+                $newAddIngredients->mealsid = $mealId;
+                $newAddIngredients->ingredientsid = $id;
+                if (!$newAddIngredients->save(false)) {
+                    return ('Erro ao guardar na base de dados ingrediente ' . $id);
+                }
+            }//bloco save caso haja o ingrediente adicionado
+            else {
+                $addIngredients->serving_size_g += 100;
+                $addIngredients->total_sugar_g +=  $ingredient->sugar_g;
+                $addIngredients->total_calories +=  $ingredient->calories;
+                $addIngredients->total_protein_g +=  $ingredient->protein_g;
+                $addIngredients->total_carbohydrates_total_g +=  $ingredient->carbohydrates_total_g;
+                $addIngredients->total_fat_saturated_g +=  $ingredient->fat_saturated_g;
+                $addIngredients->total_fat_total_g += $ingredient->fat_total_g;
+                $addIngredients->total_fiber_g += $ingredient->fiber_g;
+                $addIngredients->total_cholesterol_mg += $ingredient->cholesterol_mg;
+                $addIngredients->mealsid = $mealId;
+                $addIngredients->ingredientsid = $id;
+                if (!$addIngredients->save(false)) {
+                    return ('Erro ao guardar na base de dados ingrediente ' . $id);
+                }
+            }
+        }
+        return 200;
     }
 
 }

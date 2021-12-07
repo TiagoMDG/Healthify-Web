@@ -128,16 +128,8 @@ a.desc:after {
     gap: 10px;
 }
 
-#panados{
-    background: url("https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg") no-repeat;
-    width: 250px;
-    height: 250px;
-    background-size: 100% 100%;
-}
-
-#panados:hover{
-    background: url("https://3.imimg.com/data3/AR/PY/MY-3746163/fish-finger-500x500.jpg") no-repeat;
-    width: 250px;
-    height: 250px;
-    background-size: 100% 100%;
+#customScroll {
+    height: 16rem;
+    overflow: scroll;
+    text-align: justify;
 }
