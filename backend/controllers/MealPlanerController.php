@@ -30,6 +30,7 @@ class MealplanerController extends Controller
             'modelMeal' => Meals::findOne($id),
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'modelMealIngredients' => Mealingredients::find()->where(['mealsid' => $id])->all(),
         ]);
     }
 
@@ -57,24 +58,11 @@ class MealplanerController extends Controller
                 $newAddIngredients->mealsid = $mealId;
                 $newAddIngredients->ingredientsid = $id;
                 if (!$newAddIngredients->save(false)) {
-                    return ('Erro ao guardar na base de dados ingrediente ' . $id);
+                    return ('Erro ao guardar na base de dados ingrediente '.$ingredient->id." : ".$ingredient->name);
                 }
             }//bloco save caso haja o ingrediente adicionado
             else {
-                $addIngredients->serving_size_g += 100;
-                $addIngredients->total_sugar_g +=  $ingredient->sugar_g;
-                $addIngredients->total_calories +=  $ingredient->calories;
-                $addIngredients->total_protein_g +=  $ingredient->protein_g;
-                $addIngredients->total_carbohydrates_total_g +=  $ingredient->carbohydrates_total_g;
-                $addIngredients->total_fat_saturated_g +=  $ingredient->fat_saturated_g;
-                $addIngredients->total_fat_total_g += $ingredient->fat_total_g;
-                $addIngredients->total_fiber_g += $ingredient->fiber_g;
-                $addIngredients->total_cholesterol_mg += $ingredient->cholesterol_mg;
-                $addIngredients->mealsid = $mealId;
-                $addIngredients->ingredientsid = $id;
-                if (!$addIngredients->save(false)) {
-                    return ('Erro ao guardar na base de dados ingrediente ' . $id);
-                }
+                echo "Ingrediente já inserido ".$ingredient->id." : ".$ingredient->name;
             }
         }
         return 200;

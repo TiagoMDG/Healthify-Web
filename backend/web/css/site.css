@@ -131,5 +131,5 @@ a.desc:after {
 #customScroll {
     height: 16rem;
     overflow: scroll;
-    text-align: justify;
+    text-align: center;
 }
