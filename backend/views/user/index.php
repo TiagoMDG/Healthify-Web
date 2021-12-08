@@ -29,7 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <td>
                     <?= Html::a('Editar Utilizador', ['update', 'id' => $user->id], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a('Apagar', ['delete', 'id' => $user->id], ['class' => 'btn btn-danger', 'data-method' => 'post']) ?>
+                    <?= Html::a('Apagar', ['delete', 'id' => $user->id], ['class' => 'btn btn-danger', 'data' => [
+                        'confirm' => 'Are you sure you want to delete this item?',
+                        'method' => 'post',
+                    ],]) ?>
                 </td>
             </tr>
         <?php } ?>
