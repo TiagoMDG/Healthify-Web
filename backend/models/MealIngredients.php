@@ -2,7 +2,10 @@
 
 namespace backend\models;
 
+use app\models\Meals;
 use Yii;
+
+include_once 'Meals.php';
 
 /**
  * This is the model class for table "meal_ingredients".
