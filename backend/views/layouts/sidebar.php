@@ -50,6 +50,14 @@ use yii\widgets\Menu;
                 </li>
 
                 <li class="nav-item">
+                    <?= Html::a('Mesas', ['tables/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                </li>
+
+                <li class="nav-item">
+                    <?= Html::a('Reservas', ['reservations/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                </li>
+
+                <li class="nav-item">
                     <button class="dropdown-btn nav-link"><?= Html::a('Gerir Ementa', ['meals/index', 'meal' => $meal = 'entree'], ['data-method' => 'post']) ?>
                         <i class="fa fa-caret-down"></i>
                     </button>

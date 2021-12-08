@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 02, 2021 at 04:46 PM
+-- Generation Time: Dec 08, 2021 at 07:07 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -20,9 +20,11 @@ SET time_zone = "+00:00";
 --
 -- Database: `healthify`
 --
+
 drop database if exists healthify;
 create database healthify;
 use healthify; 
+
 -- --------------------------------------------------------
 
 --
@@ -167,7 +169,16 @@ CREATE TABLE IF NOT EXISTS `ingredients` (
   `fiber_g` float NOT NULL,
   `cholesterol_mg` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ingredients`
+--
+
+INSERT INTO `ingredients` (`id`, `name`, `sugar_g`, `calories`, `protein_g`, `carbohydrates_total_g`, `fat_saturated_g`, `fat_total_g`, `fiber_g`, `cholesterol_mg`) VALUES
+(1, 'Bife de vaca', 0, 291.9, 26.6, 0, 7.8, 19.7, 0, 87),
+(2, 'Ovo', 0.4, 147, 12.5, 0.7, 3.1, 9.7, 0, 371),
+(3, 'french fries', 0.3, 312.5, 3.4, 42.1, 2.3, 14.4, 3.8, 0);
 
 -- --------------------------------------------------------
 
@@ -183,7 +194,14 @@ CREATE TABLE IF NOT EXISTS `meals` (
   `description` varchar(100) DEFAULT NULL,
   `category` enum('entree','soup','meat','fish','vegan','drinks','dessert') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `meals`
+--
+
+INSERT INTO `meals` (`id`, `name`, `price`, `description`, `category`) VALUES
+(1, 'Bitoque', '14.99', 'Bife com ovo', 'meat');
 
 -- --------------------------------------------------------
 
@@ -193,24 +211,34 @@ CREATE TABLE IF NOT EXISTS `meals` (
 
 DROP TABLE IF EXISTS `meal_ingredients`;
 CREATE TABLE IF NOT EXISTS `meal_ingredients` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-    `serving_size_g` float DEFAULT NULL,
-    `total_sugar_g` float NOT NULL,
-	`total_calories` float NOT NULL,
-	`total_protein_g` float NOT NULL,
-	`total_carbohydrates_total_g` float NOT NULL,
-	`total_fat_saturated_g` float NOT NULL,
-	`total_fat_total_g` float NOT NULL,
-	`total_fiber_g` float NOT NULL,
-	`total_cholesterol_mg` float NOT NULL,
-	`mealsid` int(11) NOT NULL,
-	`ingredientsid` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `serving_size_g` float DEFAULT NULL,
+  `total_sugar_g` float NOT NULL,
+  `total_calories` float NOT NULL,
+  `total_protein_g` float NOT NULL,
+  `total_carbohydrates_total_g` float NOT NULL,
+  `total_fat_saturated_g` float NOT NULL,
+  `total_fat_total_g` float NOT NULL,
+  `total_fiber_g` float NOT NULL,
+  `total_cholesterol_mg` float NOT NULL,
+  `mealsid` int(11) NOT NULL,
+  `ingredientsid` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `fk_ingredientsid_mealingredients` (`ingredientsid`),
-  KEY `fk_meals_id_mealingredients` (`mealsid`),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `fk_meals_id_mealingredients` (`mealsid`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `meal_ingredients`
+--
+
+INSERT INTO `meal_ingredients` (`id`, `serving_size_g`, `total_sugar_g`, `total_calories`, `total_protein_g`, `total_carbohydrates_total_g`, `total_fat_saturated_g`, `total_fat_total_g`, `total_fiber_g`, `total_cholesterol_mg`, `mealsid`, `ingredientsid`) VALUES
+(1, 100, 0, 291.9, 26.6, 0, 7.8, 19.7, 0, 87, 1, 1),
+(2, 100, 0.4, 147, 12.5, 0.7, 3.1, 9.7, 0, 371, 1, 2),
+(3, 100, 0.3, 312.5, 3.4, 42.1, 2.3, 14.4, 3.8, 0, 1, 3);
 
 -- --------------------------------------------------------
+
 --
 -- Table structure for table `migration`
 --
@@ -260,26 +288,21 @@ DROP TABLE IF EXISTS `reservations`;
 CREATE TABLE IF NOT EXISTS `reservations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `reservedday` date NOT NULL,
-  `reservedtime` timestamp NOT NULL,
+  `reservedtime` enum('12:00','12:30','13:00','13:30','14:00','14:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30') NOT NULL,
   `userprofilesid` int(11) NOT NULL,
   `tableid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_id` (`userprofilesid`),
   KEY `fk_table_id` (`tableid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
--- Table structure for table `tables`
+-- Dumping data for table `reservations`
 --
 
-DROP TABLE IF EXISTS `tables`;
-CREATE TABLE IF NOT EXISTS `tables` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ocupancy_state` set('occupied', 'free') NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `reservations` (`id`, `reservedday`, `reservedtime`, `userprofilesid`, `tableid`) VALUES
+(3, '2021-12-08', '13:30', 9, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -357,6 +380,27 @@ CREATE TABLE IF NOT EXISTS `schedules` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tables`
+--
+
+DROP TABLE IF EXISTS `tables`;
+CREATE TABLE IF NOT EXISTS `tables` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ocupancy_state` set('occupied','free') NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tables`
+--
+
+INSERT INTO `tables` (`id`, `ocupancy_state`) VALUES
+(1, 'free'),
+(2, 'occupied');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -415,6 +459,7 @@ CREATE TABLE IF NOT EXISTS `userprofiles` (
   PRIMARY KEY (`id`),
   KEY `fk_user_id` (`userid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `userprofiles`
 --
@@ -455,60 +500,70 @@ CREATE TABLE IF NOT EXISTS `vitamins` (
   PRIMARY KEY (`id`),
   KEY `fk_ingredientsid_vitamins` (`ingredientsid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
--- ------------------------------------------
+
+--
+-- Constraints for dumped tables
+--
+
 --
 -- Constraints for table `meal_ingredients`
 --
 ALTER TABLE `meal_ingredients`
   ADD CONSTRAINT `fk_ingredientsid_mealingredients` FOREIGN KEY (`ingredientsid`) REFERENCES `ingredients` (`id`),
   ADD CONSTRAINT `fk_meals_id_mealingredients` FOREIGN KEY (`mealsid`) REFERENCES `meals` (`id`);
+
 --
 -- Constraints for table `minerals`
 --
 ALTER TABLE `minerals`
   ADD CONSTRAINT `fk_ingredientsid_minerals` FOREIGN KEY (`ingredientsid`) REFERENCES `ingredients` (`id`);
+
 --
 -- Constraints for table `reservations`
 --
 ALTER TABLE `reservations`
   ADD CONSTRAINT `fk_table_id` FOREIGN KEY (`tableid`) REFERENCES `tables` (`id`),
-  ADD CONSTRAINT `fk_userprofile_id` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`);
+  ADD CONSTRAINT `fk_userprofile_id` FOREIGN KEY (`userprofilesid`) REFERENCES `user` (`id`);
+
 --
 -- Constraints for table `reviews`
 --
 ALTER TABLE `reviews`
-  ADD CONSTRAINT `fk_userprofile_id_reviews` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`),
   ADD CONSTRAINT `fk_salesmeals_idmeal_reviews` FOREIGN KEY (`sales_mealsidmeal`) REFERENCES `sales_meals` (`mealid`),
-  ADD CONSTRAINT `fk_salesmeals_idsales_reviews` FOREIGN KEY (`sales_mealsidsales`) REFERENCES `sales_meals` (`salesid`);
-  --
+  ADD CONSTRAINT `fk_salesmeals_idsales_reviews` FOREIGN KEY (`sales_mealsidsales`) REFERENCES `sales_meals` (`salesid`),
+  ADD CONSTRAINT `fk_userprofile_id_reviews` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`);
+
+--
 -- Constraints for table `sales`
 --
 ALTER TABLE `sales`
   ADD CONSTRAINT `fk_userprofile_id_sales` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`);
+
 --
 -- Constraints for table `sales_meals`
 --
 ALTER TABLE `sales_meals`
   ADD CONSTRAINT `fk_meal_id_salesmeals` FOREIGN KEY (`mealid`) REFERENCES `meals` (`id`),
   ADD CONSTRAINT `fk_sales_id_salesmeals` FOREIGN KEY (`salesid`) REFERENCES `sales` (`id`);
+
 --
 -- Constraints for table `userprofiles`
 --
 ALTER TABLE `userprofiles`
   ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`userid`) REFERENCES `user` (`id`);
+
 --
 -- Constraints for table `userschedulesregistry`
 --
 ALTER TABLE `userschedulesregistry`
   ADD CONSTRAINT `fk_schedules_id` FOREIGN KEY (`schedulesid`) REFERENCES `schedules` (`id`),
   ADD CONSTRAINT `fk_userprofiles_id` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`);
--- CONSTRAINTS FOR TABLES
+
 --
 -- Constraints for table `vitamins`
 --
 ALTER TABLE `vitamins`
   ADD CONSTRAINT `fk_ingredientsid_vitamins` FOREIGN KEY (`ingredientsid`) REFERENCES `ingredients` (`id`);
--- ------------------------------------------
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
