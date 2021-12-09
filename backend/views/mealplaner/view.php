@@ -22,9 +22,11 @@ use yii\widgets\DetailView;
                     ],
                 ]) ?>
             </div>
+            <p>Ingredientes a adicionar</p>
         </td>
 
         <td class="col-lg-7">
+            <p>Ingredientes do prato</p>
             <div class="" id="customScroll">
                 <?php $serving = ActiveForm::begin(); ?>
                 <table class="fc-widget-header">
@@ -49,6 +51,7 @@ use yii\widgets\DetailView;
 
     <tr>
         <div id="grid">
+
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,

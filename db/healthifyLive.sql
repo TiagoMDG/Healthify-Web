@@ -195,14 +195,37 @@ CREATE TABLE IF NOT EXISTS `meals` (
   `category` enum('entree','soup','meat','fish','vegan','drinks','dessert') NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
 --
 -- Dumping data for table `meals`
 --
 
 INSERT INTO `meals` (`id`, `name`, `price`, `description`, `category`) VALUES
 (1, 'Bitoque', '14.99', 'Bife com ovo', 'meat');
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `meals`
+--
+
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `category` enum('entree','soup','meat','fish','vegan','drinks','dessert') NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+--
+-- Dumping data for table `meals`
+--
+INSERT INTO `category` (`id`, `name`, `description`) VALUES
+(1, 'entree', 'Entradas/petiscos'),
+(2, 'soup', 'Sopas'),
+(3, 'meat', 'Pratos de carne'),
+(4, 'fish', 'Pratos de peixe'),
+(5, 'vegan', 'Pratos apenas com proteína vegetal'),
+(6, 'dessert', 'Sobremesas'),
+(7, 'drinks', 'Bebidas');
 -- --------------------------------------------------------
 
 --
@@ -337,7 +360,7 @@ CREATE TABLE IF NOT EXISTS `sales` (
   `discount` decimal(10,2) DEFAULT NULL,
   `paidamount` decimal(10,2) DEFAULT NULL,
   `paymentmethod` set('cash','card') DEFAULT NULL,
-  `paymentstate` enum('paid','not paid') NOT NULL,
+  `paymentstate` varchar(11) NOT NULL,
   `userprofilesid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_id_sales` (`userprofilesid`)
