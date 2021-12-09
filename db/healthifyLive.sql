@@ -192,15 +192,15 @@ CREATE TABLE IF NOT EXISTS `meals` (
   `name` varchar(40) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `description` varchar(100) DEFAULT NULL,
-  `category` enum('entree','soup','meat','fish','vegan','drinks','dessert') NOT NULL,
+   KEY `fk_meals_id_category` (`categoryid`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 --
 -- Dumping data for table `meals`
 --
 
-INSERT INTO `meals` (`id`, `name`, `price`, `description`, `category`) VALUES
-(1, 'Bitoque', '14.99', 'Bife com ovo', 'meat');
+INSERT INTO `meals` (`id`, `name`, `price`, `description`, `categoryid`) VALUES
+(1, 'Bitoque', '14.99', 'Bife com ovo', '3');
 -- --------------------------------------------------------
 
 --
@@ -212,7 +212,6 @@ CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `category` enum('entree','soup','meat','fish','vegan','drinks','dessert') NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 --
@@ -587,6 +586,12 @@ ALTER TABLE `userschedulesregistry`
 --
 ALTER TABLE `vitamins`
   ADD CONSTRAINT `fk_ingredientsid_vitamins` FOREIGN KEY (`ingredientsid`) REFERENCES `ingredients` (`id`);
+  
+--
+-- Constraints for table `meals`
+--
+  ALTER TABLE `meals`
+  ADD CONSTRAINT `fk_meals_id_category` FOREIGN KEY (`categoryid`) REFERENCES `category` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
