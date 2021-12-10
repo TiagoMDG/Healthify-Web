@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 08, 2021 at 07:07 PM
+-- Generation Time: Dec 10, 2021 at 11:00 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -20,10 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `healthify`
 --
-
-drop database if exists healthify;
+drop database IF EXISTS healthify;
 create database healthify;
-use healthify; 
+use healthify;
 
 -- --------------------------------------------------------
 
@@ -136,6 +135,33 @@ CREATE TABLE IF NOT EXISTS `auth_rule` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `category`
+--
+
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `name`, `description`) VALUES
+(1, 'entradas', 'Entradas/petiscos'),
+(2, 'sopas', 'Sopas'),
+(3, 'carne', 'Pratos de carne'),
+(4, 'peixe', 'Pratos de peixe'),
+(5, 'vegan', 'Pratos apenas com proteína vegetal'),
+(6, 'sobremesa', 'Sobremesas'),
+(7, 'bebidas', 'Bebidas');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `inforestaurants`
 --
 
@@ -193,39 +219,18 @@ CREATE TABLE IF NOT EXISTS `meals` (
   `price` decimal(10,2) NOT NULL,
   `description` varchar(100) DEFAULT NULL,
   `categoryid` int(11) NOT NULL,
-   KEY `fk_meals_id_category` (`categoryid`),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`),
+  KEY `fk_meals_id_category` (`categoryid`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
 --
 -- Dumping data for table `meals`
 --
 
 INSERT INTO `meals` (`id`, `name`, `price`, `description`, `categoryid`) VALUES
-(1, 'Bitoque', '14.99', 'Bife com ovo', '3');
--- --------------------------------------------------------
+(1, 'Bitoque', '14.99', 'Bife com ovo', 3),
+(2, 'Bacalhau com natas', '14.99', 'Bacalhau servido com natas', 4);
 
---
--- Table structure for table `meals`
---
-
-DROP TABLE IF EXISTS `category`;
-CREATE TABLE IF NOT EXISTS `category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
---
--- Dumping data for table `meals`
---
-INSERT INTO `category` (`id`, `name`, `description`) VALUES
-(1, 'entree', 'Entradas/petiscos'),
-(2, 'soup', 'Sopas'),
-(3, 'meat', 'Pratos de carne'),
-(4, 'fish', 'Pratos de peixe'),
-(5, 'vegan', 'Pratos apenas com proteína vegetal'),
-(6, 'dessert', 'Sobremesas'),
-(7, 'drinks', 'Bebidas');
 -- --------------------------------------------------------
 
 --
@@ -317,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_id` (`userprofilesid`),
   KEY `fk_table_id` (`tableid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservations`
@@ -529,6 +534,12 @@ CREATE TABLE IF NOT EXISTS `vitamins` (
 --
 
 --
+-- Constraints for table `meals`
+--
+ALTER TABLE `meals`
+  ADD CONSTRAINT `fk_meals_id_category` FOREIGN KEY (`categoryid`) REFERENCES `category` (`id`);
+
+--
 -- Constraints for table `meal_ingredients`
 --
 ALTER TABLE `meal_ingredients`
@@ -587,12 +598,6 @@ ALTER TABLE `userschedulesregistry`
 --
 ALTER TABLE `vitamins`
   ADD CONSTRAINT `fk_ingredientsid_vitamins` FOREIGN KEY (`ingredientsid`) REFERENCES `ingredients` (`id`);
-  
---
--- Constraints for table `meals`
---
-  ALTER TABLE `meals`
-  ADD CONSTRAINT `fk_meals_id_category` FOREIGN KEY (`categoryid`) REFERENCES `category` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

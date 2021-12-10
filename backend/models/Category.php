@@ -81,18 +81,7 @@ class Category extends \yii\db\ActiveRecord
 
     public static function getCategoriaIDByName($nome)
     {
-        $idArray = self::getCategoryIDArray();
-        $namesArray = self::getCategoryNamesArray();
-
-        $a = array_combine($idArray, $namesArray);
-
-        foreach ($a as $aa => $names) {
-            if ($nome == $names) {
-                $id = $aa;
-            }
-        }
-
-        return $id;
+        return Category::find()->where(['name'=>$nome])->one()->getAttribute('id');
     }
 
     /**
