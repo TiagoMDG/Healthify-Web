@@ -11,11 +11,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="meals-create">
 
-    <h1><?= Html::encode(ucfirst($category)) ?></h1>
+    <h1><?= Html::encode(ucfirst($categoryname)) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
-        'category' => $category
+        'categoryid' => $categoryid
     ]) ?>
 
 </div>

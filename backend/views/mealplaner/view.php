@@ -18,7 +18,7 @@ use yii\widgets\DetailView;
                             'name',
                             'price',
                             'description',
-                            'category',
+                            'categoryid',
                     ],
                 ]) ?>
             </div>

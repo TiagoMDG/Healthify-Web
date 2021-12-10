@@ -192,6 +192,7 @@ CREATE TABLE IF NOT EXISTS `meals` (
   `name` varchar(40) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `description` varchar(100) DEFAULT NULL,
+  `categoryid` int(11) NOT NULL,
    KEY `fk_meals_id_category` (`categoryid`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;

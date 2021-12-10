@@ -1,19 +1,17 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
-use app\models\Userprofile;
-use app\models\UserprofileSearch;
-use common\models\User;
-use Yii;
+use app\models\Category;
+use app\models\CategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UserprofileController implements the CRUD actions for Userprofile model.
+ * CategoryController implements the CRUD actions for Category model.
  */
-class UserprofileController extends Controller
+class CategoryController extends Controller
 {
     /**
      * @inheritDoc
@@ -34,12 +32,12 @@ class UserprofileController extends Controller
     }
 
     /**
-     * Lists all Userprofile models.
+     * Lists all Category models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UserprofileSearch();
+        $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,43 +46,27 @@ class UserprofileController extends Controller
         ]);
     }
 
-    public function actionUser(){
-        $userid = Yii::$app->user->identity->getId();
-        $profile = Userprofile::find()->where(['userid' =>$userid])->one();
-        if ($profile!=null){
-           return $this->actionView($profile->getAttribute('id'));
-
-        }else {
-            return $this->actionCreate();
-        }
-
-    }
-
     /**
-     * Displays a single Userprofile model.
+     * Displays a single Category model.
      * @param int $id ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $this->layout = 'loggedclient';
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Userprofile model.
+     * Creates a new Category model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Userprofile();
-
-        $userid = Yii::$app->user->identity->getId();
-        $username = Yii::$app->user->identity->username;
+        $model = new Category();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -96,13 +78,11 @@ class UserprofileController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'userid'=> $userid,
-            'username' => $username,
         ]);
     }
 
     /**
-     * Updates an existing Userprofile model.
+     * Updates an existing Category model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return mixed
@@ -111,8 +91,6 @@ class UserprofileController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $userid = Yii::$app->user->identity->getId();
-        $username = Yii::$app->user->identity->username;
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -120,13 +98,11 @@ class UserprofileController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'userid'=> $userid,
-            'username' => $username,
         ]);
     }
 
     /**
-     * Deletes an existing Userprofile model.
+     * Deletes an existing Category model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return mixed
@@ -140,15 +116,15 @@ class UserprofileController extends Controller
     }
 
     /**
-     * Finds the Userprofile model based on its primary key value.
+     * Finds the Category model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Userprofile the loaded model
+     * @return Category the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Userprofile::findOne($id)) !== null) {
+        if (($model = Category::findOne($id)) !== null) {
             return $model;
         }
 

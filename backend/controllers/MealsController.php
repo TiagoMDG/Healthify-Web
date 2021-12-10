@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use app\models\Category;
 use app\models\Meals;
 use backend\models\MealsSearch;
 use yii\web\Controller;
@@ -37,62 +38,28 @@ class MealsController extends Controller
      */
     public function actionIndex()
     {
-        $meals = Meals::find()->all();
+        $count = Meals::countItemsByCategory();
+        $names = Category::getCategoryNamesArray();
 
-        $mealCount = array (
-            array("meat",0),
-            array("fish",0),
-            array("dessert",0),
-            array("drinks",0),
-            array("vegan",0),
-            array("entree",0),
-            array("soup",0)
-        );
-
-        foreach ($meals as $meal){
-            foreach ($meal as $field){
-                switch ($field){
-                    case 'meat':
-                        $mealCount[0][1]++;
-                        break;
-                    case 'fish':
-                        $mealCount[1][1]++;
-                        break;
-                    case 'dessert':
-                        $mealCount[2][1]++;
-                        break;
-                    case 'drinks':
-                        $mealCount[3][1]++;
-                        break;
-                    case 'vegan':
-                        $mealCount[4][1]++;
-                        break;
-                    case 'entree':
-                        $mealCount[5][1]++;
-                        break;
-                    case 'soup':
-                        $mealCount[6][1]++;
-                        break;
-                }
-            }
-        }
+        $mealCount = array_combine($names, $count);
 
         return $this->render('index', [
-            'mealCount' => $mealCount
+            'mealCount' => $mealCount,
         ]);
     }
 
-    public function actionCategory($meal)
+    public function actionCategory($categoryid, $categoryname)
     {
         $searchModel = new MealsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        $dataProvider->query->andWhere(['category'=>$meal]);
+        $dataProvider->query->andWhere(['categoryid'=>$categoryid]);
 
         return $this->render('category', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'meal' => $meal
+            'categoryid' => $categoryid,
+            'categoryname' => $categoryname
         ]);
     }
 
@@ -114,7 +81,7 @@ class MealsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($category)
+    public function actionCreate($categoryid, $categoryname)
     {
         $model = new Meals();
 
@@ -128,7 +95,8 @@ class MealsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'category' =>$category
+            'categoryid' =>$categoryid,
+            'categoryname' =>$categoryname
         ]);
     }
 
@@ -159,11 +127,11 @@ class MealsController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $categoryid, $categoryname)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['category', 'categoryid' => $categoryid, 'categoryname' => $categoryname]);
     }
 
     /**

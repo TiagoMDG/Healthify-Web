@@ -3,6 +3,7 @@
 use hail812\adminlte3\widgets\Alert;
 use hail812\adminlte3\widgets\Callout;
 use hail812\adminlte3\widgets\SmallBox;
+use yii\helpers\Html;
 
 $this->title = 'Zona Administrativa';
 $this->params['breadcrumbs'] = [['label' => $this->title]];
@@ -13,14 +14,16 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             <!-- small box -->
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3>53<sup style="font-size: 20px">%</sup></h3>
+                    <h3><?php echo($numCategorias) ?><sup style="font-size: 20px"></sup></h3>
 
-                    <p>Bounce Rate</p>
+                    <p>Número de Categorias existentes</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
+                <?= Html::a('More Info <i class="fas fa-arrow-circle-right"></i>', ['category/index'], ['data-method' => 'post', 'class' => 'small-box-footer']) ?>
+
             </div>
     </div>
     <!-- Custom tabs (Charts with tabs)-->

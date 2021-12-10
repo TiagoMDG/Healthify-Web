@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use app\models\Category;
 use backend\models\LoginForm;
 use common\models\User;
 use Yii;
@@ -70,7 +71,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $categorias = Category::getCategoryIDArray();
+
+
+        return $this->render('index', [
+            'numCategorias' => count($categorias),
+        ]);
     }
 
     /**

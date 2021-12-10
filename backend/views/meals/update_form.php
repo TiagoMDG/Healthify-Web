@@ -1,11 +1,16 @@
 <?php
 
+use app\models\Category;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Meals */
 /* @var $form yii\widgets\ActiveForm */
+
+$category = Category::getCategorias();
+$listCategories = ArrayHelper::map($category, 'id', 'name');
 
 ?>
 
@@ -19,7 +24,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'categoryid')->hiddenInput(['value'=>$categoryid])->label(false); ?>
+    <?= $form->field($model, 'categoryid')->dropDownList($listCategories, ['prompt' => 'Select...']); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
