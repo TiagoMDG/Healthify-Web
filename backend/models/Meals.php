@@ -69,7 +69,7 @@ class Meals extends \yii\db\ActiveRecord
 
     public static function countItemsByCategory(){
 
-        $ids = Category::getCategoryIDArray();
+        $ids = Category::getCategoryIDArray();//retorna todos os ids de categoria
 
 
         foreach ($ids as $id){

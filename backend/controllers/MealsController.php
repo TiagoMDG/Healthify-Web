@@ -38,10 +38,10 @@ class MealsController extends Controller
      */
     public function actionIndex()
     {
-        $count = Meals::countItemsByCategory();
-        $names = Category::getCategoryNamesArray();
+        $count = Meals::countItemsByCategory();//contagem do numero de refeiçoes po categoria
+        $names = Category::getCategoryNamesArray();//nome das categorias
 
-        $mealCount = array_combine($names, $count);
+        $mealCount = array_combine($names, $count);//combina os arrays num so
 
         return $this->render('index', [
             'mealCount' => $mealCount,

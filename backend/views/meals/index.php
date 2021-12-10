@@ -20,7 +20,7 @@ $this->title = 'Meals';
 <div>
     <div id="meal-grid">
 
-        <?php foreach ($mealCount as $name => $count) { ?>
+        <?php foreach ($mealCount as $name => $count/*atribui par chave valor ao array recebido */) { ?>
 
             <div class="">
                 <!-- small box -->
