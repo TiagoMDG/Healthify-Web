@@ -94,4 +94,5 @@ class Meals extends \yii\db\ActiveRecord
     {
         return $this->hasMany(SalesMeals::className(), ['mealid' => 'id']);
     }
+
 }

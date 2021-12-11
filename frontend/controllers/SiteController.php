@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use app\models\Category;
 use app\models\Meals;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -81,11 +82,21 @@ class SiteController extends Controller
         }
         //$menu = $this->actionMenuShow();
 
-        $entree = Meals::find()->where(['category' =>'entree'])->all();
-        $soup = Meals::find()->where(['category' =>'soup'])->all();
-        $dessert = Meals::find()->where(['category' =>'dessert'])->all();
-        $drinks = Meals::find()->where(['category' =>'drinks'])->all();
-        $mains = Meals::find()->where(['category' =>'meat'])->orWhere(['category' =>'fish'])->orWhere(['category' =>'vegan'])->orderBy('category')->all();
+        $entree = Meals::find()->where(['categoryid' =>1])->all();
+        $soup = Meals::find()->where(['categoryid' =>2])->all();
+        $dessert = Meals::find()->where(['categoryid' =>6])->all();
+        $drinks = Meals::find()->where(['categoryid' =>7])->all();
+        $mains = Meals::find()->where(['not',['categoryid'=>'1']])->orWhere(['not',['categoryid'=>'2']])->orWhere(['not',['categoryid'=>'6']])
+            ->orWhere(['not',['categoryid'=>'7']])->orderBy('categoryid')->all();
+
+        foreach ($mains as $main){
+            $main['categoryid'] = Category::getCategoriaById($main['categoryid'])->name;
+        }
+
+       /* foreach (Category::find()->all() as $category){
+            $result = Category::getCategoriaById($category->getAttribute('id'));
+            var_dump($result->getMeals()->all());
+        }*/
 
         return $this->render('index',['entradas'=>$entree,'pratos'=>$mains,'sopas'=>$soup,'sobremesas'=>$dessert,'bebidas'=>$drinks]);
     }

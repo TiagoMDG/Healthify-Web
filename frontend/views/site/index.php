@@ -79,7 +79,7 @@ $this->title = 'Healthify - Home';
                 if($entradas!=null){
                     foreach ($entradas as $entrada){
                         echo '<h5>'.$entrada['name'].'</h5>';
-                        echo'<p class="w3-text-grey">'.$entrada['description'].' '.$entrada['price'].'€<br>'.$entrada['category'].'</p><br>';
+                        echo'<p class="w3-text-grey">'.$entrada['description'].' '.$entrada['price'].'€</p><br>';
                     }
                 }else
                     echo '<h3>Sem ementa inserida nesta categoria</h3>';
@@ -91,7 +91,7 @@ $this->title = 'Healthify - Home';
                 if($sopas!=null){
                     foreach ($sopas as $sopa){
                         echo '<h5>'.$sopa['name'].'</h5>';
-                        echo'<p class="w3-text-grey">'.$sopa['description'].' '.$sopa['price'].'€<br>'.$sopa['category'].'</p><br>';
+                        echo'<p class="w3-text-grey">'.$sopa['description'].' '.$sopa['price'].'€</p><br>';
                     }
                 }else
                     echo '<h3>Sem ementa inserida nesta categoria</h3>';
@@ -103,7 +103,7 @@ $this->title = 'Healthify - Home';
                 if($pratos!=null){
                     foreach ($pratos as $prato){
                         echo '<h5>'.$prato['name'].'</h5>';
-                        echo'<p class="w3-text-grey">'.$prato['description'].' '.$prato['price'].'€<br>'.$prato['category'].'</p><br>';
+                        echo'<p class="w3-text-grey">'.$prato['description'].' '.$prato['price'].'€<br>'.$prato['categoryid'].'</p><br>';
                     }
                 }else
                     echo '<h3>Sem ementa inserida nesta categoria</h3>';
@@ -115,7 +115,7 @@ $this->title = 'Healthify - Home';
                 if($sobremesas!=null){
                     foreach ($sobremesas as $sobremesa){
                         echo '<h5>'.$sobremesa['name'].'</h5>';
-                        echo'<p class="w3-text-grey">'.$sobremesa['description'].' '.$sobremesa['price'].'€<br>'.$sobremesa['category'].'</p><br>';
+                        echo'<p class="w3-text-grey">'.$sobremesa['description'].' '.$sobremesa['price'].'€</p><br>';
                     }
                 }else
                     echo '<h3>Sem ementa inserida nesta categoria</h3>';
