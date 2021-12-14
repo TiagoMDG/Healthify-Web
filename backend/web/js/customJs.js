@@ -22,24 +22,6 @@ function addIngredientstoMeal(mealId){
         else
             ingredientsIDs[0] = this.value;
     });
-    /*for (var i=0; i<ingredientsIDs.length;i++)
-    {
-        $.ajax({
-            type: "POST",
-            url: 'http://localhost/healthify/backend/web/index.php?r=mealplaner%2Fadd&ingredientsIDs='+ingredientsIDs[i]+'&mealId='+mealId,
-            data: $('#' + 'grid').serialize(),
-            cache: false,
-            dataType: 'html',
-            success: function (result) {
-                if (result == '200') {
-                    alert('Ingredientes inseridos');
-                }
-                else {
-                    alert('some error occured: '+result);
-                }
-            }
-        });
-    }*/
     $.ajax({
         type: "POST",
             url: 'http://localhost/healthify/backend/web/index.php?r=mealplaner%2Fadd&ingredientsIDs='+ingredientsIDs+'&mealId='+mealId,

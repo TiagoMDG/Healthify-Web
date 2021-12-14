@@ -25,6 +25,14 @@ drop database IF EXISTS healthify;
 create database healthify;
 use healthify;
 
+DROP TABLE IF EXISTS `calendar`;
+CREATE TABLE IF NOT EXISTS `calendar` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Date',
+  `val` int(11) NOT NULL COMMENT 'Value',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- --------------------------------------------------------
 
 --
@@ -337,12 +345,10 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   `rating` decimal(1,0) DEFAULT NULL,
   `review` varchar(255) DEFAULT NULL,
   `userprofilesid` int(11) NOT NULL,
-  `sales_mealsidsales` int(11) NOT NULL,
-  `sales_mealsidmeal` int(11) NOT NULL,
+  `salesmealsid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_id_reviews` (`userprofilesid`),
-  KEY `fk_salesmeals_idmeal_reviews` (`sales_mealsidmeal`),
-  KEY `fk_salesmeals_idsales_reviews` (`sales_mealsidsales`)
+  KEY `fk_salesmeals_id` (`salesmealsid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -373,12 +379,14 @@ CREATE TABLE IF NOT EXISTS `sales` (
 
 DROP TABLE IF EXISTS `sales_meals`;
 CREATE TABLE IF NOT EXISTS `sales_meals` (
-  `salesid` int(11) NOT NULL,
-  `mealid` int(11) NOT NULL,
-  `sellingprice` decimal(10,2) NOT NULL,
-  `itemquantity` int(11) NOT NULL,
-  KEY `fk_meal_id_salesmeals` (`mealid`),
-  KEY `fk_sales_id_salesmeals` (`salesid`)
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`salesid` int(11) NOT NULL,
+	`mealid` int(11) NOT NULL,
+	`sellingprice` decimal(10,2) NOT NULL,
+	`itemquantity` int(11) NOT NULL,
+    PRIMARY KEY (`id`),
+	KEY `fk_meal_id_salesmeals` (`mealid`),
+	KEY `fk_sales_id_salesmeals` (`salesid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -556,9 +564,8 @@ ALTER TABLE `reservations`
 --
 -- Constraints for table `reviews`
 --
-ALTER TABLE `reviews`
-  ADD CONSTRAINT `fk_salesmeals_idmeal_reviews` FOREIGN KEY (`sales_mealsidmeal`) REFERENCES `sales_meals` (`mealid`),
-  ADD CONSTRAINT `fk_salesmeals_idsales_reviews` FOREIGN KEY (`sales_mealsidsales`) REFERENCES `sales_meals` (`salesid`),
+ALTER TABLE `reviews` `fk_salesmeals_id` (`sales_mealsid`)
+  ADD CONSTRAINT `fk_salesmeals_id` FOREIGN KEY (`sales_mealsid`) REFERENCES `sales_meals` (`id`),
   ADD CONSTRAINT `fk_userprofile_id_reviews` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`);
 
 --

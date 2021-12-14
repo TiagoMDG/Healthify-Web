@@ -69,4 +69,9 @@ class User extends \yii\db\ActiveRecord
         return $findRole->getAttribute('item_name');
 
     }
+
+    public static function findByUsername($username)
+    {
+        return self::find()->where(['username'=>$username])->one();
+    }
 }
