@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "tables".
  *
  * @property int $id
- * @property string $ocupancy_state
+ * @property string $state
  *
  * @property Reservations[] $reservations
  */
@@ -28,8 +28,8 @@ class Tables extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ocupancy_state'], 'required'],
-            [['ocupancy_state'], 'string'],
+            [['state'], 'required'],
+            [['state'], 'string'],
         ];
     }
 
@@ -40,7 +40,7 @@ class Tables extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ocupancy_state' => 'Ocupancy State',
+            'state' => 'Estado da Mesa',
         ];
     }
 

@@ -18,7 +18,7 @@ class TablesSearch extends Tables
     {
         return [
             [['id'], 'integer'],
-            [['ocupancy_state'], 'safe'],
+            [['state'], 'safe'],
         ];
     }
 
@@ -61,7 +61,7 @@ class TablesSearch extends Tables
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'ocupancy_state', $this->ocupancy_state]);
+        $query->andFilterWhere(['like', 'state', $this->state]);
 
         return $dataProvider;
     }

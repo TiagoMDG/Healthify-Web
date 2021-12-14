@@ -72,7 +72,7 @@ class ReservationsController extends Controller
             if ($model->load($this->request->post()) && $model->validate()) {
                 if (Reservations::find()->where(['userprofilesid' => $model->userprofilesid])->andWhere(['reservedday' => $model->reservedday])->exists()) {
                     $model->addError('', 'This client already has a reservation today!');
-                } else if (Reservations::find()->where(['tableid' => $model->tableid])->andWhere(['reservedday' => $model->reservedday])->andWhere(['reservedday' => $model->reservedday])->exists()) {
+                } else if (Reservations::find()->where(['tableid' => $model->tableid])->andWhere(['reservedday' => $model->reservedday])->andWhere(['reservedtime' => $model->reservedtime])->exists()) {
                     $model->addError('', 'This table is already booked!');
                 } else {
                     $model->save();

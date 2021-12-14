@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'ocupancy_state')->dropDownList([ 'occupied' => 'Occupied', 'free' => 'Free', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'state')->dropDownList([ 'occupied' => 'Occupied', 'free' => 'Free', 'reserved' => 'Reserved' ], ['prompt' => '']) ?>
 
 
     <div class="form-group">
