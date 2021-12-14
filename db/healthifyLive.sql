@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 10, 2021 at 11:00 AM
+-- Generation Time: Dec 14, 2021 at 04:16 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -20,6 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `healthify`
 --
+
 drop database IF EXISTS healthify;
 create database healthify;
 use healthify;
@@ -221,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `meals` (
   `categoryid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_meals_id_category` (`categoryid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `meals`
@@ -316,20 +317,13 @@ DROP TABLE IF EXISTS `reservations`;
 CREATE TABLE IF NOT EXISTS `reservations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `reservedday` date NOT NULL,
-  `reservedtime` enum('12:00','12:30','13:00','13:30','14:00','14:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30') NOT NULL,
+  `reservedtime` enum('almoco','jantar') NOT NULL,
   `userprofilesid` int(11) NOT NULL,
   `tableid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_id` (`userprofilesid`),
   KEY `fk_table_id` (`tableid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `reservations`
---
-
-INSERT INTO `reservations` (`id`, `reservedday`, `reservedtime`, `userprofilesid`, `tableid`) VALUES
-(3, '2021-12-08', '13:30', 9, 1);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -414,7 +408,7 @@ CREATE TABLE IF NOT EXISTS `schedules` (
 DROP TABLE IF EXISTS `tables`;
 CREATE TABLE IF NOT EXISTS `tables` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ocupancy_state` set('occupied','free') NOT NULL,
+  `state` enum('occupied','free','reserved') NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
@@ -422,7 +416,7 @@ CREATE TABLE IF NOT EXISTS `tables` (
 -- Dumping data for table `tables`
 --
 
-INSERT INTO `tables` (`id`, `ocupancy_state`) VALUES
+INSERT INTO `tables` (`id`, `state`) VALUES
 (1, 'free'),
 (2, 'occupied');
 
