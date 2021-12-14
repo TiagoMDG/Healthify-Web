@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use app\models\AuthAssignment;
-use app\models\User;
+use common\models\User;
 use backend\models\UserCreateForm;
 use Yii;
 use yii\web\Controller;

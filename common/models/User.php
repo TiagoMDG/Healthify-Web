@@ -154,10 +154,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     public function getRole($userId){
-
-        $findRole = AuthAssignment::findone(['user_id' =>$userId]);
-        return $findRole->getAttribute('item_name');
-
+        return AuthAssignment::findone(['user_id' =>$userId]);
     }
 
     /**
