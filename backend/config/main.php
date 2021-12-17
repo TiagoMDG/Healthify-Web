@@ -18,7 +18,6 @@ return [
     ],
     'components' => [
         'request' => [
-            'csrfParam' => '_csrf-backend',
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
             ]
@@ -28,7 +27,17 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api\user'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'user',
+                    'extraPatterns'=>['GET set/{id}'=>'set'],
+                ],
+
+
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'login',
+                    'extraPatterns'=>['GET user/{username}&{password}'=>'user'
+                        ],
+                ],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api\first\logout'],
+
             ],
         ],
 
@@ -52,8 +61,8 @@ return [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
-        ],
+            ],
+
     ],
     'params' => $params,
-
 ];
