@@ -20,7 +20,7 @@ class FirstController extends Controller
                 $hash = User::findByUsername($jsonPost['username']);
 
                 if (Yii::$app->getSecurity()->validatePassword($jsonPost['password'], $hash->password_hash)) {
-                    $jsonResponse = User::findByUsername($jsonPost['username'])->getAuthKey();
+                    $jsonResponse = array('token'=>User::findByUsername($jsonPost['username'])->getAuthKey());
                 } else {
                     $jsonResponse = "Login Failed, Wrong Password";
                 }
