@@ -21,7 +21,7 @@ $this->title = $model->name;
                             <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Admin"
                                  class="rounded-circle" width="150">
                             <div class="mt-3">
-                                <p class="text-secondary mb-1"><?php echo $model->name ?></p>
+                                <p class="text-black mb-1"><?php echo $model->name ?></p>
                             </div>
                         </div>
                     </div>
@@ -32,18 +32,19 @@ $this->title = $model->name;
                     <div class="card-body">
 
                         <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Full Name</h6>
+                            <div class="col-sm-9 text-black">
+                                <p>Nome</p>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 <?php echo $model->name ?>
                             </div>
                         </div>
+
                         <hr>
 
                         <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Nif</h6>
+                            <div class="col-sm-9 text-black">
+                                <p>NIF</p>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 <?php echo $model->nif ?>
@@ -52,8 +53,8 @@ $this->title = $model->name;
                         <hr>
 
                         <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Phone</h6>
+                            <div class="col-sm-9 text-black">
+                                <p>Nº Telemóvel</p>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 <?php echo $model->cellphone ?>
@@ -62,20 +63,21 @@ $this->title = $model->name;
                         <hr>
 
                         <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Address</h6>
+                            <div class="col-sm-9 text-black">
+                                <p>Morada</p>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Rua <?php echo $model->street ?>, <?php echo $model->floor ?> Nº <?php echo $model->door ?>, <?php echo $model->city ?>
+                                <?php echo $model->street ?>, <?php echo $model->floor ?> Nº <?php echo $model->door ?>, <?php echo $model->city ?>
                             </div>
                         </div>
                         <hr>
+
                         <?php
                         $menuItems[] = '<li>'
                             . Html::beginForm(['/userprofile/update','id'=>$model->id], 'post', ['class' => 'form-inline'])
                             . Html::submitButton(
-                            'Atulizar Informação',
-                            ['class' => 'btn btn-secondary']
+                            'Atualizar Informação',
+                            ['class' => 'btn btn-primary']
                             )
                             . Html::endForm()
                             . '</li>';

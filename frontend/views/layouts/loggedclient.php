@@ -21,6 +21,8 @@ $customImg = CustomImg::register($this);
 
 $nome = Yii::$app->getUser()->identity->getName();
 
+$id = Yii::$app->getUser()->identity->getId();
+
 $imgsrc = $customImg->baseUrl . '/menuBg.jpg';
 
 ?>
@@ -52,7 +54,7 @@ $imgsrc = $customImg->baseUrl . '/menuBg.jpg';
         $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Perfil', 'url' => ['/userprofile/user']],
-            ['label' => 'Reservas', 'url' => ['/reserves/index']],
+            ['label' => 'Reservas', 'url' => ['/reservations/index']],
         ];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])

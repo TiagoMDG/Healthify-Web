@@ -47,9 +47,12 @@ class Userprofile extends \yii\db\ActiveRecord
         return [
             [['nif', 'name', 'cellphone', 'street', 'door', 'city', 'userid'], 'required'],
             [['nif', 'cellphone', 'door', 'floor', 'userid'], 'integer'],
-            [['name', 'street'], 'string', 'max' => 20],
-            [['city'], 'string', 'max' => 15],
+            [['name', 'street'], 'string', 'max' => 80],
+            [['city'], 'string', 'max' => 50],
             [['nib'], 'string', 'max' => 25],
+            [['nif'], 'string', 'max' => 9],
+            [['street'], 'string', 'max' => 50],
+            [['cellphone'], 'string', 'max' => 9],
             [['userid'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['userid' => 'id']],
         ];
     }
@@ -61,14 +64,14 @@ class Userprofile extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nif' => 'Nif',
+            'nif' => 'NIF',
             'name' => 'Nome',
             'cellphone' => 'Nº Telemóvel',
             'street' => 'Rua',
             'door' => 'Nº Porta',
             'floor' => 'Andar',
             'city' => 'Cidade',
-            'nib' => 'Nib',
+            'nib' => 'NIB',
             'userid' => 'Userid',
         ];
     }

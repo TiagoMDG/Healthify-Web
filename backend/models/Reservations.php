@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use common\models\User;
 use Yii;
 
 /**
@@ -47,11 +48,11 @@ class Reservations extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'reservedday' => 'Reservedday',
-            'reservedtime' => 'Reservedtime',
-            'userprofilesid' => 'Userprofilesid',
-            'tableid' => 'Tableid',
+            'id' => 'ID da Reserva',
+            'reservedday' => 'Dia Reservado',
+            'reservedtime' => 'Hora Reservada',
+            'userprofilesid' => 'Cliente',
+            'tableid' => 'ID Mesa',
         ];
     }
 

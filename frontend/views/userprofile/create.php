@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Userprofile */
 //* @var $userid app\models\Userprofile */
 
-$this->title = 'Completao inscrição';
+$this->title = 'Complete a inscrição';
 ?>
 <div class="userprofile-create">
 

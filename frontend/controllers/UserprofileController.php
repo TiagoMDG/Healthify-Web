@@ -83,16 +83,20 @@ class UserprofileController extends Controller
     {
         $model = new Userprofile();
 
+        $this->layout = 'loggedclient';
+
         $userid = Yii::$app->user->identity->getId();
         $username = Yii::$app->user->identity->username;
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post()) && $model->validate()) {
+                $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
         }
+
 
         return $this->render('create', [
             'model' => $model,

@@ -114,7 +114,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect(['userprofile/user']);
         }
 
         $model->password = '';
@@ -188,7 +188,9 @@ class SiteController extends Controller
         $model = new SignupForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Obrigado pelo seu registo. Por favor complete as suas informaçoes.');
+
+            Yii::$app->getSession()->addFlash('success', 'Obrigado pelo seu registo! Pode fazer login.');
+            return Yii::$app->getResponse()->redirect(['site/login']);
 
         }
         return $this->render('signup', [
