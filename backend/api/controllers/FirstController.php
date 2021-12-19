@@ -2,6 +2,8 @@
 
 namespace backend\api\controllers;
 
+use backend\api\models\UserCreateForm;
+use backend\api\models\Userprofile;
 use Yii;
 use yii\helpers\Json;
 use yii\rest\Controller;
@@ -11,8 +13,12 @@ class FirstController extends Controller
 {
     public $modelClass = 'common\models\User';
 
+    public function getPost(){
+        return Yii::$app->request->post();
+    }
+
     public function actionLogin(){
-        $jsonPost = Yii::$app->request->post();
+        $jsonPost = $this->getPost();
 
         if($jsonPost !== null&&$jsonPost['username']&&$jsonPost['password']){
 
@@ -32,27 +38,32 @@ class FirstController extends Controller
         return Json::encode($jsonResponse);
     }
 
-    public function actionLogout(){
-        return  Yii::$app->user->logout();
-    }
+    public function actionRegister(){
+        $jsonPost = $this->getPost();
+        if (User::findByUsername($jsonPost['username'])==null&&User::find()->where(['email'=>$jsonPost['email']])->one()==null) {
+            $modelNewUser = new UserCreateForm();
+            $modelNewUser->username = $jsonPost['username'];
+            $modelNewUser->email = $jsonPost['email'];
+            $modelNewUser->password = $jsonPost['password'];
 
-
-    /*public function behaviors()
-    {
-        $behaviors = parent::behaviors();
-        $behaviors['authenticator'] = [
-            'class' => HttpBasicAuth::className(),
-            'auth' => [$this, 'auth']
-        ];
-        return $behaviors;
-    }
-
-    public function auth($username, $password)
-    {
-        $user = User::findByUsername($username);
-        if ($user && $user->validatePassword($password))
-        {
-            return $user->getId();
+            $modelNewUser->signup();
+            $user=User::findByUsername($jsonPost['username']);
+            return  json_encode(array('message'=>$user->id));
         }
-    }*/
+        return  json_encode(array('message'=>'Utilizador ja existe'));
+    }
+
+    public function actionLogout(){
+        Yii::$app->user->logout();
+
+        return  array('success'=>true,'status'=>'true');
+    }
+
+    public function actionDeleteAccount(){
+        $jsonPost = $this->getPost();
+
+        return  User::findOne(['id'=>$jsonPost['id']])->delete();
+    }
+
+
 }

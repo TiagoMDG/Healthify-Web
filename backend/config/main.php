@@ -28,15 +28,15 @@ return [
             'showScriptName' => false,
             'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'user',
-                    'extraPatterns'=>['GET set/{id}'=>'set'],
-                ],
-
-
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'login',
-                    'extraPatterns'=>['GET user/{username}&{password}'=>'user'
+                    'pluralize' => false,
+                    'extraPatterns'=>[
+                        'GET user/{id}'=>'id',
+                        'GET set/{id}'=>'set',
                         ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
+                    ],
                 ],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'api\first\logout'],
 
             ],
         ],
