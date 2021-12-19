@@ -25,14 +25,6 @@ drop database IF EXISTS healthify;
 create database healthify;
 use healthify;
 
-DROP TABLE IF EXISTS `calendar`;
-CREATE TABLE IF NOT EXISTS `calendar` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Date',
-  `val` int(11) NOT NULL COMMENT 'Value',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- --------------------------------------------------------
 
 --
