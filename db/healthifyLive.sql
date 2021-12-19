@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Dec 14, 2021 at 04:16 PM
--- Server version: 5.7.31
--- PHP Version: 7.3.21
+-- Host: localhost
+-- Generation Time: Dec 19, 2021 at 04:25 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,27 +25,16 @@ drop database IF EXISTS healthify;
 create database healthify;
 use healthify;
 
-DROP TABLE IF EXISTS `calendar`;
-CREATE TABLE IF NOT EXISTS `calendar` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Date',
-  `val` int(11) NOT NULL COMMENT 'Value',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `auth_assignment`
 --
 
-DROP TABLE IF EXISTS `auth_assignment`;
-CREATE TABLE IF NOT EXISTS `auth_assignment` (
+CREATE TABLE `auth_assignment` (
   `item_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`item_name`,`user_id`),
-  KEY `idx-auth_assignment-user_id` (`user_id`)
+  `created_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -64,7 +53,7 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('client', '15', 1637602659),
 ('client', '16', 1638458790),
 ('client', '4', 1636111142),
-('staff', '2', 1636391102),
+('staff', '2', 1639517856),
 ('staff', '9', 1636546059);
 
 -- --------------------------------------------------------
@@ -73,18 +62,14 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 -- Table structure for table `auth_item`
 --
 
-DROP TABLE IF EXISTS `auth_item`;
-CREATE TABLE IF NOT EXISTS `auth_item` (
+CREATE TABLE `auth_item` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `type` smallint(6) NOT NULL,
-  `description` text COLLATE utf8_unicode_ci,
+  `description` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `rule_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `data` blob,
+  `data` blob DEFAULT NULL,
   `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`name`),
-  KEY `rule_name` (`rule_name`),
-  KEY `idx-auth_item-type` (`type`)
+  `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -106,12 +91,9 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 -- Table structure for table `auth_item_child`
 --
 
-DROP TABLE IF EXISTS `auth_item_child`;
-CREATE TABLE IF NOT EXISTS `auth_item_child` (
+CREATE TABLE `auth_item_child` (
   `parent` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`parent`,`child`),
-  KEY `child` (`child`)
+  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -120,11 +102,11 @@ CREATE TABLE IF NOT EXISTS `auth_item_child` (
 
 INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('admin', 'accessBackend'),
-('chef', 'accessBackend'),
-('staff', 'accessBackend'),
-('client', 'createPost'),
 ('admin', 'staff'),
-('admin', 'updatePost');
+('admin', 'updatePost'),
+('chef', 'accessBackend'),
+('client', 'createPost'),
+('staff', 'accessBackend');
 
 -- --------------------------------------------------------
 
@@ -132,14 +114,24 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 -- Table structure for table `auth_rule`
 --
 
-DROP TABLE IF EXISTS `auth_rule`;
-CREATE TABLE IF NOT EXISTS `auth_rule` (
+CREATE TABLE `auth_rule` (
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `data` blob,
+  `data` blob DEFAULT NULL,
   `created_at` int(11) DEFAULT NULL,
-  `updated_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`name`)
+  `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `calendar`
+--
+
+CREATE TABLE `calendar` (
+  `id` int(11) NOT NULL COMMENT 'ID',
+  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Date',
+  `val` int(11) NOT NULL COMMENT 'Value'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -147,13 +139,11 @@ CREATE TABLE IF NOT EXISTS `auth_rule` (
 -- Table structure for table `category`
 --
 
-DROP TABLE IF EXISTS `category`;
-CREATE TABLE IF NOT EXISTS `category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  `description` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `category`
@@ -174,15 +164,13 @@ INSERT INTO `category` (`id`, `name`, `description`) VALUES
 -- Table structure for table `inforestaurants`
 --
 
-DROP TABLE IF EXISTS `inforestaurants`;
-CREATE TABLE IF NOT EXISTS `inforestaurants` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `inforestaurants` (
+  `id` int(11) NOT NULL,
   `name` varchar(15) NOT NULL,
   `adress` varchar(75) NOT NULL,
   `celphone` int(9) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `nif` int(9) NOT NULL,
-  PRIMARY KEY (`id`)
+  `nif` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -191,9 +179,8 @@ CREATE TABLE IF NOT EXISTS `inforestaurants` (
 -- Table structure for table `ingredients`
 --
 
-DROP TABLE IF EXISTS `ingredients`;
-CREATE TABLE IF NOT EXISTS `ingredients` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ingredients` (
+  `id` int(11) NOT NULL,
   `name` varchar(15) NOT NULL,
   `sugar_g` float NOT NULL,
   `calories` float NOT NULL,
@@ -202,9 +189,8 @@ CREATE TABLE IF NOT EXISTS `ingredients` (
   `fat_saturated_g` float NOT NULL,
   `fat_total_g` float NOT NULL,
   `fiber_g` float NOT NULL,
-  `cholesterol_mg` float NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `cholesterol_mg` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ingredients`
@@ -221,16 +207,13 @@ INSERT INTO `ingredients` (`id`, `name`, `sugar_g`, `calories`, `protein_g`, `ca
 -- Table structure for table `meals`
 --
 
-DROP TABLE IF EXISTS `meals`;
-CREATE TABLE IF NOT EXISTS `meals` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `meals` (
+  `id` int(11) NOT NULL,
   `name` varchar(40) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `description` varchar(100) DEFAULT NULL,
-  `categoryid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_meals_id_category` (`categoryid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `categoryid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `meals`
@@ -246,9 +229,8 @@ INSERT INTO `meals` (`id`, `name`, `price`, `description`, `categoryid`) VALUES
 -- Table structure for table `meal_ingredients`
 --
 
-DROP TABLE IF EXISTS `meal_ingredients`;
-CREATE TABLE IF NOT EXISTS `meal_ingredients` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `meal_ingredients` (
+  `id` int(11) NOT NULL,
   `serving_size_g` float DEFAULT NULL,
   `total_sugar_g` float NOT NULL,
   `total_calories` float NOT NULL,
@@ -259,11 +241,8 @@ CREATE TABLE IF NOT EXISTS `meal_ingredients` (
   `total_fiber_g` float NOT NULL,
   `total_cholesterol_mg` float NOT NULL,
   `mealsid` int(11) NOT NULL,
-  `ingredientsid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_ingredientsid_mealingredients` (`ingredientsid`),
-  KEY `fk_meals_id_mealingredients` (`mealsid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `ingredientsid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `meal_ingredients`
@@ -280,11 +259,9 @@ INSERT INTO `meal_ingredients` (`id`, `serving_size_g`, `total_sugar_g`, `total_
 -- Table structure for table `migration`
 --
 
-DROP TABLE IF EXISTS `migration`;
-CREATE TABLE IF NOT EXISTS `migration` (
+CREATE TABLE `migration` (
   `version` varchar(180) NOT NULL,
-  `apply_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`version`)
+  `apply_time` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -306,13 +283,10 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 -- Table structure for table `minerals`
 --
 
-DROP TABLE IF EXISTS `minerals`;
-CREATE TABLE IF NOT EXISTS `minerals` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `minerals` (
+  `id` int(11) NOT NULL,
   `name` int(11) NOT NULL,
-  `ingredientsid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_ingredientsid_minerals` (`ingredientsid`)
+  `ingredientsid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -321,17 +295,21 @@ CREATE TABLE IF NOT EXISTS `minerals` (
 -- Table structure for table `reservations`
 --
 
-DROP TABLE IF EXISTS `reservations`;
-CREATE TABLE IF NOT EXISTS `reservations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `reservations` (
+  `id` int(11) NOT NULL,
   `reservedday` date NOT NULL,
   `reservedtime` enum('almoco','jantar') NOT NULL,
   `userprofilesid` int(11) NOT NULL,
-  `tableid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_userprofile_id` (`userprofilesid`),
-  KEY `fk_table_id` (`tableid`)
+  `tableid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `reservations`
+--
+
+INSERT INTO `reservations` (`id`, `reservedday`, `reservedtime`, `userprofilesid`, `tableid`) VALUES
+(4, '2021-12-17', 'almoco', 9, 1),
+(5, '2021-12-17', 'almoco', 5, 2);
 
 -- --------------------------------------------------------
 
@@ -339,16 +317,13 @@ CREATE TABLE IF NOT EXISTS `reservations` (
 -- Table structure for table `reviews`
 --
 
-DROP TABLE IF EXISTS `reviews`;
-CREATE TABLE IF NOT EXISTS `reviews` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `reviews` (
+  `id` int(11) NOT NULL,
   `rating` decimal(1,0) DEFAULT NULL,
   `review` varchar(255) DEFAULT NULL,
   `userprofilesid` int(11) NOT NULL,
-  `salesmealsid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_userprofile_id_reviews` (`userprofilesid`),
-  KEY `fk_salesmeals_id` (`salesmealsid`)
+  `sales_mealsidsales` int(11) NOT NULL,
+  `sales_mealsidmeal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -357,18 +332,15 @@ CREATE TABLE IF NOT EXISTS `reviews` (
 -- Table structure for table `sales`
 --
 
-DROP TABLE IF EXISTS `sales`;
-CREATE TABLE IF NOT EXISTS `sales` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sales` (
+  `id` int(11) NOT NULL,
   `salesday` timestamp NULL DEFAULT NULL,
   `precototal` decimal(10,2) NOT NULL,
   `discount` decimal(10,2) DEFAULT NULL,
   `paidamount` decimal(10,2) DEFAULT NULL,
   `paymentmethod` set('cash','card') DEFAULT NULL,
   `paymentstate` varchar(11) NOT NULL,
-  `userprofilesid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_userprofile_id_sales` (`userprofilesid`)
+  `userprofilesid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -377,16 +349,11 @@ CREATE TABLE IF NOT EXISTS `sales` (
 -- Table structure for table `sales_meals`
 --
 
-DROP TABLE IF EXISTS `sales_meals`;
-CREATE TABLE IF NOT EXISTS `sales_meals` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`salesid` int(11) NOT NULL,
-	`mealid` int(11) NOT NULL,
-	`sellingprice` decimal(10,2) NOT NULL,
-	`itemquantity` int(11) NOT NULL,
-    PRIMARY KEY (`id`),
-	KEY `fk_meal_id_salesmeals` (`mealid`),
-	KEY `fk_sales_id_salesmeals` (`salesid`)
+CREATE TABLE `sales_meals` (
+  `salesid` int(11) NOT NULL,
+  `mealid` int(11) NOT NULL,
+  `sellingprice` decimal(10,2) NOT NULL,
+  `itemquantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -395,16 +362,14 @@ CREATE TABLE IF NOT EXISTS `sales_meals` (
 -- Table structure for table `schedules`
 --
 
-DROP TABLE IF EXISTS `schedules`;
-CREATE TABLE IF NOT EXISTS `schedules` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `schedules` (
+  `id` int(11) NOT NULL,
   `day` date NOT NULL,
   `weekday` varchar(10) NOT NULL,
   `firstentry` time NOT NULL,
   `firstexit` time NOT NULL,
   `secondentry` time NOT NULL,
-  `secondexit` time NOT NULL,
-  PRIMARY KEY (`id`)
+  `secondexit` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -413,12 +378,10 @@ CREATE TABLE IF NOT EXISTS `schedules` (
 -- Table structure for table `tables`
 --
 
-DROP TABLE IF EXISTS `tables`;
-CREATE TABLE IF NOT EXISTS `tables` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `state` enum('occupied','free','reserved') NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+CREATE TABLE `tables` (
+  `id` int(11) NOT NULL,
+  `state` set('occupied','free','reserved') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tables`
@@ -434,23 +397,18 @@ INSERT INTO `tables` (`id`, `state`) VALUES
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `status` smallint(6) NOT NULL DEFAULT '10',
+  `status` smallint(6) NOT NULL DEFAULT 10,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
-  `verification_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `verification_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `user`
@@ -474,9 +432,8 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 -- Table structure for table `userprofiles`
 --
 
-DROP TABLE IF EXISTS `userprofiles`;
-CREATE TABLE IF NOT EXISTS `userprofiles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `userprofiles` (
+  `id` int(11) NOT NULL,
   `nif` int(9) NOT NULL,
   `name` varchar(20) NOT NULL,
   `cellphone` int(9) NOT NULL,
@@ -485,10 +442,8 @@ CREATE TABLE IF NOT EXISTS `userprofiles` (
   `floor` int(11) DEFAULT NULL,
   `city` varchar(15) NOT NULL,
   `nib` char(25) DEFAULT NULL,
-  `userid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_user_id` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `userid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `userprofiles`
@@ -504,16 +459,12 @@ INSERT INTO `userprofiles` (`id`, `nif`, `name`, `cellphone`, `street`, `door`, 
 -- Table structure for table `userschedulesregistry`
 --
 
-DROP TABLE IF EXISTS `userschedulesregistry`;
-CREATE TABLE IF NOT EXISTS `userschedulesregistry` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `userschedulesregistry` (
+  `id` int(11) NOT NULL,
   `employee_entry` datetime NOT NULL,
   `employee_exit` datetime NOT NULL,
   `userprofilesid` int(11) NOT NULL,
-  `schedulesid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_schedules_id` (`schedulesid`),
-  KEY `fk_userprofiles_id` (`userprofilesid`)
+  `schedulesid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -522,14 +473,269 @@ CREATE TABLE IF NOT EXISTS `userschedulesregistry` (
 -- Table structure for table `vitamins`
 --
 
-DROP TABLE IF EXISTS `vitamins`;
-CREATE TABLE IF NOT EXISTS `vitamins` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `vitamins` (
+  `id` int(11) NOT NULL,
   `name` int(11) NOT NULL,
-  `ingredientsid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_ingredientsid_vitamins` (`ingredientsid`)
+  `ingredientsid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD PRIMARY KEY (`item_name`,`user_id`),
+  ADD KEY `idx-auth_assignment-user_id` (`user_id`);
+
+--
+-- Indexes for table `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD PRIMARY KEY (`name`),
+  ADD KEY `rule_name` (`rule_name`),
+  ADD KEY `idx-auth_item-type` (`type`);
+
+--
+-- Indexes for table `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD PRIMARY KEY (`parent`,`child`),
+  ADD KEY `child` (`child`);
+
+--
+-- Indexes for table `auth_rule`
+--
+ALTER TABLE `auth_rule`
+  ADD PRIMARY KEY (`name`);
+
+--
+-- Indexes for table `calendar`
+--
+ALTER TABLE `calendar`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `inforestaurants`
+--
+ALTER TABLE `inforestaurants`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ingredients`
+--
+ALTER TABLE `ingredients`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `meals`
+--
+ALTER TABLE `meals`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_meals_id_category` (`categoryid`);
+
+--
+-- Indexes for table `meal_ingredients`
+--
+ALTER TABLE `meal_ingredients`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_ingredientsid_mealingredients` (`ingredientsid`),
+  ADD KEY `fk_meals_id_mealingredients` (`mealsid`);
+
+--
+-- Indexes for table `migration`
+--
+ALTER TABLE `migration`
+  ADD PRIMARY KEY (`version`);
+
+--
+-- Indexes for table `minerals`
+--
+ALTER TABLE `minerals`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_ingredientsid_minerals` (`ingredientsid`);
+
+--
+-- Indexes for table `reservations`
+--
+ALTER TABLE `reservations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_userprofile_id` (`userprofilesid`),
+  ADD KEY `fk_table_id` (`tableid`);
+
+--
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_userprofile_id_reviews` (`userprofilesid`),
+  ADD KEY `fk_salesmeals_idmeal_reviews` (`sales_mealsidmeal`),
+  ADD KEY `fk_salesmeals_idsales_reviews` (`sales_mealsidsales`);
+
+--
+-- Indexes for table `sales`
+--
+ALTER TABLE `sales`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_userprofile_id_sales` (`userprofilesid`);
+
+--
+-- Indexes for table `sales_meals`
+--
+ALTER TABLE `sales_meals`
+  ADD KEY `fk_meal_id_salesmeals` (`mealid`),
+  ADD KEY `fk_sales_id_salesmeals` (`salesid`);
+
+--
+-- Indexes for table `schedules`
+--
+ALTER TABLE `schedules`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tables`
+--
+ALTER TABLE `tables`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
+
+--
+-- Indexes for table `userprofiles`
+--
+ALTER TABLE `userprofiles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user_id` (`userid`);
+
+--
+-- Indexes for table `userschedulesregistry`
+--
+ALTER TABLE `userschedulesregistry`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_schedules_id` (`schedulesid`),
+  ADD KEY `fk_userprofiles_id` (`userprofilesid`);
+
+--
+-- Indexes for table `vitamins`
+--
+ALTER TABLE `vitamins`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_ingredientsid_vitamins` (`ingredientsid`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `calendar`
+--
+ALTER TABLE `calendar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID';
+
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `inforestaurants`
+--
+ALTER TABLE `inforestaurants`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ingredients`
+--
+ALTER TABLE `ingredients`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `meals`
+--
+ALTER TABLE `meals`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `meal_ingredients`
+--
+ALTER TABLE `meal_ingredients`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `minerals`
+--
+ALTER TABLE `minerals`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `reservations`
+--
+ALTER TABLE `reservations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sales`
+--
+ALTER TABLE `sales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `schedules`
+--
+ALTER TABLE `schedules`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tables`
+--
+ALTER TABLE `tables`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `userprofiles`
+--
+ALTER TABLE `userprofiles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `userschedulesregistry`
+--
+ALTER TABLE `userschedulesregistry`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `vitamins`
+--
+ALTER TABLE `vitamins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -564,8 +770,9 @@ ALTER TABLE `reservations`
 --
 -- Constraints for table `reviews`
 --
-ALTER TABLE `reviews` `fk_salesmeals_id` (`sales_mealsid`)
-  ADD CONSTRAINT `fk_salesmeals_id` FOREIGN KEY (`sales_mealsid`) REFERENCES `sales_meals` (`id`),
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `fk_salesmeals_idmeal_reviews` FOREIGN KEY (`sales_mealsidmeal`) REFERENCES `sales_meals` (`mealid`),
+  ADD CONSTRAINT `fk_salesmeals_idsales_reviews` FOREIGN KEY (`sales_mealsidsales`) REFERENCES `sales_meals` (`salesid`),
   ADD CONSTRAINT `fk_userprofile_id_reviews` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`);
 
 --
