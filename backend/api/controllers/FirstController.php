@@ -47,10 +47,12 @@ class FirstController extends Controller
             $modelNewUser->password = $jsonPost['password'];
 
             $modelNewUser->signup();
-            $user=User::findByUsername($jsonPost['username']);
-            return  json_encode(array('message'=>$user->id));
-        }
-        return  json_encode(array('message'=>'Utilizador ja existe'));
+            $user = User::findByUsername($jsonPost['username']);
+            $jsonResponse =  json_encode(array('message'=>$user->id));
+        }else
+            $jsonResponse = array('message'=>'failled');
+
+        return  json_encode($jsonResponse);
     }
 
     public function actionLogout(){

@@ -18,6 +18,7 @@ return [
     ],
     'components' => [
         'request' => [
+
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
             ]
@@ -27,17 +28,8 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'user',
-                    'pluralize' => false,
-                    'extraPatterns'=>[
-                        'GET user/{id}'=>'id',
-                        'GET set/{id}'=>'set',
-                        ],
-                    'tokens' => [
-                        '{id}' => '<id:\\d+>',
-                    ],
-                ],
-
+                ['class' => '\yii\rest\UrlRule', 'controller' =>'api/user','pluralize' => false],
+                ['class' => '\yii\rest\UrlRule', 'controller' =>'api/profile','pluralize' => false],
             ],
         ],
 
