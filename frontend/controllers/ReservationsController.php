@@ -72,7 +72,7 @@ class ReservationsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($userid)
     {
         $model = new Reservations();
 
@@ -86,6 +86,7 @@ class ReservationsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'userid' => $userid,
         ]);
     }
 

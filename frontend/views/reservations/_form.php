@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -12,7 +13,10 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'reservedday')->textInput() ?>
+    <?= $form->field($model, 'reservedday')->widget(DatePicker::classname(), [
+        'dateFormat' => 'yyyy-MM-dd',
+        'options' => ['class' => 'form-control'],
+    ]) ?>
 
     <?= $form->field($model, 'reservedtime')->dropDownList([ 'almoco' => 'Almoco', 'jantar' => 'Jantar', ], ['prompt' => '']) ?>
 
