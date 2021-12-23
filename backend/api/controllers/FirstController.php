@@ -48,7 +48,7 @@ class FirstController extends Controller
 
             $modelNewUser->signup();
             $user = User::findByUsername($jsonPost['username']);
-            $jsonResponse =  json_encode(array('message'=>$user->id));
+            $jsonResponse =  json_encode(array('success'=>true,'message'=>$user->id));
         }else
             $jsonResponse = array('message'=>'failled');
 
