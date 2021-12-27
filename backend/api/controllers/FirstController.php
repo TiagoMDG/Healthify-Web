@@ -20,15 +20,16 @@ class FirstController extends Controller
     public function actionLogin(){
         $jsonPost = $this->getPost();
 
-        if($jsonPost !== null&&$jsonPost['username']&&$jsonPost['password']){
+        if($jsonPost !== null&&$jsonPost['email']&&$jsonPost['password']){
 
-            if (User::findByUsername($jsonPost['username'])){
-                $hash = User::findByUsername($jsonPost['username']);
+            if (User::find()->where(["email"=>$jsonPost['email']])->one()){
+                $user=User::find()->where(["email"=>$jsonPost['email']])->one();
+                $hash = User::findByUsername($user->getAttribute("username"));
 
                 if (Yii::$app->getSecurity()->validatePassword($jsonPost['password'], $hash->password_hash)) {
-                    $jsonResponse = array('success'=>true,'token'=>User::findByUsername($jsonPost['username'])->getAuthKey());
+                    $jsonResponse = array('success'=>true,'token'=>User::findByUsername($user->getAttribute("username"))->getAuthKey());
                 } else {
-                    $jsonResponse = "Login Failed, Wrong Password";
+                    $jsonResponse = "Login Failed";
                 }
             }
         }else{
@@ -48,7 +49,7 @@ class FirstController extends Controller
 
             $modelNewUser->signup();
             $user = User::findByUsername($jsonPost['username']);
-            $jsonResponse =  json_encode(array('success'=>true,'message'=>$user->id));
+            $jsonResponse =  array('success'=>true ,'id'=>$user->id ,'username'=>$user->username ,'email'=>$user->email);
         }else
             $jsonResponse = array('message'=>'failled');
 
