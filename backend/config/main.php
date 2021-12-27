@@ -29,6 +29,21 @@ return [
             'rules' => [
                 ['class' => '\yii\rest\UrlRule', 'controller' =>'api/user','pluralize' => false],
                 ['class' => '\yii\rest\UrlRule', 'controller' =>'api/profile','pluralize' => false],
+                ['class' => '\yii\rest\UrlRule', 'controller' =>'api/review','pluralize' => false,
+                    'extraPatterns' => ['GET fromuser/{id}'=> 'fromuser',],
+                ],
+                ['class' => '\yii\rest\UrlRule', 'controller' =>'api/payment','pluralize' => false,
+                    'extraPatterns' => ['POST {id}/pay/{card}'=> 'pay',
+                        //tokens destroy funcionamento da gii
+                        /*'tokens'=>[     '{id}' => '<id:\\d+>',
+                                        '{card}'=>'<card:\\d+>',
+                            ],*/
+                        ],
+                ],
+                ['class' => '\yii\rest\UrlRule', 'controller' =>'api/workedtime','pluralize' => false,
+                    'extraPatterns' => ['GET workedtime/{id}'=> 'workedtime',
+                        'POST attendance/{id}'=> 'attendance'],
+                ],
             ],
         ],
 

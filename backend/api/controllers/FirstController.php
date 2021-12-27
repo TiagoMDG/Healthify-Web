@@ -3,11 +3,12 @@
 namespace backend\api\controllers;
 
 use backend\api\models\UserCreateForm;
-use backend\api\models\Userprofile;
 use Yii;
 use yii\helpers\Json;
 use yii\rest\Controller;
 use common\models\User;
+
+//classe controla  os acessos dos utilizadores ás areas restritas do site e contas dos mesmos
 
 class FirstController extends Controller
 {
@@ -53,7 +54,7 @@ class FirstController extends Controller
         }else
             $jsonResponse = array('message'=>'failled');
 
-        return  json_encode($jsonResponse);
+        return  Json::encode($jsonResponse);
     }
 
     public function actionLogout(){
@@ -62,10 +63,10 @@ class FirstController extends Controller
         return  array('success'=>true,'status'=>'true');
     }
 
-    public function actionDeleteAccount(){
+    public function actionDelete(){
         $jsonPost = $this->getPost();
 
-        return  User::findOne(['id'=>$jsonPost['id']])->delete();
+        return  Json::encode(User::findOne(['id'=>$jsonPost['id']])->delete());
     }
 
 
