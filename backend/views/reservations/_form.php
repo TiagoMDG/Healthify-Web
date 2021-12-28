@@ -34,6 +34,8 @@ $listTables = ArrayHelper::map($tables, 'id', 'id');
 
     <?= $form->field($model, 'userprofilesid')->dropDownList($listUsers, ['prompt' => 'Select...'])->label('Client'); ?>
 
+    <?= $form->field($model, 'state')->hiddenInput(['value'=>'active'])->label(false); ?>
+
     <?= $form->field($model, 'tableid')->dropDownList($listTables, ['prompt' => 'Select...'])->label('Table'); ?>
 
     <div class="form-group">

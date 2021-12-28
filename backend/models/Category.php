@@ -84,6 +84,15 @@ class Category extends \yii\db\ActiveRecord
         return Category::find()->where(['name'=>$nome])->one()->getAttribute('id');
     }
 
+    public static function getCategoriesCount()
+    {
+        $categories = Category::find()->all();
+
+        $count = count($categories);
+
+        return $count;
+    }
+
     /**
      * Gets query for [[Meals]].
      *

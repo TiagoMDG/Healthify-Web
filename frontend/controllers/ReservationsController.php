@@ -42,15 +42,41 @@ class ReservationsController extends Controller
 
         $userid = Yii::$app->user->identity->getId();
 
+        return $this->render('index', [
+            'userid' => $userid,
+        ]);
+    }
+
+    public function actionActivereserves($userid)
+    {
         $searchModel = new ReservationsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        $dataProvider->query->andWhere(['userprofilesid'=>$userid]);
+        $dataProvider->query->andWhere(['userprofilesid' => $userid]);
+        $dataProvider->query->andFilterCompare ( 'reservedday', date("Y/m/d"), '>=' );
 
-        return $this->render('index', [
+        $this->layout = false;
+
+
+        return $this->render('reservas', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'userid' => $userid,
+        ]);
+    }
+
+    public function actionPastreserves($userid)
+    {
+        $searchModel = new ReservationsSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        $dataProvider->query->andWhere(['userprofilesid' => $userid])->andFilterCompare ( 'reservedday', date("Y/m/d"), '<' );
+
+        $this->layout = false;
+
+
+        return $this->render('reservas', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

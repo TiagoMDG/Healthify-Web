@@ -20,7 +20,13 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "hail812/yii2-adminlte3": "^1.0",
         "yiisoft/yii2-jui": "^2.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "practically/yii2-chartjs": "^1.1",
+        "bower-asset/chart-js": "^3.6",
+        "nnnick/chartjs": "^3.6",
+        "miloschuman/yii2-highcharts-widget": "*",
+        "kartik-v/yii2-tabs-x": "dev-master",
+        "yiisoft/yii2-bootstrap": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

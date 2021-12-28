@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\jui\Tabs;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ReservationsSearch */
@@ -12,7 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="reservations-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Create Reservations', ['create'], ['class' => 'btn btn-success']) ?>
@@ -20,21 +20,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?php
 
-            'id',
-            'reservedday',
-            'reservedtime',
-            'userprofilesid',
-            'tableid',
-
-            ['class' => 'yii\grid\ActionColumn'],
+    echo Tabs::widget([
+        'items' => [
+            [
+                'label' => 'Reservas Hoje',
+                'url' => ['reservations/activereserves'],
+            ],
+            [
+                'label' => 'Reservas Futuras',
+                'url' => ['reservations/futurereserves'],
+            ],
+            [
+                'label' => 'Reservas Passadas',
+                'url' => ['reservations/pastreserves'],
+            ],
         ],
-    ]); ?>
+        'options' => ['tag' => 'div'],
+        'itemOptions' => ['tag' => 'div'],
+        'headerOptions' => ['class' => 'my-class'],
+        'clientOptions' => ['collapsible' => false],
+    ]);
 
+    ?>
 
 </div>

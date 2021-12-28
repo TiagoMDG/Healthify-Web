@@ -36,6 +36,7 @@ class Reservations extends \yii\db\ActiveRecord
             [['reservedday', 'reservedtime', 'userprofilesid', 'tableid'], 'required'],
             [['reservedday'], 'safe'],
             [['reservedtime'], 'string'],
+            [['state'], 'string'],
             [['userprofilesid', 'tableid'], 'integer'],
             [['tableid'], 'exist', 'skipOnError' => true, 'targetClass' => Tables::className(), 'targetAttribute' => ['tableid' => 'id']],
             [['userprofilesid'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['userprofilesid' => 'id']],
@@ -52,6 +53,7 @@ class Reservations extends \yii\db\ActiveRecord
             'reservedday' => 'Dia Reservado',
             'reservedtime' => 'Hora Reservada',
             'userprofilesid' => 'Cliente',
+            'state' => 'Estado da Reserva',
             'tableid' => 'ID Mesa',
         ];
     }
@@ -64,6 +66,26 @@ class Reservations extends \yii\db\ActiveRecord
     public function getTable()
     {
         return $this->hasOne(Tables::className(), ['id' => 'tableid']);
+    }
+
+
+    public static function getReservesTotalCount()
+    {
+        $reservations = Reservations::find()->all();
+
+        $count = count($reservations);
+
+        return $count;
+    }
+
+    public static function getReservesChartData()
+    {
+        $almoco = count(Reservations::find()->where(['reservedtime'=>'almoco'])->all());
+        $jantar = count(Reservations::find()->where(['reservedtime'=>'jantar'])->all());
+
+        $contagem = array($almoco, $jantar);
+
+        return $contagem;
     }
 
     /**

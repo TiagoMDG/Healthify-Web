@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use app\models\Category;
+use app\models\Reservations;
 use backend\models\LoginForm;
 use common\models\User;
 use Yii;
@@ -71,11 +72,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $categorias = Category::getCategoryIDArray();
-
+        $categorias = Category::getCategoriesCount();
+        $reservas = Reservations::getReservesTotalCount();
+        $reservascont = Reservations::getReservesChartData();
 
         return $this->render('index', [
-            'numCategorias' => count($categorias),
+            'numCategorias' => $categorias,
+            'numReservas' => $reservas,
+            'reservasContagem' => $reservascont
         ]);
     }
 

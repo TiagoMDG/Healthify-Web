@@ -37,10 +37,53 @@ class ReservationsController extends Controller
      */
     public function actionIndex()
     {
+        return $this->render('index', [
+        ]);
+    }
+
+    public function actionActivereserves()
+    {
         $searchModel = new ReservationsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
+        $dataProvider->query->Where(['reservedday' => date("Y/m/d")]);
+
+        $this->layout = false;
+
+
+        return $this->render('reserves', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionPastreserves()
+    {
+        $searchModel = new ReservationsSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        //$dataProvider->query->Where(['reservedday' != date("Y/m/d")]);
+        $dataProvider->query->andFilterCompare ( 'reservedday', date("Y/m/d"), '<' );
+
+        $this->layout = false;
+
+        return $this->render('reserves', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionFuturereserves()
+    {
+        $searchModel = new ReservationsSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        //$dataProvider->query->Where(['reservedday' != date("Y/m/d")]);
+        $dataProvider->query->andFilterCompare ( 'reservedday', date("Y/m/d"), '>' );
+
+        $this->layout = false;
+
+        return $this->render('reserves', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

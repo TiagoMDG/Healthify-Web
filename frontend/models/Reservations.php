@@ -36,6 +36,7 @@ class Reservations extends \yii\db\ActiveRecord
             [['reservedday', 'reservedtime', 'userprofilesid', 'tableid'], 'required'],
             [['reservedday'], 'safe'],
             [['reservedtime'], 'string'],
+            [['state'], 'string'],
             [['userprofilesid', 'tableid'], 'integer'],
             [['tableid'], 'exist', 'skipOnError' => true, 'targetClass' => Tables::className(), 'targetAttribute' => ['tableid' => 'id']],
             [['userprofilesid'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['userprofilesid' => 'id']],
@@ -49,9 +50,10 @@ class Reservations extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID da Reserva',
-            'reservedday' => 'Dia para Reservar',
+            'reservedday' => 'Dia Reservado',
             'reservedtime' => 'Hora Reservada',
             'userprofilesid' => 'Cliente',
+            'state' => 'Estado da Reserva',
             'tableid' => 'ID Mesa',
         ];
     }
@@ -65,6 +67,7 @@ class Reservations extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Tables::className(), ['id' => 'tableid']);
     }
+
 
     /**
      * Gets query for [[Userprofiles]].
