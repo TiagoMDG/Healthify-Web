@@ -48,7 +48,7 @@ function validatecard($number)
 
 class PaymentController extends ActiveController
 {
-    public $modelClass = 'common\models\User';
+    public $modelClass = 'backend\api\models\Userprofile';
 
     public function actionPay($id,$card){
         if(validatecard($card)){

@@ -33,12 +33,11 @@ return [
                     'extraPatterns' => ['GET fromuser/{id}'=> 'fromuser',],
                 ],
                 ['class' => '\yii\rest\UrlRule', 'controller' =>'api/payment','pluralize' => false,
-                    'extraPatterns' => ['POST {id}/pay/{card}'=> 'pay',
-                        //tokens destroy funcionamento da gii
-                        /*'tokens'=>[     '{id}' => '<id:\\d+>',
-                                        '{card}'=>'<card:\\d+>',
-                            ],*/
-                        ],
+                    'extraPatterns' => ['POST {id}/pay/{card}'=> 'pay',],
+                    'tokens'=>[
+                        '{id}' => '<id:\\d+>',
+                        '{card}'=>'<card:\\d+>',
+                    ],
                 ],
                 ['class' => '\yii\rest\UrlRule', 'controller' =>'api/workedtime','pluralize' => false,
                     'extraPatterns' => ['GET workedtime/{id}'=> 'workedtime',

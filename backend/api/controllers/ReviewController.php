@@ -10,6 +10,7 @@ class ReviewController extends ActiveController
 {
     public $modelClass ='backend\api\models\Reviews';
 
+    //quando é inserida uma review é usado messaging para difundir para todos os clientes a review efetuada
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
@@ -23,10 +24,8 @@ class ReviewController extends ActiveController
         $myObj->review=$review;
 
         $myJson = Json::encode($myObj);
-        if ($insert)
-            $this->FazPublishNoMosquitto("INSERT",$myJson);
-        else
-            $this->FazPublishNoMosquitto("UPDATE",$myJson);
+
+        $this->FazPublishNoMosquitto("review",$myJson);
     }
 
     public function actionFromuser($id){
@@ -43,8 +42,8 @@ class ReviewController extends ActiveController
     {
         $server = "127.0.0.1";
         $port = 1883;
-        $username = "admin"; // set your username
-        $password = "12345678"; // set your password
+        $username = ""; // set your username
+        $password = ""; // set your password
         $client_id = "phpMQTT-publisher"; // unique!
         $mqtt = new \backend\api\phpMQTT($server, $port, $client_id);
         if ($mqtt->connect(true, NULL, $username, $password))
