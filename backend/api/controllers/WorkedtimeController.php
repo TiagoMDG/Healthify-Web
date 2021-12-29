@@ -3,7 +3,6 @@
 namespace backend\api\controllers;
 
 use backend\api\models\Schedules;
-use DateTime;
 use yii\helpers\Json;
 use yii\rest\ActiveController;
 use backend\api\models\Userschedulesregistry;
@@ -30,15 +29,16 @@ class WorkedtimeController extends ActiveController
     //insere registo de relogio de ponto dpo empregado
     public function actionAttendance($id){
         $horario = Schedules::findOne(['userprofilesid'=>$id]);
+
         if ($horario->id==null){
             $ponto = new Schedules();
             $ponto->userprofilesid=$id;
             $ponto->save();
         }else if(Userschedulesregistry::findOne(['schedulesid'=>$horario->id])==null){
-            $hora = new Userschedulesregistry();
-            $hora->employee_exit=null;
-            $hora->schedulesid= Schedules::findOne(['userprofilesid'=>$id])->id;
-            $hora->save();
+            $horaEntrada = new Userschedulesregistry();
+            $horaEntrada->employee_exit=null;
+            $horaEntrada->schedulesid= Schedules::findOne(['userprofilesid'=>$id])->id;
+            $horaEntrada->save();
         }else{
             $horaSaida = Userschedulesregistry::findOne(['schedulesid'=>$horario->id]);
             $horaSaida->employee_exit = date_create('now')->format('Y-m-d H:i:s');;

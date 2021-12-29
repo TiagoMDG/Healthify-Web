@@ -44,6 +44,7 @@ return [
                     'extraPatterns' => ['GET workedtime/{id}'=> 'workedtime',
                         'POST attendance/{id}'=> 'attendance'],
                 ],
+                ['class' => '\yii\rest\UrlRule', 'controller' =>'api/meal','pluralize' => false],
             ],
         ],
 
