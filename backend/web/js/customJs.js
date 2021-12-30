@@ -23,7 +23,7 @@ function addIngredientstoMeal(mealId) {
     });
     $.ajax({
         type: "POST",
-        url: 'http://localhost/healthify/backend/web/index.php?r=mealplaner%2Fadd&ingredientsIDs=' + ingredientsIDs + '&mealId=' + mealId,
+        url: 'http://localhost/healthify/backend/web/mealplaner/add/' + ingredientsIDs + '&' + mealId,
         data: $('#' + 'grid').serialize(),
         cache: false,
         dataType: 'html',

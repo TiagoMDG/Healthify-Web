@@ -178,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `inforestaurants` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(15) NOT NULL,
   `adress` varchar(75) NOT NULL,
-  `celphone` int(9) NOT NULL,
+  `cellphone` int(9) NOT NULL,
   `email` varchar(50) NOT NULL,
   `nif` int(9) NOT NULL,
   PRIMARY KEY (`id`)
@@ -452,7 +452,7 @@ CREATE TABLE IF NOT EXISTS `userprofiles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nif` int(9) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `cellphone` int(9) NOT NULL,
+  `celphone` int(9) NOT NULL,
   `street` varchar(20) NOT NULL,
   `door` int(11) NOT NULL,
   `floor` int(11) DEFAULT NULL,
@@ -480,7 +480,6 @@ DROP TABLE IF EXISTS `schedules`;
 CREATE TABLE IF NOT EXISTS `schedules` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `day` datetime default now(),
-  
   `userprofilesid` int(11) NOT null,
   PRIMARY KEY (`id`),
   KEY `fk_userprofiles_id` (`userprofilesid`)

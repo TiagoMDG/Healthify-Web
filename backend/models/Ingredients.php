@@ -19,8 +19,6 @@ use Yii;
  * @property float $cholesterol_mg
  *
  * @property MealIngredients[] $mealIngredients
- * @property Minerals[] $minerals
- * @property Vitamins[] $vitamins
  */
 class Ingredients extends \yii\db\ActiveRecord
 {
@@ -51,15 +49,15 @@ class Ingredients extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'sugar_g' => 'Sugar G',
-            'calories' => 'Calories',
-            'protein_g' => 'Protein G',
-            'carbohydrates_total_g' => 'Carbohydrates Total G',
-            'fat_saturated_g' => 'Fat Saturated G',
-            'fat_total_g' => 'Fat Total G',
-            'fiber_g' => 'Fiber G',
-            'cholesterol_mg' => 'Cholesterol Mg',
+            'name' => 'Nome',
+            'sugar_g' => 'Açucares',
+            'calories' => 'Calorias',
+            'protein_g' => 'Proteínas',
+            'carbohydrates_total_g' => 'Hidratos de carbono',
+            'fat_saturated_g' => 'Lípidos (saturados)',
+            'fat_total_g' => 'Lípidos',
+            'fiber_g' => 'Fibras',
+            'cholesterol_mg' => 'Colesterol (mg)',
         ];
     }
 
@@ -73,23 +71,4 @@ class Ingredients extends \yii\db\ActiveRecord
         return $this->hasMany(MealIngredients::className(), ['ingredientsid' => 'id']);
     }
 
-    /**
-     * Gets query for [[Minerals]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMinerals()
-    {
-        return $this->hasMany(Minerals::className(), ['ingredientsid' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Vitamins]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getVitamins()
-    {
-        return $this->hasMany(Vitamins::className(), ['ingredientsid' => 'id']);
-    }
 }

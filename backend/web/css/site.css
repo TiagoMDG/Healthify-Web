@@ -128,9 +128,5 @@ a.desc:after {
     gap: 10px;
 }
 
-#customScroll {
-    height: 16rem;
-    overflow: scroll;
-    text-align: center;
-}
+
 

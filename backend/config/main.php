@@ -27,6 +27,13 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class' => '\yii\rest\UrlRule', 'controller' =>'mealplaner','pluralize' => false,
+                    'extraPatterns' => ['POST add/{ingredientsIDs}&{mealId}'=> 'add',],
+                    'tokens'=>[
+                        '{ingredientsIDs}' => '<ingredientsIDs:\\d+>',
+                        '{mealId}'=>'<mealId:\\d+>',
+                        ],
+                    ],
                 ['class' => '\yii\rest\UrlRule', 'controller' =>'api/user','pluralize' => false],
                 ['class' => '\yii\rest\UrlRule', 'controller' =>'api/profile','pluralize' => false],
                 ['class' => '\yii\rest\UrlRule', 'controller' =>'api/review','pluralize' => false,

@@ -38,6 +38,8 @@ class MealplanerController extends Controller
 
         //adicionar controlo de adiçao para fazer os totais
 
+        $response = null;
+
         $ingredientID=explode(",",$ingredientsIDs);
 
         foreach ($ingredientID as $id) {
@@ -58,14 +60,14 @@ class MealplanerController extends Controller
                 $newAddIngredients->mealsid = $mealId;
                 $newAddIngredients->ingredientsid = $id;
                 if (!$newAddIngredients->save(false)) {
-                    return ('Erro ao guardar na base de dados ingrediente '.$ingredient->id." : ".$ingredient->name);
+                    $response = 'Erro ao guardar na base de dados ingrediente '.$ingredient->id." : ".$ingredient->name;
                 }
             }//bloco save caso haja o ingrediente adicionado
             else {
-                echo "Ingrediente já inserido ".$ingredient->id." : ".$ingredient->name;
+                $response = "Ingrediente já inserido ".$ingredient->id." : ".$ingredient->name;
             }
         }
-        return 200;
+        return $response;
     }
 
 }
