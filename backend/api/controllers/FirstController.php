@@ -52,7 +52,7 @@ class FirstController extends Controller
             $user = User::findByUsername($jsonPost['username']);
             $jsonResponse =  array('success'=>true ,'id'=>$user->id ,'username'=>$user->username ,'email'=>$user->email);
         }else
-            $jsonResponse = array('message'=>'failled');
+            $jsonResponse = array('message'=>'failed');
 
         return  Json::encode($jsonResponse);
     }

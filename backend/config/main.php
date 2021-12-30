@@ -24,7 +24,7 @@ return [
         ],
 
         'urlManager' => [
-            'enablePrettyUrl' => true,
+            'enablePrettyUrl' => false,
             'showScriptName' => false,
             'rules' => [
                 ['class' => '\yii\rest\UrlRule', 'controller' =>'mealplaner','pluralize' => false,
@@ -51,6 +51,16 @@ return [
                         'POST attendance/{id}'=> 'attendance'],
                 ],
                 ['class' => '\yii\rest\UrlRule', 'controller' =>'api/meal','pluralize' => false],
+
+                ['class' => '\yii\rest\UrlRule', 'controller' =>'api/reservations','pluralize' => false,
+                    'extraPatterns' => ['POST reservar/{userprofilesid}&{reservedday}&{reservedtime}&{tableid}'=> 'reservar',],
+                    'tokens'=>[
+                        '{userprofilesid}' => '<userprofilesid:\\d+>',
+                        '{reservedday}'=>'<reservedday:\\w+>',
+                        '{reservedtime}'=>'<reservedtime:\\w+>',
+                        '{tableid}'=>'<tableid:\\d+>',
+                    ],
+                ],
             ],
         ],
 

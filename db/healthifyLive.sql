@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `ingredients` (
 INSERT INTO `ingredients` (`id`, `name`, `sugar_g`, `calories`, `protein_g`, `carbohydrates_total_g`, `fat_saturated_g`, `fat_total_g`, `fiber_g`, `cholesterol_mg`) VALUES
 (1, 'Bife de vaca', 0, 291.9, 26.6, 0, 7.8, 19.7, 0, 87),
 (2, 'Ovo', 0.4, 147, 12.5, 0.7, 3.1, 9.7, 0, 371),
-(3, 'french fries', 0.3, 312.5, 3.4, 42.1, 2.3, 14.4, 3.8, 0);
+(3, 'Batata frita', 0.3, 312.5, 3.4, 42.1, 2.3, 14.4, 3.8, 0);
 
 -- --------------------------------------------------------
 
@@ -309,20 +309,25 @@ DROP TABLE IF EXISTS `reservations`;
 CREATE TABLE IF NOT EXISTS `reservations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `reservedday` date NOT NULL,
-  `reservedtime` enum('12:00','12:30','13:00','13:30','14:00','14:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30') NOT NULL,
+  `reservedtime` enum('almoco','jantar') NOT NULL,
+  `state` set('active','past') NOT NULL,
   `userprofilesid` int(11) NOT NULL,
   `tableid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_id` (`userprofilesid`),
   KEY `fk_table_id` (`tableid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservations`
 --
 
-INSERT INTO `reservations` (`id`, `reservedday`, `reservedtime`, `userprofilesid`, `tableid`) VALUES
-(3, '2021-12-08', '13:30', 9, 1);
+INSERT INTO `reservations` (`id`, `reservedday`, `reservedtime`, `state`, `userprofilesid`, `tableid`) VALUES
+(4, '2021-12-17', 'almoco', 'past', 9, 1),
+(5, '2021-12-17', 'almoco', 'active', 5, 2),
+(6, '2021-12-22', 'almoco', 'active', 5, 2),
+(7, '2021-12-26', 'jantar', 'active', 5, 1),
+(8, '2021-12-27', 'almoco', 'active', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -389,7 +394,7 @@ CREATE TABLE IF NOT EXISTS `sales_meals` (
 DROP TABLE IF EXISTS `tables`;
 CREATE TABLE IF NOT EXISTS `tables` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ocupancy_state` set('occupied','free') NOT NULL,
+  `state` set('occupied','free','reserved') NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
@@ -397,7 +402,7 @@ CREATE TABLE IF NOT EXISTS `tables` (
 -- Dumping data for table `tables`
 --
 
-INSERT INTO `tables` (`id`, `ocupancy_state`) VALUES
+INSERT INTO `tables` (`id`, `state`) VALUES
 (1, 'free'),
 (2, 'occupied');
 
@@ -461,7 +466,7 @@ CREATE TABLE IF NOT EXISTS `userprofiles` (
   `userid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_user_id` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `userprofiles`
@@ -469,7 +474,8 @@ CREATE TABLE IF NOT EXISTS `userprofiles` (
 
 INSERT INTO `userprofiles` (`id`, `nif`, `name`, `cellphone`, `street`, `door`, `floor`, `city`, `nib`, `userid`) VALUES
 (1, 987654321, 'pedro Lourenço', 987654321, 'fewf', 21, NULL, 'Leiria', NULL, 9),
-(2, 123456789, 'testes signup 4th', 987654321, 'fewf', 21, 1, 'Leiria', NULL, 15);
+(2, 123456789, 'testes signup 4th', 987654321, 'fewf', 21, 1, 'Leiria', NULL, 15),
+(3, 987654321, 'Tiago', 963963963, 'Rua Dom João IV', 45, NULL, 'Santarém', NULL, 5);
 
 -- --------------------------------------------------------
 
