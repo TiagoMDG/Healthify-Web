@@ -65,8 +65,3 @@ function pesquisa() {
     }
 }
 
-function reload() {
-    var container = document.getElementById("tableIngredients");
-    var content = container.innerHTML;
-    container.innerHTML = content;
-}

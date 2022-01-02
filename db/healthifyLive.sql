@@ -341,10 +341,10 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   `rating` decimal(1,0) DEFAULT NULL,
   `review` varchar(255) DEFAULT NULL,
   `userprofilesid` int(11) NOT NULL,
-  `salesmealsid` int(11) NOT NULL,
+  `mealsid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_id_reviews` (`userprofilesid`),
-  KEY `fk_salesmeals_id` (`salesmealsid`)
+  KEY `fk_meals_id` (`mealsid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -356,11 +356,11 @@ CREATE TABLE IF NOT EXISTS `reviews` (
 DROP TABLE IF EXISTS `sales`;
 CREATE TABLE IF NOT EXISTS `sales` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `salesday` timestamp NULL DEFAULT NULL,
+  `salesday` timestamp NOT NULL DEFAULT now(),
   `precototal` decimal(10,2) NOT NULL,
   `discount` decimal(10,2) DEFAULT NULL,
-  `paidamount` decimal(10,2) DEFAULT NULL,
-  `paymentmethod` set('cash','card') DEFAULT NULL,
+  `paidamount` decimal(10,2) NOT NULL,
+  `paymentmethod` set('cash','card') NOT NULL,
   `paymentstate` varchar(11) NOT NULL,
   `userprofilesid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -457,7 +457,7 @@ CREATE TABLE IF NOT EXISTS `userprofiles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nif` int(9) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `celphone` int(9) NOT NULL,
+  `cellphone` int(9) NOT NULL,
   `street` varchar(20) NOT NULL,
   `door` int(11) NOT NULL,
   `floor` int(11) DEFAULT NULL,
@@ -505,6 +505,22 @@ CREATE TABLE IF NOT EXISTS `userschedulesregistry` (
   PRIMARY KEY (`id`),
   KEY `fk_schedules_id` (`schedulesid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- --------------------------------------------------------
+--
+-- Table structure for table `userschedulesregistry`
+--
+
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE IF NOT EXISTS `cart` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`userprofilesid` int(11) NOT NULL,
+	`mealsid` int(11) NOT NULL,
+	`sellingprice` decimal(10,2) NOT NULL,
+	`itemquantity` int(11) NOT NULL,
+    PRIMARY KEY (`id`),
+	KEY `fk_usercart_id` (`userprofilesid`),
+	KEY `fk_mealcart_id` (`mealsid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 --
@@ -535,7 +551,7 @@ ALTER TABLE `reservations`
 -- Constraints for table `reviews`
 --
 ALTER TABLE `reviews`
-  ADD CONSTRAINT `fk_salesmeals_id` FOREIGN KEY (`salesmealsid`) REFERENCES `sales_meals` (`id`),
+  ADD CONSTRAINT `fk_meals_id` FOREIGN KEY (`mealsid`) REFERENCES `meals` (`id`),
   ADD CONSTRAINT `fk_userprofile_id_reviews` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`);
 
 --
@@ -566,6 +582,12 @@ ALTER TABLE `schedules`
 --
 ALTER TABLE `userschedulesregistry`
   ADD CONSTRAINT `fk_schedules_id` FOREIGN KEY (`schedulesid`) REFERENCES `schedules` (`id`);
+--
+-- Constraints for table `cart`	
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `fk_usercart_id` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`),
+  ADD CONSTRAINT `fk_mealcart_id` FOREIGN KEY (`mealsid`) REFERENCES `meals` (`id`);
 
 COMMIT;
 

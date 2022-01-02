@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use backend\api\models\SalesMeals;
 use backend\models\Mealingredients;
 use Yii;
 

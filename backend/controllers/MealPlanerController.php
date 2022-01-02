@@ -2,7 +2,6 @@
 
 namespace  backend\controllers;
 
-use backend\models\Mealplaner;
 use yii\debug\panels\EventPanel;
 use yii\helpers\Console;
 use yii\web\Controller;
@@ -35,8 +34,6 @@ class MealplanerController extends Controller
     }
 
     public function actionAdd($ingredientsIDs,$mealId){
-
-        //adicionar controlo de adiçao para fazer os totais
 
         $response = null;
 

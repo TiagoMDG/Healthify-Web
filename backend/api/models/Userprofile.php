@@ -2,6 +2,7 @@
 
 namespace backend\api\models;
 
+use common\models\User;
 use Yii;
 
 /**
@@ -19,15 +20,11 @@ use Yii;
  * @property int $userid
  *
  * @property Cart[] $carts
- * @property Reservation[] $reservations
- * @property Review[] $reviews
- * @property Sale[] $sales
- * @property SalesState[] $salesStates
+ * @property Reviews[] $reviews
+ * @property Sales[] $sales
+ * @property Schedules[] $schedules
  * @property User $user
- * @property Userschedulesregistry[] $userschedulesregistries
  */
-use common\models\User;
-
 class Userprofile extends \yii\db\ActiveRecord
 {
     /**
@@ -41,18 +38,14 @@ class Userprofile extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-
     public function rules()
     {
         return [
             [['nif', 'name', 'cellphone', 'street', 'door', 'city', 'userid'], 'required'],
             [['nif', 'cellphone', 'door', 'floor', 'userid'], 'integer'],
-            [['name', 'street'], 'string', 'max' => 80],
-            [['city'], 'string', 'max' => 50],
+            [['name', 'street'], 'string', 'max' => 20],
+            [['city'], 'string', 'max' => 15],
             [['nib'], 'string', 'max' => 25],
-            [['nif'], 'string', 'max' => 9],
-            [['street'], 'string', 'max' => 50],
-            [['cellphone'], 'string', 'max' => 9],
             [['userid'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['userid' => 'id']],
         ];
     }
@@ -64,14 +57,14 @@ class Userprofile extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nif' => 'NIF',
-            'name' => 'Nome',
-            'cellphone' => 'Nº Telemóvel',
-            'street' => 'Rua',
-            'door' => 'Nº Porta',
-            'floor' => 'Andar',
-            'city' => 'Cidade',
-            'nib' => 'NIB',
+            'nif' => 'Nif',
+            'name' => 'Name',
+            'cellphone' => 'Cellphone',
+            'street' => 'Street',
+            'door' => 'Door',
+            'floor' => 'Floor',
+            'city' => 'City',
+            'nib' => 'Nib',
             'userid' => 'Userid',
         ];
     }
@@ -87,23 +80,13 @@ class Userprofile extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Reservations]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getReservations()
-    {
-        return $this->hasMany(Reservation::className(), ['userprofilesid' => 'id']);
-    }
-
-    /**
      * Gets query for [[Reviews]].
      *
      * @return \yii\db\ActiveQuery
      */
     public function getReviews()
     {
-        return $this->hasMany(Review::className(), ['userprofilesid' => 'id']);
+        return $this->hasMany(Reviews::className(), ['userprofilesid' => 'id']);
     }
 
     /**
@@ -113,17 +96,17 @@ class Userprofile extends \yii\db\ActiveRecord
      */
     public function getSales()
     {
-        return $this->hasMany(Sale::className(), ['userprofilesid' => 'id']);
+        return $this->hasMany(Sales::className(), ['userprofilesid' => 'id']);
     }
 
     /**
-     * Gets query for [[SalesStates]].
+     * Gets query for [[Schedules]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getSalesStates()
+    public function getSchedules()
     {
-        return $this->hasMany(SalesState::className(), ['userprofilesid' => 'id']);
+        return $this->hasMany(Schedules::className(), ['userprofilesid' => 'id']);
     }
 
     /**
@@ -134,15 +117,5 @@ class Userprofile extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'userid']);
-    }
-
-    /**
-     * Gets query for [[Userschedulesregistries]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserschedulesregistries()
-    {
-        return $this->hasMany(Userschedulesregistry::className(), ['userprofilesid' => 'id']);
     }
 }

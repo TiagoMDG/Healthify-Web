@@ -24,7 +24,7 @@ return [
         ],
 
         'urlManager' => [
-            'enablePrettyUrl' => false,
+            'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
                 ['class' => '\yii\rest\UrlRule', 'controller' =>'mealplaner','pluralize' => false,
@@ -61,6 +61,7 @@ return [
                         '{tableid}'=>'<tableid:\\d+>',
                     ],
                 ],
+                ['class' => '\yii\rest\UrlRule', 'controller' =>'api/cart','pluralize' => false],
             ],
         ],
 

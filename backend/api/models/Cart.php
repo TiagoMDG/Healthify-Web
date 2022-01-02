@@ -2,29 +2,29 @@
 
 namespace backend\api\models;
 
-use app\models\Meals;
 use Yii;
+use app\models\Meals;
 
 /**
- * This is the model class for table "reviews".
+ * This is the model class for table "cart".
  *
  * @property int $id
- * @property float|null $rating
- * @property string|null $review
  * @property int $userprofilesid
  * @property int $mealsid
+ * @property float $sellingprice
+ * @property int $itemquantity
  *
  * @property Meals $meals
  * @property Userprofile $userprofiles
  */
-class Reviews extends \yii\db\ActiveRecord
+class Cart extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'reviews';
+        return 'cart';
     }
 
     /**
@@ -33,10 +33,9 @@ class Reviews extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rating'], 'number'],
-            [['userprofilesid', 'mealsid'], 'required'],
-            [['userprofilesid', 'mealsid'], 'integer'],
-            [['review'], 'string', 'max' => 255],
+            [['userprofilesid', 'mealsid', 'sellingprice', 'itemquantity'], 'required'],
+            [['userprofilesid', 'mealsid', 'itemquantity'], 'integer'],
+            [['sellingprice'], 'number'],
             [['mealsid'], 'exist', 'skipOnError' => true, 'targetClass' => Meals::className(), 'targetAttribute' => ['mealsid' => 'id']],
             [['userprofilesid'], 'exist', 'skipOnError' => true, 'targetClass' => Userprofile::className(), 'targetAttribute' => ['userprofilesid' => 'id']],
         ];
@@ -49,10 +48,10 @@ class Reviews extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'rating' => 'Rating',
-            'review' => 'Review',
             'userprofilesid' => 'Userprofilesid',
             'mealsid' => 'Mealsid',
+            'sellingprice' => 'Sellingprice',
+            'itemquantity' => 'Itemquantity',
         ];
     }
 
@@ -73,6 +72,6 @@ class Reviews extends \yii\db\ActiveRecord
      */
     public function getUserprofiles()
     {
-        return $this->hasOne(Userprofiles::className(), ['id' => 'userprofilesid']);
+        return $this->hasOne(Userprofile::className(), ['id' => 'userprofilesid']);
     }
 }

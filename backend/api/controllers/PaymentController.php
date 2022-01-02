@@ -2,8 +2,10 @@
 
 namespace backend\api\controllers;
 
+use backend\api\models\Cart;
 use backend\api\models\Sales;
 use backend\api\models\Userprofile;
+use yii\db\Connection;
 use yii\helpers\Json;
 use yii\rest\ActiveController;
 
@@ -50,16 +52,41 @@ class PaymentController extends ActiveController
 {
     public $modelClass = 'backend\api\models\Userprofile';
 
-    public function actionPay($id,$card){
+    public function actionPay($id, $card){
+        $discount=0;
         if(validatecard($card)){
+            $transaction =  (new Connection)->beginTransaction();
+            try {
+                $user = Userprofile::findOne(['userid' => $id]);
+                $sale = Sales::findOne(['userprofilesid' => $user->getAttribute('id')]);
+                $cartTotal = 0;
+                $cart = Cart::findAll(["userprofilesid" => $id]);
+                foreach ($cart as $value) {
+                    $Totalvalue = $value->sellingprice * $value->itemquantity;
+                    $cartTotal = $cartTotal + $Totalvalue;
+                }
+                $sale->precototal = $cartTotal;
+                if ($discount == 0) {
+                    $sale->paidamount = $sale->precototal;
+                } else {
+                    $sale->paidamount = $sale->precototal * ($discount / 100);
+                    $sale->discount = ($discount / 100);
+                }
+
+                $sale->paymentmethod = "card";
+                $sale->paymentstate = "paid";
+                $sale->save();
+
+                $transaction->commit();
+            }catch (\Exception $e) {
+                $transaction->rollBack();;
+                throw $e;
+            } catch (\Throwable $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
             $jsonResponse = array('success'=>true);
-            $user = Userprofile::findOne(['userid'=>$id]);
-
-            $sale = Sales::findOne(['userprofilesid'=>$user->getAttribute('id')]);
-            $sale->paymentstate = "paid";
-            $sale->save();
         }
-
         else
             $jsonResponse = array('success'=>false);
 
