@@ -1,8 +1,7 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
-use common\models\User;
 use Yii;
 
 /**
@@ -20,12 +19,12 @@ use Yii;
  * @property int $userid
  *
  * @property Cart[] $carts
- * @property Review[] $reviews
- * @property Sale[] $sales
- * @property Schedule[] $schedules
+ * @property Reviews[] $reviews
+ * @property Sales[] $sales
+ * @property Schedules[] $schedules
  * @property User $user
  */
-class Userprofile extends \yii\db\ActiveRecord
+class Userprofiles extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -86,7 +85,7 @@ class Userprofile extends \yii\db\ActiveRecord
      */
     public function getReviews()
     {
-        return $this->hasMany(Review::className(), ['userprofilesid' => 'id']);
+        return $this->hasMany(Reviews::className(), ['userprofilesid' => 'id']);
     }
 
     /**
@@ -96,7 +95,7 @@ class Userprofile extends \yii\db\ActiveRecord
      */
     public function getSales()
     {
-        return $this->hasMany(Sale::className(), ['userprofilesid' => 'id']);
+        return $this->hasMany(Sales::className(), ['userprofilesid' => 'id']);
     }
 
     /**
@@ -106,7 +105,7 @@ class Userprofile extends \yii\db\ActiveRecord
      */
     public function getSchedules()
     {
-        return $this->hasMany(Schedule::className(), ['userprofilesid' => 'id']);
+        return $this->hasMany(Schedules::className(), ['userprofilesid' => 'id']);
     }
 
     /**

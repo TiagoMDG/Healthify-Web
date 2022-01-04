@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-use app\models\Userprofile;
+use frontend\models\Userprofile;
 use app\models\UserprofileSearch;
 use common\models\User;
 use Yii;
