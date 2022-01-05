@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use app\models\Tables;
 use app\models\TablesSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -21,6 +22,30 @@ class TablesController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['login', 'error'],
+                            'allow' => true,
+                        ],
+                        [
+                            'actions' => ['view', 'create', 'update', 'delete'],
+                            'allow' => true,
+                            'roles' => ['admin', 'chef'],
+                        ],
+                        [
+                            'actions' => ['index'],
+                            'allow' => true,
+                            'roles' => ['admin', 'chef', 'staff'],
+                        ],
+                        [
+                            'actions' => ['logout'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

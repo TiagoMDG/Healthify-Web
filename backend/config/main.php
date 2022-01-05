@@ -24,7 +24,7 @@ return [
         ],
 
         'urlManager' => [
-            'enablePrettyUrl' => false,
+            'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
                 ['class' => '\yii\rest\UrlRule', 'controller' =>'mealplaner','pluralize' => false,

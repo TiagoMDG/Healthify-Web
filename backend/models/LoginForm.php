@@ -66,7 +66,7 @@ class LoginForm extends Model
 
             } else {
                 Yii::$app->user->logout();
-                Yii::$app->response->redirect('../../frontend/web/');
+                Yii::$app->response->redirect('../../../frontend/web/');
                 return false;
             }
 
