@@ -7,5 +7,11 @@ return yii\helpers\ArrayHelper::merge(
     require __DIR__ . '/test.php',
     require __DIR__ . '/test-local.php',
     [
+        'id' => 'app-tests',
+        'components' => [
+            'db' => [
+                'dsn' => 'mysql:host=localhost;dbname=healthify_tests',
+            ]
+        ]      
     ]
 );

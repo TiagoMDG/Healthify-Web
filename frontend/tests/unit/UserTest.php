@@ -1,7 +1,8 @@
 <?php
 namespace frontend\tests;
 
-use common\models\Userprofiles;
+use Codeception\Test\Unit;
+use frontend\models\Userprofile;
 
 class UserTest extends \Codeception\Test\Unit
 {
@@ -17,37 +18,76 @@ class UserTest extends \Codeception\Test\Unit
     protected function _after()
     {
     }
+
     function testInvalidUser()
     {
-        //Teste Create
-        $pessoa = new Userprofiles();
-        $pessoa->name = 'Pedro';
-        $pessoa->nif = 'Caranguejeira';
-        $pessoa->cellphone = 123456789;
-        $pessoa->street = 'pedro@aulas.pt';
+        $pessoa = new Userprofile();
+
+        $pessoa->name = 'Pedroooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo';
+        $this->assertFalse($pessoa->validate(['name']));
+
+        $pessoa->nif = 123123123332;
+        $this->assertFalse($pessoa->validate(['nif']));
+
+        $pessoa->cellphone = 'asdfghsjkl';
+        $this->assertFalse($pessoa->validate(['cellphone']));
+
+        $pessoa->street = 'dsaadsdaswqewqeqwasddadasasdsdsaadasdasdsaweqqewasddas';
+        $this->assertFalse($pessoa->validate(['street']));
+
         $pessoa->door = 'pedro@aulas.pt';
-        $pessoa->floor = 'pedro@aulas.pt';
-        $pessoa->city = 'pedro@aulas.pt';
-        $pessoa->userid = 2;
-        $pessoa->save();
-        $this->assertTrue($pessoa->save());
+        $this->assertFalse($pessoa->validate(['door']));
 
-        //Teste READ
-        $this->assertEquals('Pedro', $pessoa->Nome);
+        $pessoa->floor = 'Segundo andar direito asdadadsasdasdasd man adsadsas';
+        $this->assertFalse($pessoa->validate(['floor']));
 
-        //Teste Update
-        $pessoa->Nome = 'Gil';
-        $pessoa->save();
-        $this->assertEquals('Gil', $pessoa->Nome);
+        $pessoa->city = 'CidadeXPTOawsdasdasdasdasdasdasdasdasdasdawdqweqqeweqw';
+        $this->assertFalse($pessoa->validate(['city']));
 
-        //Teste DELETE
-        $pessoa->delete();
-        $this->assertEquals(0,$pessoa->delete());
+        $pessoa->userid = 'wrong';
+        $this->assertFalse($pessoa->validate(['userid']));
 
-
+        $this->assertFalse($pessoa->save());
     }
-    // tests
-    public function testSomeFeature()
-    {
-    }
+
+     function testValidUserFeature()
+     {
+         $pessoa = new Userprofile();
+
+         $pessoa->name = 'Pedro';
+         $this->assertTrue($pessoa->validate(['name']));
+
+         $pessoa->nif = 123456789;
+         $this->assertTrue($pessoa->validate(['nif']));
+
+         $pessoa->cellphone = 123456789;
+         $this->assertTrue($pessoa->validate(['cellphone']));
+
+         $pessoa->street = 'Morro do Lena';
+         $this->assertTrue($pessoa->validate(['street']));
+
+         $pessoa->door = '45';
+         $this->assertTrue($pessoa->validate(['door']));
+
+         $pessoa->floor = 'Segundo direito';
+         $this->assertTrue($pessoa->validate(['floor']));
+
+         $pessoa->city = 'Leiria';
+         $this->assertTrue($pessoa->validate(['city']));
+
+         $pessoa->userid = 2;
+         $this->assertTrue($pessoa->validate(['userid']));
+
+         $pessoa->save();
+
+         //$this->tester->seeInDatabase('userprofiles', ['userid' => '2']);
+
+         //Teste READ
+         $this->assertEquals('Pedro', $pessoa->name);
+
+         //Teste Update
+         $pessoa->name = 'Gil';
+         $pessoa->save();
+         $this->assertEquals('Gil', $pessoa->name);
+     }
 }

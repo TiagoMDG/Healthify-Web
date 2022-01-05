@@ -13,7 +13,9 @@ use yii\widgets\ActiveForm;
         <th>
             <div>
                 <h3>Pesquisa de Ingredientes</h3>
-                <input type="text" name="Pesquisa" id="idPesquisa" placeholder="Pesquisa..">
+                <form>
+                    <label for="idPesquisa"></label><input type="text" name="Pesquisa" id="idPesquisa" placeholder="Pesquisa..">
+                </form>
                 <button class="btn-pesquisa icon" id="idBtSearch" onclick="pesquisa();"><img src="../web/img/search.svg"></button>
             </div>
         </th>

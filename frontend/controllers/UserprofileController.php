@@ -95,6 +95,7 @@ class UserprofileController extends Controller
             }
         } else {
             $model->loadDefaultValues();
+            $errors = $model->errors;
         }
 
 
