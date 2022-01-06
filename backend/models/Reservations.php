@@ -34,7 +34,7 @@ class Reservations extends \yii\db\ActiveRecord
     {
         return [
             [['reservedday', 'reservedtime', 'userprofilesid', 'tableid'], 'required'],
-            [['reservedday'], 'safe'],
+            [['reservedday'], 'string'],
             [['reservedtime'], 'string'],
             [['userprofilesid', 'tableid'], 'integer'],
             [['tableid'], 'exist', 'skipOnError' => true, 'targetClass' => Tables::className(), 'targetAttribute' => ['tableid' => 'id']],
