@@ -57,6 +57,42 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         ]);
         ?>
 
+        <?php
+        echo Highcharts::widget([
+            'options' => [
+                'title' => ['text' => 'Vendas'],
+                'chart' => ['type' => 'column'],
+                'xAxis' => [
+                    'categories' => ['Vendas','Pedidos']
+                ],
+                'yAxis' => [
+                    'title' => ['text' => 'Numero Total']
+                ],
+                'series' => [
+                    ['name' => 'vendas', 'data' => [$vendasContagem,$pedidosContagem]],
+                ],
+                'credits' => ['enabled' => false],
+            ]
+        ]);
+        ?>
+        <?php
+        echo Highcharts::widget([
+            'options' => [
+                'title' => ['text' => 'Valor de Vendas'],
+                'chart' => ['type' => 'column'],
+                'xAxis' => [
+                    'categories' => ['Vendas']
+                ],
+                'yAxis' => [
+                    'title' => ['text' => 'Valor Total']
+                ],
+                'series' => [
+                    ['name' => 'vendas', 'data' => [$valorVendas]],
+                ],
+                'credits' => ['enabled' => false],
+            ]
+        ]);
+        ?>
 
 
     </div>
