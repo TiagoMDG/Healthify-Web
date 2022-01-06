@@ -80,6 +80,17 @@ class Meals extends \yii\db\ActiveRecord
         return $array;
     }
 
+    public static function nameByID($id){
+
+        $names = Meals::find()->where(['id'=>$id])->all();
+
+        foreach ($names as $category) {
+            $categoryNamesArray[] = $category['name'];
+        }
+
+        return $categoryNamesArray[0];
+    }
+
     /**
      * Gets query for [[MealIngredients]].
      *

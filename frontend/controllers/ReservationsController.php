@@ -88,6 +88,8 @@ class ReservationsController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout = 'loggedclient';
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -102,12 +104,14 @@ class ReservationsController extends Controller
     {
         $model = new Reservations();
 
+        $this->layout = 'loggedclient';
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->validate()) {
                 if (Reservations::find()->where(['userprofilesid' => $model->userprofilesid])->andWhere(['reservedday' => $model->reservedday])->exists()) {
-                    $model->addError('', 'This client already has a reservation today!');
+                    $model->addError('reservedtime', 'This client already has a reservation today!');
                 } else if (Reservations::find()->where(['tableid' => $model->tableid])->andWhere(['reservedday' => $model->reservedday])->andWhere(['reservedtime' => $model->reservedtime])->exists()) {
-                    $model->addError('', 'This table is already booked!');
+                    $model->addError('tableid', 'This table is already booked!');
                 } else {
                     $model->save();
                     return $this->redirect(['view', 'id' => $model->id]);
@@ -132,6 +136,7 @@ class ReservationsController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->layout = 'loggedclient';
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {

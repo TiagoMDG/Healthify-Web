@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
                 <form>
                     <label for="idPesquisa"></label><input type="text" name="Pesquisa" id="idPesquisa" placeholder="Pesquisa..">
                 </form>
-                <button class="btn-pesquisa icon" id="idBtSearch" onclick="pesquisa();"><img src="../web/img/search.svg"></button>
+                <button class="btn-pesquisa icon" id="idBtSearch" onclick="pesquisa();"><i class="fas fa-arrow-circle-right"></i></button>
             </div>
         </th>
         <th>

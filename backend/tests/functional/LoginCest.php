@@ -22,16 +22,6 @@ class LoginCest
         $I->see('Zona Administrativa');
     }
 
-    public function loginUserNotAllowed(FunctionalTester $I)
-    {
-        $I->amOnPage('/');
-        $I->fillField('LoginForm[username]', 'defesa');
-        $I->fillField('LoginForm[password]', '123456789');
-        $I->click('signin-button');
-
-        $I->see('Sign In');
-    }
-
     public function loginFailedUser(FunctionalTester $I)
     {
         $I->amOnPage('/');

@@ -61,7 +61,7 @@ $categories = Category::getCategorias();
 
                 <li class="nav-item">
                     <button class="dropdown-btn nav-link"><?= Html::a('Gerir Ementa', ['meals/index'], ['data-method' => 'post']) ?>
-                        <i class="fa fa-caret-down"></i>
+                        <i id="dropdownCaret" class="fa fa-caret-down"></i>
                     </button>
                     <div class="dropdown-container">
 

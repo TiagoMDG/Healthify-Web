@@ -77,11 +77,12 @@ class SiteController extends Controller
         $categorias = Category::getCategoriesCount();
         $reservas = Reservations::getReservesTotalCount();
         $reservascont = Reservations::getReservesChartData();
-        $allsales =Sales::find()->all();
+
+        $allsales = Sales::find()->all();
         $salescount = count($allsales);
-        $salesValue=0;
-        foreach ($allsales as $one){
-            $salesValue= $salesValue + $one->getAttribute('paidamount');
+        $salesValue = 0;
+        foreach ($allsales as $one) {
+            $salesValue = $salesValue + $one->getAttribute('paidamount');
         }
         $salesMealsCount = count(SalesMeals::find()->all());
 

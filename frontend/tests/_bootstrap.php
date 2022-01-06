@@ -8,3 +8,7 @@ require_once YII_APP_BASE_PATH . '/vendor/autoload.php';
 require_once YII_APP_BASE_PATH . '/vendor/yiisoft/yii2/Yii.php';
 require_once YII_APP_BASE_PATH . '/common/config/bootstrap.php';
 require_once __DIR__ . '/../config/bootstrap.php';
+require('vendor/autoload.php');
+require('vendor/yiisoft/yii2/Yii.php');
+$config = require('config/web.php');
+(new yii\web\Application($config));
