@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 06, 2022 at 02:52 AM
+-- Generation Time: Jan 06, 2022 at 03:11 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -20,17 +20,10 @@ SET time_zone = "+00:00";
 --
 -- Database: `healthify`
 --
+
 drop database IF EXISTS healthify;
 create database healthify;
 use healthify;
-
-DROP TABLE IF EXISTS `calendar`;
-CREATE TABLE IF NOT EXISTS `calendar` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Date',
-  `val` int(11) NOT NULL COMMENT 'Value',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -377,9 +370,7 @@ INSERT INTO `reservations` (`id`, `reservedday`, `reservedtime`, `userprofilesid
 (12, '2021-12-31', 'almoco', 5, 2),
 (13, '2022-01-04', 'almoco', 5, 2),
 (14, '2022-01-05', 'almoco', 5, 2),
-(17, '2022-01-06', 'almoco', 5, 1),
-(24, '2022-01-07', 'almoco', 5, 2),
-(25, '2022-01-07', 'almoco', 20, 1);
+(17, '2022-01-06', 'almoco', 5, 1);
 
 -- --------------------------------------------------------
 
