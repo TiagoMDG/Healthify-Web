@@ -380,6 +380,7 @@ CREATE TABLE IF NOT EXISTS `sales_meals` (
 	`mealid` int(11) NOT NULL,
 	`sellingprice` decimal(10,2) NOT NULL,
 	`itemquantity` int(11) NOT NULL,
+	`state` varchar(11) default 'waiting',
     PRIMARY KEY (`id`),
 	KEY `fk_meal_id_salesmeals` (`mealid`),
 	KEY `fk_sales_id_salesmeals` (`salesid`)
@@ -517,6 +518,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
 	`mealsid` int(11) NOT NULL,
 	`sellingprice` decimal(10,2) NOT NULL,
 	`itemquantity` int(11) NOT NULL,
+	`state` varchar(11) default "active",
     PRIMARY KEY (`id`),
 	KEY `fk_usercart_id` (`userprofilesid`),
 	KEY `fk_mealcart_id` (`mealsid`)

@@ -70,8 +70,10 @@ $categories = Category::getCategorias();
                         <?php foreach ($categories as $category) {
                             echo(Html::a(ucfirst($category["name"]), ['meals/category', 'categoryid' => $category["id"], 'categoryname' => $category["name"]], ['data-method' => 'post', 'class' => 'nav-link']));
                         } ?>
-
                     </div>
+                </li>
+                <li class="nav-item">
+                    <?= Html::a('Zona de preparação', ['mealprep/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                 </li>
             </ul>
         </nav>

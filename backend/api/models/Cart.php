@@ -1,9 +1,10 @@
 <?php
 
-namespace backend\api\models;
+namespace app\api\models;
 
-use Yii;
+use backend\api\models\Userprofile;
 use app\models\Meals;
+use Yii;
 
 /**
  * This is the model class for table "cart".
@@ -13,6 +14,7 @@ use app\models\Meals;
  * @property int $mealsid
  * @property float $sellingprice
  * @property int $itemquantity
+ * @property string|null $state
  *
  * @property Meals $meals
  * @property Userprofile $userprofiles
@@ -36,6 +38,7 @@ class Cart extends \yii\db\ActiveRecord
             [['userprofilesid', 'mealsid', 'sellingprice', 'itemquantity'], 'required'],
             [['userprofilesid', 'mealsid', 'itemquantity'], 'integer'],
             [['sellingprice'], 'number'],
+            [['state'], 'string', 'max' => 11],
             [['mealsid'], 'exist', 'skipOnError' => true, 'targetClass' => Meals::className(), 'targetAttribute' => ['mealsid' => 'id']],
             [['userprofilesid'], 'exist', 'skipOnError' => true, 'targetClass' => Userprofile::className(), 'targetAttribute' => ['userprofilesid' => 'id']],
         ];
@@ -52,6 +55,7 @@ class Cart extends \yii\db\ActiveRecord
             'mealsid' => 'Mealsid',
             'sellingprice' => 'Sellingprice',
             'itemquantity' => 'Itemquantity',
+            'state' => 'State',
         ];
     }
 

@@ -24,9 +24,20 @@ return [
         ],
 
         'urlManager' => [
-            'enablePrettyUrl' => false,
+            'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class' => '\yii\rest\UrlRule', 'controller' =>'mealprep','pluralize' => false,
+                    'extraPatterns' => [
+                        'POST index'=> 'index',
+                        'POST prep/{mealState}&{mealId}'=> 'prep',
+                        'POST done/{mealState}&{mealId}'=> 'done',
+                        ],
+                    'tokens'=>[
+                        '{mealState}' => '<mealState:\\w+>',
+                        '{mealId}'=>'<mealId:\\d+>',
+                    ],
+                ],
                 ['class' => '\yii\rest\UrlRule', 'controller' =>'mealplaner','pluralize' => false,
                     'extraPatterns' => ['POST add/{ingredientsIDs}&{mealId}'=> 'add',],
                     'tokens'=>[
