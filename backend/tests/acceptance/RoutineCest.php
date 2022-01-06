@@ -53,9 +53,9 @@ class RoutineCest
 
         $I->wait(2);
 
-        $I->fillField('#meals-name', 'Arroz Doce');
+        $I->fillField('#meals-name', 'Mousse de Chocolate');
         $I->fillField('#meals-price', '2.50');
-        $I->fillField('#meals-description', 'Arroz Doce caseiro');
+        $I->fillField('#meals-description', 'Mousse de Chocolate caseira');
 
         $I->wait(2);
 
