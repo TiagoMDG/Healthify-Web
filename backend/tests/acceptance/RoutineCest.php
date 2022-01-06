@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\tests\acceptance;
+namespace backend\tests\acceptance;
 
 use backend\tests\AcceptanceTester;
 use yii\helpers\Url;
@@ -64,9 +64,5 @@ class RoutineCest
         $I->wait(2);
 
         $I->click('Back to index');
-
-
-
-
     }
 }
