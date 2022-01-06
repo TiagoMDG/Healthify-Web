@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use app\models\Reservations;
 use app\models\ReservationsSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -21,6 +22,25 @@ class ReservationsController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['login', 'error'],
+                            'allow' => true,
+                        ],
+                        [
+                            'actions' => ['index', 'activereserves', 'futurereserves', 'pastreserves', 'view', 'create', 'update', 'delete'],
+                            'allow' => true,
+                            'roles' => ['admin', 'chef', 'staff'],
+                        ],
+                        [
+                            'actions' => ['logout'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -62,7 +82,6 @@ class ReservationsController extends Controller
         $searchModel = new ReservationsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        //$dataProvider->query->Where(['reservedday' != date("Y/m/d")]);
         $dataProvider->query->andFilterCompare ( 'reservedday', date("Y/m/d"), '<' );
 
         $this->layout = false;
@@ -78,7 +97,6 @@ class ReservationsController extends Controller
         $searchModel = new ReservationsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        //$dataProvider->query->Where(['reservedday' != date("Y/m/d")]);
         $dataProvider->query->andFilterCompare ( 'reservedday', date("Y/m/d"), '>' );
 
         $this->layout = false;

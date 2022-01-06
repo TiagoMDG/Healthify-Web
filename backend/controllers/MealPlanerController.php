@@ -3,6 +3,7 @@
 namespace  backend\controllers;
 
 use yii\debug\panels\EventPanel;
+use yii\filters\AccessControl;
 use yii\helpers\Console;
 use yii\web\Controller;
 use Yii;
@@ -20,6 +21,40 @@ use backend\models\MealingredientsSearch;
 
 class MealplanerController extends Controller
 {
+    public function behaviors()
+    {
+        return array_merge(
+            parent::behaviors(),
+            [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['login', 'error'],
+                            'allow' => true,
+                        ],
+                        [
+                            'actions' => ['view', 'add'],
+                            'allow' => true,
+                            'roles' => ['admin', 'chef'],
+                        ],
+                        [
+                            'actions' => ['logout'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'delete' => ['POST'],
+                    ],
+                ],
+            ]
+        );
+    }
+
     public function actionView($id)
     {
         $searchModel = new IngredientsSearch();

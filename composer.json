@@ -26,7 +26,8 @@
         "nnnick/chartjs": "^3.6",
         "miloschuman/yii2-highcharts-widget": "*",
         "kartik-v/yii2-tabs-x": "dev-master",
-        "yiisoft/yii2-bootstrap": "^2.0"
+        "yiisoft/yii2-bootstrap": "^2.0",
+        "voime/yii2-google-maps": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

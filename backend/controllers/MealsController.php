@@ -5,6 +5,7 @@ namespace backend\controllers;
 use app\models\Category;
 use app\models\Meals;
 use backend\models\MealsSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -22,6 +23,30 @@ class MealsController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['login', 'error'],
+                            'allow' => true,
+                        ],
+                        [
+                            'actions' => ['create', 'update', 'delete'],
+                            'allow' => true,
+                            'roles' => ['admin', 'chef'],
+                        ],
+                        [
+                            'actions' => ['index', 'category', 'view'],
+                            'allow' => true,
+                            'roles' => ['admin', 'chef', 'staff'],
+                        ],
+                        [
+                            'actions' => ['logout'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

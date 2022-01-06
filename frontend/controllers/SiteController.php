@@ -85,9 +85,8 @@ class SiteController extends Controller
         $entree = Meals::find()->where(['categoryid' =>1])->all();
         $soup = Meals::find()->where(['categoryid' =>2])->all();
         $dessert = Meals::find()->where(['categoryid' =>6])->all();
-        $drinks = Meals::find()->where(['categoryid' =>7])->all();
-        $mains = Meals::find()->where(['not',['categoryid'=>'1']])->orWhere(['not',['categoryid'=>'2']])->orWhere(['not',['categoryid'=>'6']])
-            ->orWhere(['not',['categoryid'=>'7']])->orderBy('categoryid')->all();
+        $mains = Meals::find()->where(['not',['categoryid'=>1]])->andWhere(['not',['categoryid'=>2]])->andWhere(['not',['categoryid'=>7]])->andWhere(['not',['categoryid'=>6]])->all();
+
 
         foreach ($mains as $main){
             $main['categoryid'] = Category::getCategoriaById($main['categoryid'])->name;
@@ -98,7 +97,7 @@ class SiteController extends Controller
             var_dump($result->getMeals()->all());
         }*/
 
-        return $this->render('index',['entradas'=>$entree,'pratos'=>$mains,'sopas'=>$soup,'sobremesas'=>$dessert,'bebidas'=>$drinks]);
+        return $this->render('index',['entradas'=>$entree,'pratos'=>$mains,'sopas'=>$soup,'sobremesas'=>$dessert]);
     }
 
     /**
