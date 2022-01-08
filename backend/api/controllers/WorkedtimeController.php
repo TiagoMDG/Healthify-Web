@@ -15,14 +15,6 @@ class WorkedtimeController extends ActiveController
     public function actionWorkedtime($id){
         $workDays = Schedules::findAll(['userprofilesid'=>$id]);
 
-        /*foreach ($workDays as $day){
-            $day[] = Userschedulesregistry::findAll(['schedulesid'=>$day->id]);
-        }*/
-
-        /*for ($i=0;$i<sizeof($workDays);$i++){
-            $workDays[i][]=Userschedulesregistry::findAll(['schedulesid'=>$workDays[i]->id]);
-        }*/
-
         return Json::encode($workDays);
     }
 

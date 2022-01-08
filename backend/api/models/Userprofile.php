@@ -2,7 +2,8 @@
 
 namespace backend\api\models;
 
-use common\models\User;
+use app\api\models\Cart;
+use app\api\models\User;
 use Yii;
 
 /**

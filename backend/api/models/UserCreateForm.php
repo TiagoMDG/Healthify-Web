@@ -2,9 +2,10 @@
 
 namespace backend\api\models;
 
+use app\api\models\User;
 use Yii;
 use yii\base\Model;
-use common\models\User;
+
 
 /**
  * Signup form

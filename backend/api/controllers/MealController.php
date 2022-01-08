@@ -15,5 +15,5 @@ class MealController extends ActiveController
         return $action;
     }
 
-    public $modelClass ='app\models\Meals';
+    public $modelClass ='app\api\models\Meals';
 }

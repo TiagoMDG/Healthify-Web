@@ -2,13 +2,13 @@
 
 namespace backend\api\controllers;
 
-use app\models\Reservations;
+use app\api\models\Reservations;
 use yii\helpers\Json;
 use yii\rest\ActiveController;
 
 class ReservationsController extends ActiveController
 {
-    public $modelClass = 'app\models\Reservations';
+    public $modelClass = 'app\api\models\Reservations';
 
     public function actionGetreservations($id)
     {

@@ -1,8 +1,9 @@
 <?php
 
-namespace app\models;
+namespace app\api\models;
 
-use common\models\User;
+use app\api\models\User;
+use app\api\models\Tables;
 use Yii;
 
 /**

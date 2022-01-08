@@ -2,7 +2,7 @@
 
 namespace backend\api\models;
 
-use app\models\Meals;
+use app\api\models\Meals;
 use Yii;
 
 /**
@@ -73,6 +73,6 @@ class Reviews extends \yii\db\ActiveRecord
      */
     public function getUserprofiles()
     {
-        return $this->hasOne(Userprofiles::className(), ['id' => 'userprofilesid']);
+        return $this->hasOne(Userprofile::className(), ['id' => 'userprofilesid']);
     }
 }

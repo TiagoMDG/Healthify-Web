@@ -3,7 +3,7 @@
 namespace app\api\models;
 
 use backend\api\models\Userprofile;
-use app\models\Meals;
+use app\api\models\Meals;
 use Yii;
 
 /**

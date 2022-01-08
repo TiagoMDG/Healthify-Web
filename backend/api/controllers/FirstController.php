@@ -2,11 +2,11 @@
 
 namespace backend\api\controllers;
 
+use app\api\models\User;
 use backend\api\models\UserCreateForm;
 use Yii;
 use yii\helpers\Json;
 use yii\rest\Controller;
-use common\models\User;
 
 //classe controla  os acessos dos utilizadores ás areas restritas do site e contas dos mesmos
 
