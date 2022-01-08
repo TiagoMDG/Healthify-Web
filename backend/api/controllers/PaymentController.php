@@ -2,8 +2,9 @@
 
 namespace backend\api\controllers;
 
-use backend\api\models\Cart;
+use app\api\models\Cart;
 use backend\api\models\Sales;
+use backend\api\models\SalesMeals;
 use backend\api\models\Userprofile;
 use yii\db\Connection;
 use yii\helpers\Json;
@@ -57,15 +58,20 @@ class PaymentController extends ActiveController
         if(validatecard($card)){
             $transaction =  (new Connection)->beginTransaction();
             try {
-                $user = Userprofile::findOne(['userid' => $id]);
-                $sale = Sales::findOne(['userprofilesid' => $user->getAttribute('id')]);
+                $profile = Userprofile::findOne(['userid' => $id]);
+                //cria nova fatura de pagamento
+                $sale = new Sales();
+                $sale->userprofilesid = $profile->id;
+
                 $cartTotal = 0;
                 $cart = Cart::findAll(["userprofilesid" => $id]);
+                //calcula preço total do carrinho
                 foreach ($cart as $value) {
                     $Totalvalue = $value->sellingprice * $value->itemquantity;
                     $cartTotal = $cartTotal + $Totalvalue;
                 }
                 $sale->precototal = $cartTotal;
+                //calcula se ha desconto ou nao
                 if ($discount == 0) {
                     $sale->paidamount = $sale->precototal;
                 } else {
@@ -76,6 +82,18 @@ class PaymentController extends ActiveController
                 $sale->paymentmethod = "card";
                 $sale->paymentstate = "paid";
                 $sale->save();
+
+                //transfere items do carrinho para a tabela de relaçao com a fatura (sales_meals)
+                foreach ($cart as $item) {
+
+                    $newLine = new SalesMeals();
+                    $newLine->salesid = $sale->id;
+                    $newLine->mealid = $item->mealsid;
+                    $newLine->sellingprice = $item->sellingprice;
+                    $newLine->itemquantity = $item->itemquantity;
+                    $newLine->save();
+                }
+
 
                 $transaction->commit();
             }catch (\Exception $e) {
