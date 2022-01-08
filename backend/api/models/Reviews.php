@@ -3,7 +3,10 @@
 namespace backend\api\models;
 
 use app\api\models\Meals;
+use app\api\models\Mosquitto;
+use backend\api\phpMQTT;
 use Yii;
+use yii\helpers\Json;
 
 /**
  * This is the model class for table "reviews".
@@ -33,10 +36,10 @@ class Reviews extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rating'], 'number'],
             [['userprofilesid', 'mealsid'], 'required'],
             [['userprofilesid', 'mealsid'], 'integer'],
             [['review'], 'string', 'max' => 255],
+            [['rating'], 'number', 'min' => 1, 'max' => 5, 'tooBig' => 'O máximo é 5', 'tooSmall' => 'O minimo é 1'],
             [['mealsid'], 'exist', 'skipOnError' => true, 'targetClass' => Meals::className(), 'targetAttribute' => ['mealsid' => 'id']],
             [['userprofilesid'], 'exist', 'skipOnError' => true, 'targetClass' => Userprofile::className(), 'targetAttribute' => ['userprofilesid' => 'id']],
         ];
@@ -74,5 +77,23 @@ class Reviews extends \yii\db\ActiveRecord
     public function getUserprofiles()
     {
         return $this->hasOne(Userprofile::className(), ['id' => 'userprofilesid']);
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $id = $this->id;
+        $rating = $this->rating;
+        $review = $this->review;
+
+        $myObj = new \stdClass();
+        $myObj->id = $id;
+        $myObj->rating = $rating;
+        $myObj->review = $review;
+
+        $myJson = Json::encode($myObj);
+
+        Mosquitto::FazPublishNoMosquitto("review", $myJson);
     }
 }

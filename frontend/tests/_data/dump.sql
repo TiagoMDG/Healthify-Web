@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 07, 2022 at 10:23 AM
+-- Generation Time: Jan 05, 2022 at 02:13 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -18,8 +18,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `healthify_tests`
+-- Database: `healthify`
 --
+
+drop database IF EXISTS healthify_tests;
+create database healthify_tests;
+use healthify_tests;
 
 -- --------------------------------------------------------
 
