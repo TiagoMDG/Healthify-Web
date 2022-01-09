@@ -11,11 +11,14 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
+
+    //registo da api na framework
     'modules' => [
         'api' => [
             'class' => 'backend\api\REstAPI',
         ],
     ],
+    //registo do parser Json
     'components' => [
         'request' => [
             'parsers' => [
@@ -27,6 +30,9 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+
+                //rotas usadas pelo js do site
+
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'mealprep', 'pluralize' => false,
                     'extraPatterns' => [
                         'POST index' => 'index',
@@ -45,8 +51,11 @@ return [
                         '{mealId}' => '<mealId:\\d+>',
                     ],
                 ],
+
+//rotas usadas na api
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/user', 'pluralize' => false],
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/profile', 'pluralize' => false],
+
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/review', 'pluralize' => false,
                     'extraPatterns' => [
                         'GET fromuser/{id}' => 'fromuser',
@@ -59,10 +68,9 @@ return [
                         '{rating}' => '<rating:\\d+>',
                     ],
                 ],
+
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/payment', 'pluralize' => false,
-                    'extraPatterns' => [
-                        'POST {id}/pay/{card}' => 'pay',
-                    ],
+                    'extraPatterns' => ['POST {id}/pay/{card}' => 'pay',],
                     'tokens' => [
                         '{id}' => '<id:\\d+>',
                         '{card}' => '<card:\\d+>',
@@ -72,6 +80,7 @@ return [
                     'extraPatterns' => ['GET workedtime/{id}' => 'workedtime',
                         'POST attendance/{id}' => 'attendance'],
                 ],
+
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/meal', 'pluralize' => false],
 
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/reservations', 'pluralize' => false,
@@ -81,9 +90,11 @@ return [
                         '{reservedday}' => '<reservedday:\\w+>',
                         '{reservedtime}' => '<reservedtime:\\w+>',
                         '{tableid}' => '<tableid:\\d+>',
+
                     ],
                 ],
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/cart', 'pluralize' => false],
+
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/tables', 'pluralize' => false,
                     'extraPatterns' => [
                         'POST ocupar/{tableid}' => 'ocupar',
@@ -96,6 +107,7 @@ return [
                 ],
             ],
         ],
+
 
         'user' => [
             'identityClass' => 'common\models\User',
