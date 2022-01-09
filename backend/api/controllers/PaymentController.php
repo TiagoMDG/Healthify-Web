@@ -56,9 +56,8 @@ class PaymentController extends ActiveController
     public function actionPay($id, $card){
         $discount=0;
         if(validatecard($card)){
-            $transaction =  (new Connection)->beginTransaction();
-            try {
-                $profile = Userprofile::findOne(['userid' => $id]);
+
+                $profile = Userprofile::findOne(['id' => $id]);
                 //cria nova fatura de pagamento
                 $sale = new Sales();
                 $sale->userprofilesid = $profile->id;
@@ -85,7 +84,6 @@ class PaymentController extends ActiveController
 
                 //transfere items do carrinho para a tabela de relaçao com a fatura (sales_meals)
                 foreach ($cart as $item) {
-
                     $newLine = new SalesMeals();
                     $newLine->salesid = $sale->id;
                     $newLine->mealid = $item->mealsid;
@@ -93,16 +91,6 @@ class PaymentController extends ActiveController
                     $newLine->itemquantity = $item->itemquantity;
                     $newLine->save();
                 }
-
-
-                $transaction->commit();
-            }catch (\Exception $e) {
-                $transaction->rollBack();;
-                throw $e;
-            } catch (\Throwable $e) {
-                $transaction->rollBack();
-                throw $e;
-            }
             $jsonResponse = array('success'=>true);
         }
         else

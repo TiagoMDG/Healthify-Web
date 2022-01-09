@@ -5,5 +5,5 @@ use yii\rest\ActiveController;
 
 class CartController extends ActiveController
 {
-    public $modelClass = 'backend\api\models\Cart';
+    public $modelClass = 'app\api\models\cart';
 }
