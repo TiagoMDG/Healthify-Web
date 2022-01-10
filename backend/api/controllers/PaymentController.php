@@ -11,90 +11,86 @@ use yii\helpers\Json;
 use yii\rest\ActiveController;
 
 function validatecard($number)
-    {
-        global $type;
+{
+    global $type;
 
-        $cardtype = array(
-            "visa"       => "/^4[0-9]{12}(?:[0-9]{3})?$/",
-            "mastercard" => "/^5[1-5][0-9]{14}$/",
-            "amex"       => "/^3[47][0-9]{13}$/",
-            "discover"   => "/^6(?:011|5[0-9]{2})[0-9]{12}$/",
-        );
+    $cardtype = array(
+        "visa" => "/^4[0-9]{12}(?:[0-9]{3})?$/",
+        "mastercard" => "/^5[1-5][0-9]{14}$/",
+        "amex" => "/^3[47][0-9]{13}$/",
+        "discover" => "/^6(?:011|5[0-9]{2})[0-9]{12}$/",
+    );
 
-        if (preg_match($cardtype['visa'],$number))
-        {
-            $type= "visa";
-            return true;
+    if (preg_match($cardtype['visa'], $number)) {
+        $type = "visa";
+        return true;
 
-        }
-        else if (preg_match($cardtype['mastercard'],$number))
-        {
-            $type= "mastercard";
-            return true;
-        }
-        else if (preg_match($cardtype['amex'],$number))
-        {
-            $type= "amex";
-            return true;
+    } else if (preg_match($cardtype['mastercard'], $number)) {
+        $type = "mastercard";
+        return true;
+    } else if (preg_match($cardtype['amex'], $number)) {
+        $type = "amex";
+        return true;
 
-        }
-        else if (preg_match($cardtype['discover'],$number))
-        {
-            $type= "discover";
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+    } else if (preg_match($cardtype['discover'], $number)) {
+        $type = "discover";
+        return true;
+    } else {
+        return false;
     }
+}
 
 class PaymentController extends ActiveController
 {
     public $modelClass = 'backend\api\models\Userprofile';
 
-    public function actionPay($id, $card){
-        $discount=0;
-        if(validatecard($card)){
+    public function actionPay($id, $card)
+    {
+        $discount = 0;
+        if (validatecard($card)) {
 
-                $profile = Userprofile::findOne(['id' => $id]);
-                //cria nova fatura de pagamento
-                $sale = new Sales();
-                $sale->userprofilesid = $profile->id;
+            $profile = Userprofile::findOne(['id' => $id]);
+            //cria nova fatura de pagamento
+            $sale = new Sales();
+            $sale->userprofilesid = $profile->id;
 
-                $cartTotal = 0;
-                $cart = Cart::findAll(["userprofilesid" => $id]);
-                //calcula preço total do carrinho
-                foreach ($cart as $value) {
-                    $Totalvalue = $value->sellingprice * $value->itemquantity;
-                    $cartTotal = $cartTotal + $Totalvalue;
-                }
-                $sale->precototal = $cartTotal;
-                //calcula se ha desconto ou nao
-                if ($discount == 0) {
-                    $sale->paidamount = $sale->precototal;
-                } else {
-                    $sale->paidamount = $sale->precototal * ($discount / 100);
-                    $sale->discount = ($discount / 100);
-                }
+            $cartTotal = 0;
+            //$cart = Cart::findAll(["userprofilesid" => $id]);
+            $cart = Cart::find()->where(["userprofilesid" => $id])->andWhere(["state" => "active"])->all();
+            //calcula preço total do carrinho
+            foreach ($cart as $value) {
+                $Totalvalue = $value->sellingprice * $value->itemquantity;
+                $cartTotal = $cartTotal + $Totalvalue;
 
-                $sale->paymentmethod = "card";
-                $sale->paymentstate = "paid";
-                $sale->save();
 
-                //transfere items do carrinho para a tabela de relaçao com a fatura (sales_meals)
-                foreach ($cart as $item) {
-                    $newLine = new SalesMeals();
-                    $newLine->salesid = $sale->id;
-                    $newLine->mealid = $item->mealsid;
-                    $newLine->sellingprice = $item->sellingprice;
-                    $newLine->itemquantity = $item->itemquantity;
-                    $newLine->save();
-                }
-            $jsonResponse = array('success'=>true);
-        }
-        else
-            $jsonResponse = array('success'=>false);
+            }
+            $sale->precototal = $cartTotal;
+            //calcula se ha desconto ou nao
+            if ($discount == 0) {
+                $sale->paidamount = $sale->precototal;
+            } else {
+                $sale->paidamount = $sale->precototal * ($discount / 100);
+                $sale->discount = ($discount / 100);
+            }
+
+            $sale->paymentmethod = "card";
+            $sale->paymentstate = "paid";
+            $sale->save();
+
+            //transfere items do carrinho para a tabela de relaçao com a fatura (sales_meals)
+            foreach ($cart as $item) {
+                $newLine = new SalesMeals();
+                $newLine->salesid = $sale->id;
+                $newLine->mealid = $item->mealsid;
+                $newLine->sellingprice = $item->sellingprice;
+                $newLine->itemquantity = $item->itemquantity;
+                $newLine->save();
+                $item->state = "paid";
+                $item->save();
+            }
+            $jsonResponse = array('success' => true);
+        } else
+            $jsonResponse = array('success' => false);
 
         return Json::encode($jsonResponse);
     }

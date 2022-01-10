@@ -55,11 +55,11 @@ return [
 //rotas usadas na api
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/user', 'pluralize' => false],
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/profile', 'pluralize' => false],
+                ['class' => '\yii\rest\UrlRule', 'controller' => 'api/empsales', 'pluralize' => false],
 
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/review', 'pluralize' => false,
                     'extraPatterns' => [
                         'GET fromuser/{id}' => 'fromuser',
-                        'POST createreview/{id}&{mealsid}&{review}&{rating}' => 'createreview',
                     ],
                     'tokens' => [
                         '{id}' => '<id:\\d+>',
@@ -83,17 +83,14 @@ return [
 
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/meal', 'pluralize' => false],
 
-                ['class' => '\yii\rest\UrlRule', 'controller' => 'api/reservations', 'pluralize' => false,
-                    'extraPatterns' => ['POST reservar/{userprofilesid}&{reservedday}&{reservedtime}&{tableid}' => 'reservar',],
-                    'tokens' => [
-                        '{userprofilesid}' => '<userprofilesid:\\d+>',
-                        '{reservedday}' => '<reservedday:\\w+>',
-                        '{reservedtime}' => '<reservedtime:\\w+>',
-                        '{tableid}' => '<tableid:\\d+>',
 
-                    ],
+                ['class' => '\yii\rest\UrlRule', 'controller' => 'api/reservations', 'pluralize' => false,
+                    'extraPatterns' => [
+                        'GET reserved/{id}' => 'reserved',
+                        ],
                 ],
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/cart', 'pluralize' => false],
+                ['class' => '\yii\rest\UrlRule', 'controller' => 'api/sales', 'pluralize' => false],
 
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/tables', 'pluralize' => false,
                     'extraPatterns' => [
@@ -103,6 +100,11 @@ return [
                     ],
                     'tokens' => [
                         '{tableid}' => '<tableid:\\d+>',
+                    ],
+                ],
+                ['class' => '\yii\rest\UrlRule', 'controller' => 'api/sales', 'pluralize' => false,
+                    'extraPatterns' => [
+                        'GET sold/{id}/' => 'sold',
                     ],
                 ],
             ],

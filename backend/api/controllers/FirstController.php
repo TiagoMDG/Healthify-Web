@@ -12,7 +12,7 @@ use yii\rest\Controller;
 
 class FirstController extends Controller
 {
-    public $modelClass = 'common\models\User';
+    public $modelClass = 'app\api\models\User';
 
     public function getPost(){
         return Yii::$app->request->post();
@@ -60,7 +60,7 @@ class FirstController extends Controller
     public function actionLogout(){
         Yii::$app->user->logout();
 
-        return  array('success'=>true,'status'=>'true');
+        return   Json::encode(array('success'=>true,'status'=>'logedout'));
     }
 
     public function actionDelete(){

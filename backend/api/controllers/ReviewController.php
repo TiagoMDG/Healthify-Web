@@ -19,24 +19,6 @@ class ReviewController extends ActiveController
         else
             $jsonResponse = $reviews;
 
-        $myJson = Json::encode($jsonResponse);
-    }
-
-    public function actionCreatereview($id, $mealsid, $reviewtext, $rating)
-    {
-        $review = new Reviews();
-
-        $review->rating = $rating;
-        $review->review = $reviewtext;
-        $review->userprofilesid = $id;
-        $review->mealsid = $mealsid;
-
-        if (!$review->validate()){
-            $jsonResponse = $review->errors;
-        } else {
-            $jsonResponse = 'Obrigado por fazer uma review!';
-            $review->save();
-        }
-        return Json::encode($jsonResponse);
+       return Json::encode($jsonResponse);
     }
 }

@@ -3,6 +3,7 @@
 namespace backend\api\controllers;
 
 use app\api\models\Reservations;
+use Yii;
 use yii\helpers\Json;
 use yii\rest\ActiveController;
 
@@ -10,32 +11,37 @@ class ReservationsController extends ActiveController
 {
     public $modelClass = 'app\api\models\Reservations';
 
-    public function actionGetreservations($id)
+    public function actionReserved($id)
     {
         $reservations = Reservations::findAll(['userprofilesid' => $id]);
 
         return Json::encode($reservations);
     }
 
-    public function actionReservar($userprofilesid, $tableid, $reservedday, $reservedtime)
+    public function actionNew()
     {
-        $modelClass = new Reservations();
-        $modelClass->reservedday = $reservedday;
-        $modelClass->reservedtime = $reservedtime;
-        $modelClass->tableid = $tableid;
-        $modelClass->userprofilesid = $userprofilesid;
+        $jsonPost = Yii::$app->request->post();
 
-        if (Reservations::find()->where(['userprofilesid' => $modelClass->userprofilesid])->andWhere(['reservedday' => $modelClass->reservedday])->exists()) {
+        $reservedday = $jsonPost["reservedday"];
+        $reservedtime = $jsonPost["reservedtime"];
+        $tableid = $jsonPost["tableid"];
+        $userprofilesid = $jsonPost["userprofilesid"];
+
+        if (Reservations::find()->where(['userprofilesid' => $userprofilesid])->andWhere(['reservedday' => $reservedday])->exists()) {
             $jsonResponse = array('message' => 'This client already has a reservation today!');
-            return Json::encode($jsonResponse);
-        } else if (Reservations::find()->where(['tableid' => $modelClass->tableid])->andWhere(['reservedday' => $modelClass->reservedday])->andWhere(['reservedtime' => $modelClass->reservedtime])->exists()) {
+
+        } else if (Reservations::find()->where(['tableid' => $tableid])->andWhere(['reservedday' => $reservedday])->andWhere(['reservedtime' => $reservedtime])->exists()) {
             $jsonResponse = array('message' => 'This table is already booked!');
-            return Json::encode($jsonResponse);
-        } else {
-            $modelClass->save();
+
+        }else{
+            $new = new Reservations();
+            $new->reservedday = $reservedday;
+            $new->reservedtime = $reservedtime;
+            $new->tableid = $tableid;
+            $new->userprofilesid = $userprofilesid;
+            $new->save();
             $jsonResponse = array('success' => true);
         }
-
         return Json::encode($jsonResponse);
     }
 }
