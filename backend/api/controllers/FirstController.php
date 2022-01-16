@@ -4,6 +4,7 @@ namespace backend\api\controllers;
 
 use app\api\models\User;
 use backend\api\models\UserCreateForm;
+use backend\api\models\Userprofile;
 use Yii;
 use yii\helpers\Json;
 use yii\rest\Controller;
@@ -28,14 +29,32 @@ class FirstController extends Controller
                 $hash = User::findByUsername($user->getAttribute("username"));
 
                 if (Yii::$app->getSecurity()->validatePassword($jsonPost['password'], $hash->password_hash)) {
-                    $jsonResponse = array('success'=>true,'token'=>User::findByUsername($user->getAttribute("username"))->getAuthKey());
+                    $userProfile = Userprofile::find()->where(['userid'=>$user->getAttribute('id')])->one();
+                    $profileId = $userProfile->getAttribute('id');
+                    $nif = $userProfile->getAttribute('nif');
+                    $name = $userProfile->getAttribute('name');
+                    $email = $user->getAttribute('email');
+                    $cellphone = $userProfile->getAttribute('cellphone');
+                    $street = $userProfile->getAttribute('street');
+                    $door = $userProfile->getAttribute('door');
+                    if ($userProfile->getAttribute('floor')!=null){
+                        $floor = $userProfile->getAttribute('floor');
+                    }else{
+                        $floor = 0;
+                    }
+                    $city = $userProfile->getAttribute('city');
+                    $userId = $userProfile->getAttribute('userid');
+                    $userToken = User::findByUsername($user->getAttribute("username"))->getAuthKey();
+
+                    $jsonResponse = array('success'=>true,'profileId'=>$profileId,'nif'=>$nif,'name'=>$name,'email'=>$email,
+                        'cellphone'=>$cellphone,'street'=>$street,'door'=>$door,'floor'=>$floor,'city'=>$city,'userId'=>$userId,'token'=>$userToken);
                 } else {
-                    $jsonResponse = "Login Failed";
+                    $jsonResponse = array('success'=>'sem acesso ');
                 }
             }
         }else{
-            $jsonResponse = "Login Failed";
-            // do your query stuff here
+            $jsonResponse = array('success'=>false);
+
         }
         return Json::encode($jsonResponse);
     }
