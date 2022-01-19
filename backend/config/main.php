@@ -90,6 +90,11 @@ return [
                         ],
                 ],
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/cart', 'pluralize' => false],
+                ['class' => '\yii\rest\UrlRule', 'controller' => 'api/customcart', 'pluralize' => false,
+                    'extraPatterns' => [
+                        'GET fromuser/{id}' => 'fromuser',
+                        ],
+                    ],
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/sales', 'pluralize' => false],
 
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/tables', 'pluralize' => false,
