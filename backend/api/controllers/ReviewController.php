@@ -14,11 +14,12 @@ class ReviewController extends ActiveController
     public function actionFromuser($id)
     {
         $reviews = Reviews::find()->where(['userprofilesid' => $id])->all();
-        if ($reviews == null)
+        if ($reviews == null){
             $jsonResponse = 'Sem Reviews';
-        else
+        }
+        else{
             $jsonResponse = $reviews;
-
-       return Json::encode($jsonResponse);
+        }
+       return $jsonResponse;
     }
 }
