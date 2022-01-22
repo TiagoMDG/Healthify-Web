@@ -88,11 +88,11 @@ class PaymentController extends ActiveController
                 $item->state = "paid";
                 $item->save();
             }
-            $jsonResponse = array('success' => true);
+            $jsonResponse = true;
         } else
-            $jsonResponse = array('success' => false);
+            $jsonResponse = false;
 
-        return Json::encode($jsonResponse);
+        return $jsonResponse;
     }
 
 }

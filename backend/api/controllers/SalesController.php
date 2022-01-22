@@ -2,7 +2,10 @@
 
 namespace backend\api\controllers;
 
+use app\api\models\MealIngredients;
+use app\api\models\Meals;
 use backend\api\models\Sales;
+use backend\api\models\SalesMeals;
 use yii\helpers\Json;
 use yii\rest\ActiveController;
 
@@ -21,7 +24,8 @@ class SalesController extends ActiveController
 
     public function actionSold($id)
     {
-        return Json::encode(Sales::findAll(['userprofilesid'=>$id]));
-    }
+        $vendas = Sales::findAll(['userprofilesid'=>$id]);
 
+        return $vendas;
+    }
 }
