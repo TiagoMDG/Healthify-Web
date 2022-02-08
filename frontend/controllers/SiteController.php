@@ -77,9 +77,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        if (!Yii::$app->user->identity != 'guest'){
-            $this->layout = 'loggedclient';
-        }
         //$menu = $this->actionMenuShow();
 
         $entree = Meals::find()->where(['categoryid' =>1])->all();
@@ -173,7 +170,6 @@ class SiteController extends Controller
         $nome = Yii::$app->getUser()->identity->getName();
         $email = Yii::$app->getUser()->identity->getEmail();
 
-        $this->layout = 'loggedclient';
         return $this->render('profile', ['nome'=> $nome, 'email'=> $email]);
     }
 

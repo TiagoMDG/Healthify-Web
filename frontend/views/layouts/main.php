@@ -24,6 +24,10 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../web/css/customCss.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+    <style>.glow {
+            color: yellow;
+        }</style>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -43,12 +47,16 @@ AppAsset::register($this);
 
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Reviews', 'url' => ['/reviews/index']],
     ];
 
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+
     } else {
+        $menuItems[] = ['label' => 'Perfil', 'url' => ['/userprofile/user']];
+        $menuItems[] = ['label' => 'Reservas', 'url' => ['/reservations/index']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(

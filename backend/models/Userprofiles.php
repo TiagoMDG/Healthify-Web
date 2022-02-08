@@ -1,7 +1,9 @@
 <?php
 
-namespace frontend\models;
+namespace app\models;
 
+use app\api\models\Cart;
+use backend\api\models\Schedules;
 use common\models\User;
 use Yii;
 
@@ -14,18 +16,18 @@ use Yii;
  * @property int $cellphone
  * @property string $street
  * @property int $door
- * @property string|null $floor
+ * @property int|null $floor
  * @property string $city
  * @property string|null $nib
  * @property int $userid
  *
  * @property Cart[] $carts
- * @property Review[] $reviews
- * @property Sale[] $sales
- * @property Schedule[] $schedules
+ * @property Reviews[] $reviews
+ * @property Sales[] $sales
+ * @property Schedules[] $schedules
  * @property User $user
  */
-class Userprofile extends \yii\db\ActiveRecord
+class Userprofiles extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -42,13 +44,10 @@ class Userprofile extends \yii\db\ActiveRecord
     {
         return [
             [['nif', 'name', 'cellphone', 'street', 'door', 'city', 'userid'], 'required'],
-            [['door', 'userid'], 'integer'],
-            [['name', 'street'], 'string', 'max' => 80],
-            [['floor'],'string', 'max' => 20],
-            [['city'], 'string', 'max' => 50],
+            [['nif', 'cellphone', 'door', 'floor', 'userid'], 'integer'],
+            [['name', 'street'], 'string', 'max' => 20],
+            [['city'], 'string', 'max' => 15],
             [['nib'], 'string', 'max' => 25],
-            [['nif', 'cellphone'], 'number', 'min' => 111111111, 'max' => 999999999, 'tooBig' => 'O número deve ter exatamente 9 dígitos', 'tooSmall' => 'O número deve ter exatamente 9 dígitos'],
-            [['street'], 'string', 'max' => 50],
             [['userid'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['userid' => 'id']],
         ];
     }
@@ -60,14 +59,14 @@ class Userprofile extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nif' => 'NIF',
-            'name' => 'Nome',
-            'cellphone' => 'Nº Telemóvel',
-            'street' => 'Rua',
-            'door' => 'Nº Porta',
-            'floor' => 'Andar',
-            'city' => 'Cidade',
-            'nib' => 'NIB',
+            'nif' => 'Nif',
+            'name' => 'Name',
+            'cellphone' => 'Cellphone',
+            'street' => 'Street',
+            'door' => 'Door',
+            'floor' => 'Floor',
+            'city' => 'City',
+            'nib' => 'Nib',
             'userid' => 'Userid',
         ];
     }
@@ -89,7 +88,7 @@ class Userprofile extends \yii\db\ActiveRecord
      */
     public function getReviews()
     {
-        return $this->hasMany(Review::className(), ['userprofilesid' => 'id']);
+        return $this->hasMany(Reviews::className(), ['userprofilesid' => 'id']);
     }
 
     /**
@@ -99,7 +98,7 @@ class Userprofile extends \yii\db\ActiveRecord
      */
     public function getSales()
     {
-        return $this->hasMany(Sale::className(), ['userprofilesid' => 'id']);
+        return $this->hasMany(Sales::className(), ['userprofilesid' => 'id']);
     }
 
     /**
@@ -109,7 +108,7 @@ class Userprofile extends \yii\db\ActiveRecord
      */
     public function getSchedules()
     {
-        return $this->hasMany(Schedule::className(), ['userprofilesid' => 'id']);
+        return $this->hasMany(Schedules::className(), ['userprofilesid' => 'id']);
     }
 
     /**
@@ -120,16 +119,5 @@ class Userprofile extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'userid']);
-    }
-
-    public static function getNameWithID($id)
-    {
-        $client = Userprofile::find()->where(['id'=>$id])->select('name')->all();
-
-        foreach ($client as $info){
-            $name = $info->getAttribute('name');
-        }
-
-        return $name;
     }
 }

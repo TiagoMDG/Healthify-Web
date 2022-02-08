@@ -6,8 +6,6 @@ use yii\helpers\Html;
 /* @var $model app\models\Reservations */
 
 $this->title = 'Create Reservations';
-$this->params['breadcrumbs'][] = ['label' => 'Reservations', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="reservations-create">
 

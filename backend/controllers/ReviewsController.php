@@ -1,19 +1,17 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
-use frontend\models\Userprofile;
-use app\models\UserprofileSearch;
-use common\models\User;
-use Yii;
+use app\models\Reviews;
+use app\models\ReviewsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UserprofileController implements the CRUD actions for Userprofile model.
+ * ReviewsController implements the CRUD actions for Reviews model.
  */
-class UserprofileController extends Controller
+class ReviewsController extends Controller
 {
     /**
      * @inheritDoc
@@ -34,12 +32,13 @@ class UserprofileController extends Controller
     }
 
     /**
-     * Lists all Userprofile models.
-     * @return mixed
+     * Lists all Reviews models.
+     *
+     * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new UserprofileSearch();
+        $searchModel = new ReviewsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,22 +47,10 @@ class UserprofileController extends Controller
         ]);
     }
 
-    public function actionUser(){
-        $userid = Yii::$app->user->identity->getId();
-        $profile = Userprofile::find()->where(['userid' =>$userid])->one();
-        if ($profile!=null){
-           return $this->actionView($profile->getAttribute('id'));
-
-        }else {
-            return $this->actionCreate();
-        }
-
-    }
-
     /**
-     * Displays a single Userprofile model.
+     * Displays a single Reviews model.
      * @param int $id ID
-     * @return mixed
+     * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
@@ -74,48 +61,37 @@ class UserprofileController extends Controller
     }
 
     /**
-     * Creates a new Userprofile model.
+     * Creates a new Reviews model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Userprofile();
-
-
-        $userid = Yii::$app->user->identity->getId();
-        $username = Yii::$app->user->identity->username;
+        $model = new Reviews();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->validate()) {
-                $model->save();
+            if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
-            $errors = $model->errors;
         }
-
 
         return $this->render('create', [
             'model' => $model,
-            'userid'=> $userid,
-            'username' => $username,
         ]);
     }
 
     /**
-     * Updates an existing Userprofile model.
+     * Updates an existing Reviews model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
-     * @return mixed
+     * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $userid = Yii::$app->user->identity->getId();
-        $username = Yii::$app->user->identity->username;
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -123,16 +99,14 @@ class UserprofileController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'userid'=> $userid,
-            'username' => $username,
         ]);
     }
 
     /**
-     * Deletes an existing Userprofile model.
+     * Deletes an existing Reviews model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
-     * @return mixed
+     * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
@@ -143,15 +117,15 @@ class UserprofileController extends Controller
     }
 
     /**
-     * Finds the Userprofile model based on its primary key value.
+     * Finds the Reviews model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Userprofile the loaded model
+     * @return Reviews the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Userprofile::findOne($id)) !== null) {
+        if (($model = Reviews::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

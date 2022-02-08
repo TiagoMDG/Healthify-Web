@@ -38,8 +38,6 @@ class ReservationsController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = 'loggedclient';
-
         $userid = Yii::$app->user->identity->getId();
 
         return $this->render('index', [
@@ -88,7 +86,6 @@ class ReservationsController extends Controller
      */
     public function actionView($id)
     {
-        $this->layout = 'loggedclient';
 
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -103,8 +100,6 @@ class ReservationsController extends Controller
     public function actionCreate($userid)
     {
         $model = new Reservations();
-
-        $this->layout = 'loggedclient';
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->validate()) {
@@ -136,7 +131,6 @@ class ReservationsController extends Controller
      */
     public function actionUpdate($id)
     {
-        $this->layout = 'loggedclient';
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {

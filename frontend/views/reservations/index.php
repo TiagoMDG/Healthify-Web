@@ -10,7 +10,6 @@ use yii\jui\Tabs;
 /* @var $userid */
 
 $this->title = 'Reservations';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="reservations-index">
 
