@@ -55,6 +55,7 @@ AppAsset::register($this);
     } else {
         $menuItems[] = ['label' => 'Perfil', 'url' => ['/userprofile/user']];
         $menuItems[] = ['label' => 'Reservas', 'url' => ['/reservations/index']];
+        $menuItems[] = ['label' => 'Pedidos', 'url' => ['/sales/index']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(
