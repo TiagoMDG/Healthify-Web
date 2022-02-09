@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use app\models\SalesMeals;
 use app\models\Sales;
+use app\models\Tables;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
@@ -42,22 +43,26 @@ class MealprepController extends \yii\web\Controller
             ]
         );
     }
+
     public function actionIndex()
     {
-        $mealsToPrep = SalesMeals::find()->where(['not',['state'=>'done']])->all();
+        $mealsToPrep = SalesMeals::find()->where(['not', ['state' => 'done']])->all();
+        $tables = Tables::find()->all();
 
         return $this->render('index', [
             'mealsToPrep' => $mealsToPrep,
+            'tables'=> $tables,
         ]);
     }
 
     public function actionPreparing($mealState, $mealId)
     {
-        $mealsToPrep = SalesMeals::find()->where(['not',['state'=>'done']])->all();
+        $mealsToPrep = SalesMeals::find()->where(['not', ['state' => 'done']])->all();
 
         $toAlter = SalesMeals::findOne($mealId);
         $toAlter->state = $mealState;
         $toAlter->save();
+
         return $this->render('index', [
             'mealsToPrep' => $mealsToPrep,
         ]);
@@ -65,7 +70,7 @@ class MealprepController extends \yii\web\Controller
 
     public function actionDeliver($mealState, $mealId)
     {
-        $mealsToPrep = SalesMeals::find()->where(['not',['state'=>'done']])->all();
+        $mealsToPrep = SalesMeals::find()->where(['not', ['state' => 'done']])->all();
 
         $toAlter = SalesMeals::findOne($mealId);
         $toAlter->state = $mealState;

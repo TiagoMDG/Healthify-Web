@@ -20,13 +20,13 @@ $this->title = 'Reviews';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php foreach ($reviews as $review) { ?>
-    <div class="card">
-        <div class="container">
-            <h4><b><?= Userprofile::getNameWithID($review->userprofilesid) ?></b></h4>
-            <p><?= Reviews::stars($review->rating) ?></p>
-            <p><?= $review->review ?></p>
+        <div class="card">
+            <div class="container">
+                <h4><b><?= Userprofile::getNameWithID($review->userprofilesid) ?></b></h4>
+                <p><?= Reviews::stars($review->rating) ?></p>
+                <p><?= $review->review ?></p>
+            </div>
         </div>
-    </div>
         <br>
     <?php } ?>
 

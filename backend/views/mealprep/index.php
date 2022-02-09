@@ -17,22 +17,47 @@ $this->title = 'Preparação de pedidos';
             <h3>Sem novos pedidos</h3>
         </div>
     <?php } else { ?>
-        <h3>Indicadores de estado</h3>
-        <?php foreach ($mealsToPrep as $prep) { ?>
-            <div>
-                <h6><?= $prep->id ?></h6>
-                <h6><?= Meals::nameByID($prep->mealid) ?></h6>
 
-                <div class="inline">
-                    <?= Html::a('Em Preparação', ['preparing', 'mealState' => 'preparing', 'mealId' => $prep->id], ['class' => 'btn btn-danger']) ?>
-                    <?= Html::a('A Sair', ['deliver', 'mealState' => 'done', 'mealId' => $prep->id], ['class' => 'btn btn-success']) ?>
-                </div>
+        <?php foreach ($tables as $table) { ?>
+
+            <div class="column">
+
+            <h1>Mesa <?= $table->id; ?></h1>
+            <?php foreach ($mealsToPrep as $prep) { ?>
+                <?php if ($prep->mesa == $table->id) { ?>
+
+                    <div class="row">
+                        <div class="card">
+                            <h4><b><?= Meals::nameByID($prep->mealid) ?></b></h4>
+
+                            <?php if ($prep->state == 'waiting') { ?>
+                                <?= Html::a('Em Preparação', ['preparing', 'mealState' => 'preparing', 'mealId' => $prep->id], ['class' => 'btn btn-danger']) ?>
+                            <?php } else { ?>
+                                <?= Html::a('A Sair', ['deliver', 'mealState' => 'done', 'mealId' => $prep->id], ['class' => 'btn btn-success']) ?>
+                            <?php } ?>
+
+                        </div>
+                    </div>
+                <?php }
+            } ?>
             </div>
-        <?php }
-    } ?>
+       <?php } ?>
 
+
+    <?php } ?>
 
 </div>
+</div>
+
+<script>
+    function timedRefresh(timeoutPeriod) {
+        setTimeout("location.reload(true);", timeoutPeriod);
+    }
+
+    window.onload = timedRefresh(30000);
+    window.onload = refresh();
+</script>
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
