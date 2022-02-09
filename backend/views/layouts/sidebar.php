@@ -64,6 +64,10 @@ $categories = Category::getCategorias();
                 </li>
 
                 <li class="nav-item">
+                    <?= Html::a('Histórico de Pedidos', ['sales/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                </li>
+
+                <li class="nav-item">
                     <button class="dropdown-btn nav-link"><?= Html::a('Gerir Ementa', ['meals/index'], ['data-method' => 'post']) ?>
                         <i id="dropdownCaret" class="fa fa-caret-down"></i>
                     </button>
