@@ -22,11 +22,9 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../web/css/customCss.css">
+    <link rel="stylesheet" href="../../web/css/customCss.css">
+    <link rel="stylesheet" href="../../web/css/profile.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
-    <style>.glow {
-            color: yellow;
-        }</style>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>

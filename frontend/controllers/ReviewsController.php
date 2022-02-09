@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use app\models\Reviews;
 use app\models\ReviewsSearch;
 use app\models\Userprofiles;
+use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -39,10 +40,16 @@ class ReviewsController extends Controller
      */
     public function actionIndex()
     {
-        $Reviews = Reviews::find()->all();
+        $query = Reviews::find();
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount' => $count, 'defaultPageSize' => 5]);
+        $models = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
 
         return $this->render('index', [
-            'reviews' => $Reviews,
+            'reviews' => $models,
+            'pagination' => $pagination,
         ]);
     }
 
