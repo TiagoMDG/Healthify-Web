@@ -75,7 +75,7 @@ class UserController extends Controller
             ->all();
         foreach ($allUsers as $user) {
 
-            if ($user->getAttribute('status') == 10 && $user->getRole($user->id) != 'admin'/*&& $user->getRole($user->id)->item_name != 'client'*/) {
+            if ($user->getAttribute('status') == 10 && $user->getRole($user->id)->item_name != 'admin') {
                 $filterUsers[] = $user;
             }
         }
