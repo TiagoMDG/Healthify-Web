@@ -22,6 +22,7 @@ $this->title = $model->name;
                                  class="rounded-circle" width="150">
                             <div class="mt-3">
                                 <p class="text-black mb-1"><?php echo $model->name ?></p>
+                                <p class="text-black mb-1"><?php ; echo ('Número de Cliente - ' . $model->id)?></p>
                             </div>
                         </div>
                     </div>

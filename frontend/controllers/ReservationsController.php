@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use app\models\Reservations;
 use app\models\ReservationsSearch;
+use frontend\models\Userprofile;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -39,6 +40,9 @@ class ReservationsController extends Controller
     public function actionIndex()
     {
         $userid = Yii::$app->user->identity->getId();
+        $userprofileid = Userprofile::find()->select(['id'])->where(['userid' => $userid])->one();
+
+        $userid = $userprofileid['id'];
 
         return $this->render('index', [
             'userid' => $userid,
@@ -94,7 +98,7 @@ class ReservationsController extends Controller
 
     /**
      * Creates a new Reservations model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected to the 'index' page.
      * @return mixed
      */
     public function actionCreate($userid)
@@ -109,7 +113,7 @@ class ReservationsController extends Controller
                     $model->addError('tableid', 'This table is already booked!');
                 } else {
                     $model->save();
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['index', 'userid' => $model->userprofilesid]);
                 }
             }
         } else {
@@ -120,40 +124,6 @@ class ReservationsController extends Controller
             'model' => $model,
             'userid' => $userid,
         ]);
-    }
-
-    /**
-     * Updates an existing Reservations model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing Reservations model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

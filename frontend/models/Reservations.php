@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use common\models\User;
 use Yii;
 
 /**
@@ -15,7 +14,7 @@ use Yii;
  * @property int $tableid
  *
  * @property Tables $table
- * @property User $userprofiles
+ * @property Userprofiles $userprofiles
  */
 class Reservations extends \yii\db\ActiveRecord
 {
@@ -38,7 +37,7 @@ class Reservations extends \yii\db\ActiveRecord
             ['reservedtime', 'in', 'range' => ['almoco', 'jantar']],
             [['userprofilesid', 'tableid'], 'integer'],
             [['tableid'], 'exist', 'skipOnError' => true, 'targetClass' => Tables::className(), 'targetAttribute' => ['tableid' => 'id']],
-            [['userprofilesid'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['userprofilesid' => 'id']],
+            [['userprofilesid'], 'exist', 'skipOnError' => true, 'targetClass' => Userprofiles::className(), 'targetAttribute' => ['userprofilesid' => 'id']],
         ];
     }
 
@@ -49,10 +48,10 @@ class Reservations extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'reservedday' => 'Reservedday',
-            'reservedtime' => 'Reservedtime',
-            'userprofilesid' => 'Userprofilesid',
-            'tableid' => 'Tableid',
+            'reservedday' => 'Dia da Reserva',
+            'reservedtime' => 'Horário Reservado',
+            'userprofilesid' => 'ID do Cliente',
+            'tableid' => 'N da mesa',
         ];
     }
 
@@ -73,6 +72,6 @@ class Reservations extends \yii\db\ActiveRecord
      */
     public function getUserprofiles()
     {
-        return $this->hasOne(User::className(), ['id' => 'userprofilesid']);
+        return $this->hasOne(Userprofiles::className(), ['id' => 'userprofilesid']);
     }
 }

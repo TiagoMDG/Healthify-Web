@@ -9,16 +9,17 @@ use yii\jui\Tabs;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $userid */
 
-$this->title = 'Reservations';
+$this->title = 'Reservas';
 ?>
 <div class="reservations-index">
 
+    <h1><?= Html::encode($this->title) ?></h1>
+
 
     <p>
-        <?= Html::a('Create Reservations', ['create', 'userid' => $userid], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Fazer Reserva', ['create', 'userid' => $userid], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?php
 

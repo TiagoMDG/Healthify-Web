@@ -8,6 +8,8 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SalesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Pedidos';
 ?>
 <div class="sales-index">
 
@@ -23,7 +25,7 @@ use yii\grid\GridView;
             'precototal',
             'discount',
             'paymentmethod',
-            'userprofilesid',
+            //'userprofilesid',
         ],
     ]); ?>
 

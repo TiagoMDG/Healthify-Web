@@ -11,8 +11,8 @@ use app\models\Tables;
 /* @var $model app\models\Reservations */
 /* @var $form yii\widgets\ActiveForm */
 
-$user = User::find()->all();
-$listUsers = ArrayHelper::map($user, 'id', 'username');
+$user = \app\models\Userprofiles::find()->all();
+$listUsers = ArrayHelper::map($user, 'id', 'id');
 
 $tables = Tables::find()->all();
 $listTables = ArrayHelper::map($tables, 'id', 'id');

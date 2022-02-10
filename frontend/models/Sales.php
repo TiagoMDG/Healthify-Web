@@ -53,13 +53,13 @@ class Sales extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'salesday' => 'Salesday',
-            'precototal' => 'Precototal',
-            'discount' => 'Discount',
+            'salesday' => 'Data',
+            'precototal' => 'Preço Total',
+            'discount' => 'Desconto',
             'paidamount' => 'Paidamount',
-            'paymentmethod' => 'Paymentmethod',
-            'paymentstate' => 'Paymentstate',
-            'userprofilesid' => 'Userprofilesid',
+            'paymentmethod' => 'Método de Pagamento',
+            'paymentstate' => 'Estado do Pagamento',
+            'userprofilesid' => 'ID do Cliente',
         ];
     }
 
