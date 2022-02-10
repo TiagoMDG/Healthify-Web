@@ -53,14 +53,7 @@ return [
                 ],
 
 //rotas usadas na api
-                ['class' => '\yii\rest\UrlRule', 'controller' => 'api/user', 'pluralize' => false,
-                    'extraPatterns' => [
-                        'POST check/{id}' => 'check',
-                    ],
-                    'tokens' => [
-                        '{id}' => '<id:\\d+>',
-                    ],
-                ],
+                ['class' => '\yii\rest\UrlRule', 'controller' => 'api/user', 'pluralize' => false],
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/profile', 'pluralize' => false],
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/empsales', 'pluralize' => false],
 
