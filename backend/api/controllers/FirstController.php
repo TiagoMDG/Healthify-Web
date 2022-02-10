@@ -88,5 +88,4 @@ class FirstController extends Controller
         return  Json::encode(User::findOne(['id'=>$jsonPost['id']])->delete());
     }
 
-
 }
