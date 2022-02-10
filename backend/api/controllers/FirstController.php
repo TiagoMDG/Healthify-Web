@@ -46,8 +46,10 @@ class FirstController extends Controller
                     $userId = $userProfile->getAttribute('userid');
                     $userToken = User::findByUsername($user->getAttribute("username"))->getAuthKey();
 
+                    $userRole = User::findOne(['id'=>$userId])->getRole($userId)->item_name;
+
                     $jsonResponse = array('success'=>true,'profileId'=>$profileId,'nif'=>$nif,'name'=>$name,'email'=>$email,
-                        'cellphone'=>$cellphone,'street'=>$street,'door'=>$door,'floor'=>$floor,'city'=>$city,'userId'=>$userId,'token'=>$userToken);
+                        'cellphone'=>$cellphone,'street'=>$street,'door'=>$door,'floor'=>$floor,'city'=>$city,'userId'=>$userId,'token'=>$userToken,'role'=>$userRole);
                 } else {
                     $jsonResponse = array('success'=>'sem acesso ');
                 }
@@ -87,6 +89,5 @@ class FirstController extends Controller
 
         return  Json::encode(User::findOne(['id'=>$jsonPost['id']])->delete());
     }
-
 
 }

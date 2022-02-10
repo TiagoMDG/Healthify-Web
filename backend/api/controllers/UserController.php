@@ -1,6 +1,7 @@
 <?php
 
 namespace backend\api\controllers;
+use app\api\models\User;
 use yii\rest\ActiveController;
 
 class UserController extends ActiveController
