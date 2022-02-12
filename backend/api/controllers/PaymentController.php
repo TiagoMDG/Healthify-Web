@@ -95,4 +95,55 @@ class PaymentController extends ActiveController
         return $jsonResponse;
     }
 
+    public function actionTakeaway($id, $card)
+    {
+        $discount = 0;
+        if (validatecard($card)) {
+
+            $profile = Userprofile::findOne(['id' => $id]);
+            //cria nova fatura de pagamento
+            $sale = new Sales();
+            $sale->userprofilesid = $profile->id;
+
+            $cartTotal = 0;
+            //$cart = Cart::findAll(["userprofilesid" => $id]);
+            $cart = Cart::find()->where(["userprofilesid" => $id])->andWhere(["state" => "active"])->all();
+            //calcula preço total do carrinho
+            foreach ($cart as $value) {
+                $Totalvalue = $value->sellingprice * $value->itemquantity;
+                $cartTotal = $cartTotal + $Totalvalue;
+
+
+            }
+            $sale->precototal = $cartTotal;
+            //calcula se ha desconto ou nao
+            if ($discount == 0) {
+                $sale->paidamount = $sale->precototal;
+            } else {
+                $sale->paidamount = $sale->precototal * ($discount / 100);
+                $sale->discount = ($discount / 100);
+            }
+
+            $sale->paymentmethod = "card";
+            $sale->paymentstate = "take-away";
+            $sale->save();
+
+            //transfere items do carrinho para a tabela de relaçao com a fatura (sales_meals)
+            foreach ($cart as $item) {
+                $newLine = new SalesMeals();
+                $newLine->salesid = $sale->id;
+                $newLine->mealid = $item->mealsid;
+                $newLine->sellingprice = $item->sellingprice;
+                $newLine->itemquantity = $item->itemquantity;
+                $newLine->save();
+                $item->state = "take-away";
+                $item->save();
+            }
+            $jsonResponse = true;
+        } else
+            $jsonResponse = false;
+
+        return $jsonResponse;
+    }
+
 }
