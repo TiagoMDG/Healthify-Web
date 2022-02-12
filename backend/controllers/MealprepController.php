@@ -58,6 +58,7 @@ class MealprepController extends \yii\web\Controller
     public function actionPreparing($mealState, $mealId)
     {
         $mealsToPrep = SalesMeals::find()->where(['not', ['state' => 'done']])->all();
+        $tables = Tables::find()->all();
 
         $toAlter = SalesMeals::findOne($mealId);
         $toAlter->state = $mealState;
@@ -65,12 +66,14 @@ class MealprepController extends \yii\web\Controller
 
         return $this->render('index', [
             'mealsToPrep' => $mealsToPrep,
+            'tables'=> $tables,
         ]);
     }
 
     public function actionDeliver($mealState, $mealId)
     {
         $mealsToPrep = SalesMeals::find()->where(['not', ['state' => 'done']])->all();
+        $tables = Tables::find()->all();
 
         $toAlter = SalesMeals::findOne($mealId);
         $toAlter->state = $mealState;
@@ -78,6 +81,7 @@ class MealprepController extends \yii\web\Controller
 
         return $this->render('index', [
             'mealsToPrep' => $mealsToPrep,
+            'tables'=> $tables,
         ]);
     }
 }
