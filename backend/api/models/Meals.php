@@ -2,6 +2,9 @@
 
 namespace app\api\models;
 
+use app\models\Category;
+use backend\api\models\Reviews;
+use backend\api\models\SalesMeals;
 use Yii;
 
 /**

@@ -3,7 +3,6 @@
 namespace app\api\models;
 
 use backend\api\models\Userprofile;
-use app\api\models\Meals;
 use Yii;
 
 /**
@@ -15,6 +14,7 @@ use Yii;
  * @property float $sellingprice
  * @property int $itemquantity
  * @property string|null $state
+ * @property int|null $mesa
  *
  * @property Meals $meals
  * @property Userprofile $userprofiles
@@ -36,7 +36,7 @@ class Cart extends \yii\db\ActiveRecord
     {
         return [
             [['userprofilesid', 'mealsid', 'sellingprice', 'itemquantity'], 'required'],
-            [['userprofilesid', 'mealsid', 'itemquantity'], 'integer'],
+            [['userprofilesid', 'mealsid', 'itemquantity', 'mesa'], 'integer'],
             [['sellingprice'], 'number'],
             [['state'], 'string', 'max' => 11],
             [['mealsid'], 'exist', 'skipOnError' => true, 'targetClass' => Meals::className(), 'targetAttribute' => ['mealsid' => 'id']],
@@ -56,6 +56,7 @@ class Cart extends \yii\db\ActiveRecord
             'sellingprice' => 'Sellingprice',
             'itemquantity' => 'Itemquantity',
             'state' => 'State',
+            'mesa' => 'Mesa',
         ];
     }
 

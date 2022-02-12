@@ -3,6 +3,7 @@
 namespace backend\api\controllers;
 
 use app\api\models\Cart;
+use app\api\models\Meals;
 use backend\api\models\Sales;
 use backend\api\models\SalesMeals;
 use backend\api\models\Userprofile;
@@ -84,6 +85,7 @@ class PaymentController extends ActiveController
                 $newLine->mealid = $item->mealsid;
                 $newLine->sellingprice = $item->sellingprice;
                 $newLine->itemquantity = $item->itemquantity;
+                $newLine->mesa = $item->mesa;
                 $newLine->save();
                 $item->state = "paid";
                 $item->save();

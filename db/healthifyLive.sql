@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 10, 2022 at 12:03 PM
--- Server version: 5.7.31
--- PHP Version: 7.4.9
+-- Generation Time: Feb 12, 2022 at 01:04 PM
+-- Server version: 5.7.36
+-- PHP Version: 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,9 +20,11 @@ SET time_zone = "+00:00";
 --
 -- Database: `healthify`
 --
+
 drop database IF EXISTS healthify;
 create database healthify;
 use healthify;
+
 -- --------------------------------------------------------
 
 --
@@ -60,6 +62,8 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('client', '24', 1641748242),
 ('client', '25', 1641748767),
 ('client', '26', 1641749328),
+('client', '27', 1642873961),
+('client', '28', 1644575277),
 ('client', '4', 1636111142),
 ('staff', '10', 1641418428),
 ('staff', '17', 1641415558),
@@ -169,18 +173,25 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `sellingprice` decimal(10,2) NOT NULL,
   `itemquantity` int(11) NOT NULL,
   `state` varchar(11) DEFAULT 'active',
+  `mesa` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_usercart_id` (`userprofilesid`),
   KEY `fk_mealcart_id` (`mealsid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`id`, `userprofilesid`, `mealsid`, `sellingprice`, `itemquantity`, `state`) VALUES
-(1, 1, 1, '13.50', 2, 'paid'),
-(2, 1, 1, '13.50', 5, 'paid');
+INSERT INTO `cart` (`id`, `userprofilesid`, `mealsid`, `sellingprice`, `itemquantity`, `state`, `mesa`) VALUES
+(1, 1, 1, '13.50', 2, 'paid', NULL),
+(2, 1, 1, '13.50', 5, 'paid', NULL),
+(17, 3, 2, '14.99', 1, 'active', NULL),
+(31, 6, 5, '7.50', 1, 'paid', 1),
+(32, 6, 7, '1.00', 1, 'paid', 1),
+(33, 6, 1, '14.99', 1, 'paid', 1),
+(34, 6, 5, '7.50', 1, 'paid', 1),
+(35, 6, 6, '5.50', 1, 'paid', 1);
 
 -- --------------------------------------------------------
 
@@ -366,14 +377,19 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_id` (`userprofilesid`),
   KEY `fk_table_id` (`tableid`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservations`
 --
 
 INSERT INTO `reservations` (`id`, `reservedday`, `reservedtime`, `userprofilesid`, `tableid`) VALUES
-(21, '2022-01-31', 'jantar', 2, 1);
+(21, '2022-01-31', 'jantar', 2, 1),
+(22, '2022-02-09', 'almoco', 5, 1),
+(23, '2022-02-10', 'almoco', 3, 1),
+(24, '2022-02-11', 'jantar', 3, 2),
+(25, '2022-02-12', 'almoco', 3, 1),
+(28, '2022-02-18', 'almoco', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -391,7 +407,7 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_id_reviews` (`userprofilesid`),
   KEY `fk_meals_id` (`mealsid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reviews`
@@ -402,7 +418,7 @@ INSERT INTO `reviews` (`id`, `rating`, `review`, `userprofilesid`, `mealsid`) VA
 (2, '5', 'estava boa', 1, 1),
 (3, '5', 'estava boa', 1, 1),
 (4, '5', 'estava boa', 1, 1),
-(5, '5', 'estava boa', 1, 1);
+(6, '4', 'Teste com 4', 4, 9);
 
 -- --------------------------------------------------------
 
@@ -422,19 +438,32 @@ CREATE TABLE IF NOT EXISTS `sales` (
   `userprofilesid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_id_sales` (`userprofilesid`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sales`
 --
 
 INSERT INTO `sales` (`id`, `salesday`, `precototal`, `discount`, `paidamount`, `paymentmethod`, `paymentstate`, `userprofilesid`) VALUES
-(1, '2022-01-06 01:31:06', '15.00', '0.00', '15.00', 'card', 'not', 3),
-(2, '2022-01-06 02:48:44', '2.50', '0.00', '2.50', 'cash', 'pago', 4),
+(1, '2022-01-06 01:31:06', '15.00', '0.00', '15.00', 'card', 'paid', 3),
+(2, '2022-01-06 02:48:44', '2.50', '0.00', '2.50', 'cash', 'not', 4),
 (3, '2022-01-09 16:27:39', '27.00', NULL, '27.00', 'card', 'paid', 1),
 (4, '2022-01-09 16:37:44', '27.00', NULL, '27.00', 'card', 'paid', 1),
 (5, '2022-01-09 18:12:45', '27.00', NULL, '27.00', 'card', 'paid', 1),
-(6, '2022-01-10 10:27:13', '94.50', NULL, '94.50', 'card', 'paid', 1);
+(6, '2022-01-10 10:27:13', '94.50', NULL, '94.50', 'card', 'paid', 1),
+(7, '2022-02-12 12:28:56', '23.49', NULL, '23.49', 'card', 'paid', 6),
+(8, '2022-02-12 12:29:37', '23.49', NULL, '23.49', 'card', 'paid', 6),
+(9, '2022-02-12 12:32:18', '23.49', NULL, '23.49', 'card', 'paid', 6),
+(10, '2022-02-12 12:35:38', '23.49', NULL, '23.49', 'card', 'paid', 6),
+(11, '2022-02-12 12:42:59', '23.49', NULL, '23.49', 'card', 'paid', 6),
+(12, '2022-02-12 12:45:08', '23.49', NULL, '23.49', 'card', 'paid', 6),
+(13, '2022-02-12 12:46:09', '23.49', NULL, '23.49', 'card', 'paid', 6),
+(14, '2022-02-12 12:46:50', '23.49', NULL, '23.49', 'card', 'paid', 6),
+(15, '2022-02-12 12:47:33', '23.49', NULL, '23.49', 'card', 'paid', 6),
+(16, '2022-02-12 12:51:09', '23.49', NULL, '23.49', 'card', 'paid', 6),
+(17, '2022-02-12 12:52:54', '23.49', NULL, '23.49', 'card', 'paid', 6),
+(18, '2022-02-12 12:53:11', '0.00', NULL, '0.00', 'card', 'paid', 6),
+(19, '2022-02-12 12:58:09', '13.00', NULL, '13.00', 'card', 'paid', 6);
 
 -- --------------------------------------------------------
 
@@ -450,23 +479,26 @@ CREATE TABLE IF NOT EXISTS `sales_meals` (
   `sellingprice` decimal(10,2) NOT NULL,
   `itemquantity` int(11) NOT NULL,
   `state` varchar(11) DEFAULT 'waiting',
+  `mesa` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_meal_id_salesmeals` (`mealid`),
   KEY `fk_sales_id_salesmeals` (`salesid`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sales_meals`
 --
 
-INSERT INTO `sales_meals` (`id`, `salesid`, `mealid`, `sellingprice`, `itemquantity`, `state`) VALUES
-(1, 1, 9, '5.99', 1, 'done'),
-(2, 2, 9, '2.50', 2, 'waiting'),
-(3, 3, 1, '13.50', 2, 'waiting'),
-(4, 4, 1, '13.50', 2, 'waiting'),
-(5, 5, 1, '13.50', 2, 'waiting'),
-(6, 6, 1, '13.50', 2, 'waiting'),
-(7, 6, 1, '13.50', 5, 'waiting');
+INSERT INTO `sales_meals` (`id`, `salesid`, `mealid`, `sellingprice`, `itemquantity`, `state`, `mesa`) VALUES
+(1, 1, 9, '5.99', 1, 'done', 1),
+(2, 2, 9, '2.50', 2, 'done', 1),
+(3, 3, 1, '13.50', 2, 'done', 1),
+(4, 4, 1, '13.50', 2, 'done', 1),
+(5, 5, 1, '13.50', 2, 'waiting', 2),
+(6, 6, 1, '13.50', 2, 'waiting', 2),
+(7, 6, 1, '13.50', 5, 'waiting', 2),
+(8, 19, 5, '7.50', 1, 'preparing', 1),
+(9, 19, 6, '5.50', 1, 'waiting', 1);
 
 -- --------------------------------------------------------
 
@@ -501,15 +533,17 @@ CREATE TABLE IF NOT EXISTS `tables` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `state` set('occupied','free','reserved') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tables`
 --
 
 INSERT INTO `tables` (`id`, `state`) VALUES
-(1, 'free'),
-(2, 'occupied');
+(1, 'occupied'),
+(2, 'occupied'),
+(3, 'free'),
+(4, 'free');
 
 -- --------------------------------------------------------
 
@@ -533,7 +567,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `user`
@@ -555,7 +589,9 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 (21, 'defesa_1', 'KklJKvvXxF4n54L8hGjDqR4pacAl9Hhg', '$2y$13$Yb8IHb/GGNacC0/tjZNWjubBQi/Slyw5QzTpfoh71Z3ZAyWWWSpeG', NULL, 'defesa@1.pt', 10, 1641549961, 1641549961, 'w40mtv8d0tcgEWF75IP_ldiTTZkmMf_d_1641549961'),
 (22, 'defesa_2', 'aDKhbkfI8hShX95mAyiB6KY-vMOeuH6Z', '$2y$13$7jRJaLykLzEtYJ3BdWPdpe1H5tsbdpqcxziIX7OuPL1iFY1EfwFfG', NULL, 'defesa@2.pt', 10, 1641549987, 1641549987, '2iDHeyFaaL7ViNVzC47B4kPOQ5_oNJdv_1641549987'),
 (23, 'defesa_3', '0qJ_aoKZT_f96fLf6QTKkezzk1BggERQ', '$2y$13$IEzBGV3N7LnJI4DN6KuOwO2Bqu4zhBOmXlcmc.3CERqZsF6wi1pTW', NULL, 'defesa@3.pt', 10, 1641550026, 1641550026, 'smKX1CiL5ekqXP-9heV_1dbHVV9qtN7I_1641550026'),
-(26, 'curlDELETE', 'ycHHq6xSlqsvkgy81xixh9h32sI6Ne_s', '$2y$13$9YrvDhxQz4ADOpjeoaweNOGk.eL/M2ZgJqqFY0YcV8Ayc/u5uzhby', NULL, 'curl@DELETE.pt', 10, 1641749328, 1641749328, 'FQ0gPgjC-LVWDOzu3zEkEmqyTsEUsX8-_1641749328');
+(26, 'curlDELETE', 'ycHHq6xSlqsvkgy81xixh9h32sI6Ne_s', '$2y$13$9YrvDhxQz4ADOpjeoaweNOGk.eL/M2ZgJqqFY0YcV8Ayc/u5uzhby', NULL, 'curl@DELETE.pt', 10, 1641749328, 1641749328, 'FQ0gPgjC-LVWDOzu3zEkEmqyTsEUsX8-_1641749328'),
+(27, 'tonnyjohnny213', 'q6_m2ZBUJnT1B7rr54aIdI01-gVBizn3', '$2y$13$Z8UKI4D1wBn3oTuefmmT5umUQ002WOBDq0s/uaAOmeOwHOJxTXq3.', NULL, 'tonny.mail@testing.com', 10, 1642873961, 1642873961, '4rZw62nPLe_5I8qoI2rkTXl-UJ02eO4b_1642873961'),
+(28, 'manufixe', 'eZi27CzxcY7mcOtv6PU69ZJDxWgV_7Vr', '$2y$13$RQXWTxTP9vS./FmdAjYXBeNsHIAojjJCdNA6ZQGZyFeG8lTUBXwYu', NULL, 'manu@fixe.pt', 10, 1644575277, 1644575277, 'QBfEU-IQo7NNbtp4zX1gwX90sYftZ0Pv_1644575277');
 
 -- --------------------------------------------------------
 
@@ -577,7 +613,7 @@ CREATE TABLE IF NOT EXISTS `userprofiles` (
   `userid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_user_id` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `userprofiles`
@@ -586,9 +622,10 @@ CREATE TABLE IF NOT EXISTS `userprofiles` (
 INSERT INTO `userprofiles` (`id`, `nif`, `name`, `cellphone`, `street`, `door`, `floor`, `city`, `nib`, `userid`) VALUES
 (1, 987654321, 'pedro Lourenço', 987654321, 'fewf', 21, NULL, 'Leiria', NULL, 9),
 (2, 987654321, 'Miguel', 987654321, 'fewf', 21, 1, 'Leiria', NULL, 9),
-(3, 123456789, 'Tiago', 123456789, 'Rua Dom João IV', 45, NULL, 'Santarém', NULL, 5),
+(3, 123456789, 'Tiago Gil', 123456789, 'Rua Dom João IV', 45, 0, 'Santarém', NULL, 5),
 (4, 987654321, 'Manuel', 789456123, 'Rua Dom João IV', 45, 2, 'Santarém', NULL, 20),
-(5, 987654321, 'Pedro Lourenço', 987654321, 'fewf', 21, NULL, 'Leiria', NULL, 9);
+(5, 987654321, 'Pedro Lourenço', 987654321, 'fewf', 21, NULL, 'Leiria', NULL, 9),
+(6, 235236235, 'Manuel Jorge', 960309940, 'Morro do Lena 2', 45, 45, 'Uranus', NULL, 28);
 
 -- --------------------------------------------------------
 
@@ -642,7 +679,7 @@ ALTER TABLE `meal_ingredients`
 --
 ALTER TABLE `reservations`
   ADD CONSTRAINT `fk_table_id` FOREIGN KEY (`tableid`) REFERENCES `tables` (`id`),
-  ADD CONSTRAINT `fk_userprofile_id` FOREIGN KEY (`userprofilesid`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `fk_userprofile_id` FOREIGN KEY (`userprofilesid`) REFERENCES `userprofiles` (`id`);
 
 --
 -- Constraints for table `reviews`
