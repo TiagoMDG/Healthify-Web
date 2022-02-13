@@ -14,7 +14,7 @@ use Yii;
  * @property float $sellingprice
  * @property int $itemquantity
  * @property string|null $state
- * @property int $mesa
+ * @property string|null $mesa
  *
  * @property Meals $meal
  * @property Sales $sales
@@ -35,10 +35,10 @@ class SalesMeals extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['salesid', 'mealid', 'sellingprice', 'itemquantity', 'mesa'], 'required'],
-            [['salesid', 'mealid', 'itemquantity', 'mesa'], 'integer'],
+            [['salesid', 'mealid', 'sellingprice', 'itemquantity'], 'required'],
+            [['salesid', 'mealid', 'itemquantity'], 'integer'],
             [['sellingprice'], 'number'],
-            [['state'], 'string', 'max' => 11],
+            [['state', 'mesa'], 'string', 'max' => 11],
             [['mealid'], 'exist', 'skipOnError' => true, 'targetClass' => Meals::className(), 'targetAttribute' => ['mealid' => 'id']],
             [['salesid'], 'exist', 'skipOnError' => true, 'targetClass' => Sales::className(), 'targetAttribute' => ['salesid' => 'id']],
         ];
@@ -53,9 +53,9 @@ class SalesMeals extends \yii\db\ActiveRecord
             'id' => 'ID',
             'salesid' => 'Salesid',
             'mealid' => 'Mealid',
-            'sellingprice' => 'Preço',
-            'itemquantity' => 'Quantidade',
-            'state' => 'Estado',
+            'sellingprice' => 'Sellingprice',
+            'itemquantity' => 'Itemquantity',
+            'state' => 'State',
             'mesa' => 'Mesa',
         ];
     }
