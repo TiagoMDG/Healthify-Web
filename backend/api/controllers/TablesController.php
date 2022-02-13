@@ -16,17 +16,17 @@ class TablesController extends ActiveController
 
         switch ($table->state) {
             case 'occupied':
-                $jsonResponse = array("state"=>$table->state,'message' => 'Esta mesa está ocupada!');
+                $jsonResponse = array('state'=>$table->state,'message' => 'Esta mesa está ocupada!');
                 break;
 
             case 'reserved':
-                $jsonResponse = array("state"=>$table->state,'message' => 'Esta mesa está reservada!');
+                $jsonResponse = array('state'=>$table->state,'message' => 'Esta mesa está reservada!');
                 break;
 
             case 'free':
                 $table->state = 'occupied';
                 $table->save();
-                $jsonResponse = array("state"=>$table->state,'message' => 'Ocupou esta mesa! Pode começar o seu pedido!');
+                $jsonResponse = array('state'=>$table->state,'message' => 'Ocupou esta mesa! Pode começar o seu pedido!');
         }
 
         return Json::encode($jsonResponse);
@@ -40,7 +40,7 @@ class TablesController extends ActiveController
         $table->save();
 
 
-        $jsonResponse = array("state"=>$table->state,'message' => 'Mesa reservada!');
+        $jsonResponse = array('state'=>$table->state,'message' => 'Mesa reservada!');
         return Json::encode($jsonResponse);
     }
 
@@ -51,7 +51,7 @@ class TablesController extends ActiveController
         $table->state = 'free';
         $table->save();
 
-        $jsonResponse = array("state"=>$table->state,'message' => 'Mesa libertada!');
+        $jsonResponse = array('state'=>$table->state,'message' => 'Mesa libertada!');
         return Json::encode($jsonResponse);
     }
 }
