@@ -70,10 +70,7 @@ return [
                 ],
 
                 ['class' => '\yii\rest\UrlRule', 'controller' => 'api/payment', 'pluralize' => false,
-                    'extraPatterns' => [
-                        'POST {id}/pay/{card}' => 'pay',
-                        'POST {id}/takeaway/{card}' => 'takeaway',
-                        ],
+                    'extraPatterns' => ['POST {id}/pay/{card}' => 'pay'],
                     'tokens' => [
                         '{id}' => '<id:\\d+>',
                         '{card}' => '<card:\\d+>',
