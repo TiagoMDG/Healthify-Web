@@ -137,6 +137,7 @@ class PaymentController extends ActiveController
                 $newLine->mealid = $item->mealsid;
                 $newLine->sellingprice = $item->sellingprice;
                 $newLine->itemquantity = $item->itemquantity;
+                $newLine->mesa = $item->mesa;
                 $newLine->save();
                 $item->state = "take-away";
                 $item->save();

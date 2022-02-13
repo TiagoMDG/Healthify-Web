@@ -42,9 +42,29 @@ $this->title = 'Preparação de pedidos';
             } ?>
             </div>
        <?php } ?>
-
-
     <?php } ?>
+
+    <div class="column">
+
+        <h1>Takeaway</h1>
+        <?php foreach ($mealsToPrep as $prep) { ?>
+            <?php if ($prep->mesa == 'takeaway') { ?>
+
+                <div class="row">
+                    <div class="card">
+                        <h4><b><?= Meals::nameByID($prep->mealid) ?></b></h4>
+
+                        <?php if ($prep->state == 'waiting') { ?>
+                            <?= Html::a('Em Preparação', ['preparing', 'mealState' => 'preparing', 'mealId' => $prep->id], ['class' => 'btn btn-danger']) ?>
+                        <?php } else { ?>
+                            <?= Html::a('A Sair', ['deliver', 'mealState' => 'done', 'mealId' => $prep->id], ['class' => 'btn btn-success']) ?>
+                        <?php } ?>
+
+                    </div>
+                </div>
+            <?php }
+        } ?>
+    </div>
 
 </div>
 </div>

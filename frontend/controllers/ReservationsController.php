@@ -41,6 +41,12 @@ class ReservationsController extends Controller
     {
         $userid = Yii::$app->user->identity->getId();
         $userprofileid = Userprofile::find()->select(['id'])->where(['userid' => $userid])->one();
+        $profile = Userprofile::find()->where(['userid' =>$userid])->one();
+
+        if ($profile == null){
+            Yii::$app->session->setFlash('danger', 'Por favor complete o perfil!');
+            return $this->redirect(['userprofile/create']);
+        }
 
         $userid = $userprofileid['id'];
 
@@ -108,9 +114,9 @@ class ReservationsController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->validate()) {
                 if (Reservations::find()->where(['userprofilesid' => $model->userprofilesid])->andWhere(['reservedday' => $model->reservedday])->exists()) {
-                    $model->addError('reservedtime', 'This client already has a reservation today!');
+                    $model->addError('', 'Já tem uma reserva hoje! Limite de 1 por dia!');
                 } else if (Reservations::find()->where(['tableid' => $model->tableid])->andWhere(['reservedday' => $model->reservedday])->andWhere(['reservedtime' => $model->reservedtime])->exists()) {
-                    $model->addError('tableid', 'This table is already booked!');
+                    $model->addError('', 'Esta mesa já está reservada!');
                 } else {
                     $model->save();
                     return $this->redirect(['index', 'userid' => $model->userprofilesid]);

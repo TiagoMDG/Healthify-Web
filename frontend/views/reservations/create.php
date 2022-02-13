@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Reservations */
 
-$this->title = 'Create Reservations';
+$this->title = 'Fazer Reserva';
 ?>
 <div class="reservations-create">
 

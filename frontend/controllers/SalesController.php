@@ -45,6 +45,12 @@ class SalesController extends Controller
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         $userid = Yii::$app->user->identity->getId();
+        $profile = Userprofile::find()->where(['userid' =>$userid])->one();
+
+        if ($profile == null){
+            Yii::$app->session->setFlash('danger', 'Por favor complete o perfil!');
+            return $this->redirect(['userprofile/create']);
+        }
 
         $userprofileid = Userprofile::find()->select(['id'])->where(['userid' => $userid])->one();
 
