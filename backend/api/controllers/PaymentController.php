@@ -80,8 +80,6 @@ class PaymentController extends ActiveController
 
             //transfere items do carrinho para a tabela de relaçao com a fatura (sales_meals)
             foreach ($cart as $item) {
-                $item->state = "paid";
-                $item->save();
                 $newLine = new SalesMeals();
                 $newLine->salesid = $sale->id;
                 $newLine->mealid = $item->mealsid;
@@ -89,6 +87,8 @@ class PaymentController extends ActiveController
                 $newLine->itemquantity = $item->itemquantity;
                 $newLine->mesa = $item->mesa;
                 $newLine->save();
+                $item->state = "paid";
+                $item->save();
             }
             $jsonResponse = true;
         } else
