@@ -78,7 +78,7 @@ class Mealingredients extends \yii\db\ActiveRecord
      */
     public function getIngredients()
     {
-        return $this->hasOne(Ingredients::className(), ['id' => 'ingredientsid']);
+        return $this->hasMany(Ingredients::className(), ['id' => 'ingredientsid']);
     }
 
     /**
@@ -88,6 +88,6 @@ class Mealingredients extends \yii\db\ActiveRecord
      */
     public function getMeals()
     {
-        return $this->hasOne(Meals::className(), ['id' => 'mealsid']);
+        return $this->hasMany(Meals::className(), ['id' => 'mealsid']);
     }
 }

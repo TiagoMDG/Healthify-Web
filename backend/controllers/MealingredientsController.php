@@ -2,8 +2,12 @@
 
 namespace backend\controllers;
 
+use app\models\Meals;
+use backend\models\IngredientsSearch;
 use backend\models\MealIngredients;
 use backend\models\MealIngredientsSearch;
+use dominus77\sweetalert2\Alert;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -12,7 +16,7 @@ use yii\filters\VerbFilter;
 /**
  * MealingredientsController implements the CRUD actions for Mealingredients model.
  */
-class MealIngredientsController extends Controller
+class MealingredientsController extends Controller
 {
     /**
      * @inheritDoc
@@ -113,12 +117,15 @@ class MealIngredientsController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, "Porção guardada com sucesso!\n\n");
+
+            return $this->redirect(['mealplanner/planner',
+                'mealid' => $model->mealsid]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['mealplanner/planner',
+            'mealid' => $model->mealsid]);
     }
 
     /**
@@ -128,11 +135,14 @@ class MealIngredientsController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $mealsid)
     {
+        Yii::$app->session->setFlash(Alert::TYPE_ERROR, "Ingrediente removido!\n\n");
+
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['mealplanner/planner',
+            'mealid' => $mealsid]);
     }
 
     /**

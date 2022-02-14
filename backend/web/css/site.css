@@ -205,13 +205,7 @@ a.desc:after {
     margin-left: 5px;
 }
 
-.active:after {
-    content: "▲"; /* Unicode character for "minus" sign (-) */
+
+.flash-success {
+
 }
-
-
-
-
-
-
-
