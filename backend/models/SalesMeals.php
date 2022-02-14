@@ -35,7 +35,7 @@ class SalesMeals extends \yii\db\ActiveRecord
     {
         return [
             [['salesid', 'mealid', 'sellingprice', 'itemquantity', 'mesa'], 'required'],
-            [['salesid', 'mealid', 'itemquantity', 'mesa'], 'integer'],
+            [['salesid', 'mealid', 'itemquantity'], 'integer'],
             [['sellingprice'], 'number'],
             [['state'], 'string', 'max' => 11],
             [['mealid'], 'exist', 'skipOnError' => true, 'targetClass' => Meals::className(), 'targetAttribute' => ['mealid' => 'id']],

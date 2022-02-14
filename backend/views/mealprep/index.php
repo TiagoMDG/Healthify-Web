@@ -2,6 +2,7 @@
 
 use app\models\Meals;
 use backend\models\Ingredients;
+use dominus77\sweetalert2\Alert;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -11,7 +12,7 @@ $this->title = 'Preparação de pedidos';
 
 ?>
 <div class="mealprep-index">
-
+    
     <?php
     if ($mealsToPrep == null) { ?>
         <div>
@@ -45,9 +46,9 @@ $this->title = 'Preparação de pedidos';
                                 <br>
 
                                 <?php if ($prep->state == 'waiting') { ?>
-                                    <?= Html::a('Em Preparação', ['preparing', 'mealState' => 'preparing', 'mealId' => $prep->id], ['class' => 'btn btn-danger']) ?>
+                                    <?= Html::a('Em Preparação', ['preparing', 'mealId' => $prep->id], ['class' => 'btn btn-danger']) ?>
                                 <?php } else { ?>
-                                    <?= Html::a('A Sair', ['deliver', 'mealState' => 'done', 'mealId' => $prep->id], ['class' => 'btn btn-success']) ?>
+                                    <?= Html::a('A Sair', ['deliver', 'mealId' => $prep->id], ['class' => 'btn btn-success']) ?>
                                 <?php } ?>
 
                             </div>
@@ -83,9 +84,9 @@ $this->title = 'Preparação de pedidos';
                         <br>
 
                         <?php if ($prep->state == 'waiting') { ?>
-                            <?= Html::a('Em Preparação', ['preparing', 'mealState' => 'preparing', 'mealId' => $prep->id], ['class' => 'btn btn-danger']) ?>
+                            <?= Html::a('Em Preparação', ['preparing', 'mealId' => $prep->id], ['class' => 'btn btn-danger']) ?>
                         <?php } else { ?>
-                            <?= Html::a('A Sair', ['deliver', 'mealState' => 'done', 'mealId' => $prep->id], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a('A Sair', ['deliver', 'mealId' => $prep->id], ['class' => 'btn btn-success']) ?>
                         <?php } ?>
 
                     </div>

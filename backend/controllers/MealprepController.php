@@ -6,6 +6,8 @@ use app\models\SalesMeals;
 use app\models\Sales;
 use app\models\Tables;
 use backend\models\Mealingredients;
+use dominus77\sweetalert2\Alert;
+use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
@@ -58,37 +60,21 @@ class MealprepController extends \yii\web\Controller
         ]);
     }
 
-    public function actionPreparing($mealState, $mealId)
+    public function actionPreparing($mealId)
     {
-        $mealsToPrep = SalesMeals::find()->where(['not', ['state' => 'done']])->all();
-        $tables = Tables::find()->all();
-        $mealIngredients = Mealingredients::find()->all();
-
         $toAlter = SalesMeals::findOne($mealId);
-        $toAlter->state = $mealState;
+        $toAlter->state = 'preparing';
         $toAlter->save();
 
-        return $this->render('index', [
-            'mealsToPrep' => $mealsToPrep,
-            'tables'=> $tables,
-            'mealIngredients' => $mealIngredients,
-        ]);
+        return $this->redirect(['index']);
     }
 
-    public function actionDeliver($mealState, $mealId)
+    public function actionDeliver($mealId)
     {
-        $mealsToPrep = SalesMeals::find()->where(['not', ['state' => 'done']])->all();
-        $tables = Tables::find()->all();
-        $mealIngredients = Mealingredients::find()->all();
-
         $toAlter = SalesMeals::findOne($mealId);
-        $toAlter->state = $mealState;
+        $toAlter->state = 'done';
         $toAlter->save();
 
-        return $this->render('index', [
-            'mealsToPrep' => $mealsToPrep,
-            'tables'=> $tables,
-            'mealIngredients' => $mealIngredients,
-        ]);
+        return $this->redirect(['index']);
     }
 }
