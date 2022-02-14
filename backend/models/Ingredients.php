@@ -71,4 +71,15 @@ class Ingredients extends \yii\db\ActiveRecord
         return $this->hasMany(MealIngredients::className(), ['ingredientsid' => 'id']);
     }
 
+    public static function nameByID($id){
+
+        $names = Ingredients::find()->where(['id'=>$id])->all();
+
+        foreach ($names as $category) {
+            $categoryNamesArray[] = $category['name'];
+        }
+
+        return $categoryNamesArray[0];
+    }
+
 }

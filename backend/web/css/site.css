@@ -16,7 +16,9 @@ main > .container {
 }
 
 /* Remove extra left and right margins, due to padding in columns */
-.row {margin: 0 -5px;}
+.row {
+    margin: 0 -5px;
+}
 
 /* Clear floats after the columns */
 .row:after {
@@ -112,9 +114,9 @@ a.desc:after {
     color: rgba(255, 255, 255, 0.5);
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
     .nav li > form > button.logout {
-        display:block;
+        display: block;
         text-align: left;
         width: 100%;
         padding: 10px 0;
@@ -130,45 +132,86 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
-  
-  /* Style the sidenav links and the dropdown button */
-  .sidenav a, .dropdown-btn {
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     display: block;
     border: none;
     background: none;
-    width:100%;
+    width: 100%;
     text-align: left;
     cursor: pointer;
     outline: none;
-  }
-  
-  /* Main content */
-  .main {
+}
+
+/* Main content */
+.main {
     margin-left: 200px; /* Same as the width of the sidenav */
     font-size: 20px; /* Increased text to enable scrolling */
     padding: 0px 10px;
-  }
-  
-  /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
-  .dropdown-container {
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
     display: none;
     background-color: #262626;
     padding-left: 8px;
-  }
-  
-  /* Optional: Style the caret down icon */
-  .fa-caret-down {
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
     float: right;
     padding-right: 8px;
-  }
+}
 
 #meal-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
 }
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover{
+    background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.ingredients {
+    padding: 0 18px;
+    overflow: hidden;
+    display: none;
+    background-color: #f1f1f1;
+}
+
+.collapsible:after {
+    content: '▼'; /* Unicode character for "plus" sign (+) */
+    font-size: 17px;
+    color: black;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "▲"; /* Unicode character for "minus" sign (-) */
+}
+
+
+
+
 
 
 
