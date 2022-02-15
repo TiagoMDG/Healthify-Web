@@ -24,14 +24,19 @@ $listTables = ArrayHelper::map($tables, 'id', 'id');
 
     <?= $form->field($model, 'reservedday')->widget(DatePicker::classname(), [
         'dateFormat' => 'yyyy-MM-dd',
-        'options' => ['class' => 'form-control'],
+        'options' => ['class' => 'form-control', 'autocomplete'=>'off',],
+
+        'clientOptions' => [
+            'minDate' => 0,
+            'autocomplete' => 'off',
+        ]
     ]) ?>
 
-    <?= $form->field($model, 'reservedtime')->dropDownList([ 'almoco' => 'Almoco', 'jantar' => 'Jantar', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'reservedtime')->dropDownList(['almoco' => 'Almoco', 'jantar' => 'Jantar',], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'userprofilesid')->hiddenInput(['value'=>$userid])->label(false) ?>
+    <?= $form->field($model, 'userprofilesid')->hiddenInput(['value' => $userid])->label(false) ?>
 
-    <?= $form->field($model, 'tableid')->dropDownList($listTables, ['prompt' => 'Select...'])->label('Mesa'); ?>
+    <?= $form->field($model, 'tableid')->dropDownList($listTables, ['prompt' => 'Select...']); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>

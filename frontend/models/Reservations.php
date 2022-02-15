@@ -51,7 +51,7 @@ class Reservations extends \yii\db\ActiveRecord
             'reservedday' => 'Dia da Reserva',
             'reservedtime' => 'Horário Reservado',
             'userprofilesid' => 'ID do Cliente',
-            'tableid' => 'N da mesa',
+            'tableid' => 'Nº da mesa',
         ];
     }
 
