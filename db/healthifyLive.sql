@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 13, 2022 at 10:36 AM
+-- Generation Time: Feb 15, 2022 at 07:55 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -46,8 +46,11 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('admin', '1', 1636111142),
+('admin', '2', 1644950590),
+('admin', '32', 1644930351),
 ('admin', '5', 1641436339),
 ('chef', '3', 1636111142),
+('chef', '31', 1644877178),
 ('client', '11', 1637596605),
 ('client', '12', 1637596695),
 ('client', '13', 1637597156),
@@ -66,11 +69,11 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('client', '28', 1644575277),
 ('client', '29', 1644690936),
 ('client', '30', 1644702320),
+('client', '33', 1644954396),
 ('client', '4', 1636111142),
 ('staff', '10', 1641418428),
 ('staff', '17', 1641415558),
 ('staff', '18', 1641436377),
-('staff', '2', 1636391102),
 ('staff', '9', 1636546059);
 
 -- --------------------------------------------------------
@@ -179,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   PRIMARY KEY (`id`),
   KEY `fk_usercart_id` (`userprofilesid`),
   KEY `fk_mealcart_id` (`mealsid`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cart`
@@ -188,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
 INSERT INTO `cart` (`id`, `userprofilesid`, `mealsid`, `sellingprice`, `itemquantity`, `state`, `mesa`) VALUES
 (1, 1, 1, '13.50', 2, 'paid', NULL),
 (2, 1, 1, '13.50', 5, 'paid', NULL),
-(17, 3, 2, '14.99', 1, 'active', NULL),
+(17, 3, 2, '14.99', 1, 'take-away', NULL),
 (31, 6, 5, '7.50', 1, 'paid', '1'),
 (32, 6, 7, '1.00', 1, 'paid', '1'),
 (33, 6, 1, '14.99', 1, 'paid', '1'),
@@ -206,7 +209,26 @@ INSERT INTO `cart` (`id`, `userprofilesid`, `mealsid`, `sellingprice`, `itemquan
 (45, 6, 7, '1.00', 1, 'paid', '4'),
 (46, 6, 9, '2.50', 1, 'paid', '4'),
 (47, 6, 3, '2.50', 1, 'paid', '3\n'),
-(48, 6, 5, '7.50', 1, 'paid', '3\n');
+(48, 6, 5, '7.50', 1, 'paid', '3\n'),
+(49, 3, 5, '13.50', 2, 'take-away', NULL),
+(50, 6, 1, '14.99', 1, 'paid', 'takeaway'),
+(51, 6, 6, '5.50', 1, 'paid', 'takeaway'),
+(52, 6, 1, '14.99', 1, 'paid', 'takeaway'),
+(53, 6, 4, '5.50', 1, 'paid', 'takeaway'),
+(54, 6, 1, '14.99', 1, 'paid', 'takeaway'),
+(55, 6, 3, '2.50', 1, 'paid', 'takeaway'),
+(56, 6, 1, '14.99', 1, 'paid', '2'),
+(57, 6, 6, '5.50', 1, 'paid', '2'),
+(58, 6, 1, '14.99', 1, 'paid', '2'),
+(59, 6, 2, '14.99', 1, 'paid', '2'),
+(60, 6, 3, '2.50', 1, 'paid', '2'),
+(61, 6, 4, '5.50', 1, 'paid', '2'),
+(62, 6, 5, '7.50', 1, 'paid', '2'),
+(63, 6, 1, '14.99', 1, 'paid', 'takeaway'),
+(64, 6, 2, '14.99', 1, 'paid', 'takeaway'),
+(65, 6, 1, '14.99', 1, 'paid', 'takeaway'),
+(66, 6, 2, '14.99', 1, 'paid', 'takeaway'),
+(67, 6, 1, '14.99', 1, 'paid', 'takeaway');
 
 -- --------------------------------------------------------
 
@@ -220,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `name` varchar(50) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `category`
@@ -234,23 +256,6 @@ INSERT INTO `category` (`id`, `name`, `description`) VALUES
 (5, 'vegan', 'Pratos apenas com proteína vegetal'),
 (6, 'sobremesa', 'Sobremesas'),
 (7, 'bebidas', 'Bebidas');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `inforestaurants`
---
-
-DROP TABLE IF EXISTS `inforestaurants`;
-CREATE TABLE IF NOT EXISTS `inforestaurants` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(15) NOT NULL,
-  `adress` varchar(75) NOT NULL,
-  `cellphone` int(9) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `nif` int(9) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -271,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `ingredients` (
   `fiber_g` float NOT NULL,
   `cholesterol_mg` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ingredients`
@@ -283,7 +288,13 @@ INSERT INTO `ingredients` (`id`, `name`, `sugar_g`, `calories`, `protein_g`, `ca
 (3, 'Batata frita', 0.3, 312.5, 3.4, 42.1, 2.3, 14.4, 3.8, 0),
 (4, 'Peito de frango', 0, 166.2, 31, 0, 1, 3.5, 0, 85),
 (5, 'Arroz', 0.1, 127.4, 2.7, 28.4, 0.1, 0.3, 0.4, 0),
-(6, 'Canela', 2.2, 245.3, 4, 82.2, 0.4, 1.3, 52.1, 0);
+(6, 'Canela', 2.2, 245.3, 4, 82.2, 0.4, 1.3, 52.1, 0),
+(7, 'Pão', 5.7, 261.6, 8.8, 50.2, 0.7, 3.4, 2.7, 0),
+(8, 'Alho', 1, 144.8, 6.4, 32.5, 0, 0.7, 2, 0),
+(9, 'Batata', 1.2, 92.7, 2.5, 21, 0, 0.1, 2.2, 0),
+(11, 'Bacalhau', 0, 104.2, 22.9, 0, 0.2, 0.9, 0, 55),
+(12, 'Açucar', 100.1, 385.6, 0, 99.8, 0, 0, 0, 0),
+(13, 'Chocolate', 51.4, 540.2, 7.8, 58.9, 18.6, 29.4, 3.4, 23);
 
 -- --------------------------------------------------------
 
@@ -300,7 +311,7 @@ CREATE TABLE IF NOT EXISTS `meals` (
   `categoryid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_meals_id_category` (`categoryid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `meals`
@@ -339,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `meal_ingredients` (
   PRIMARY KEY (`id`),
   KEY `fk_ingredientsid_mealingredients` (`ingredientsid`),
   KEY `fk_meals_id_mealingredients` (`mealsid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `meal_ingredients`
@@ -348,7 +359,11 @@ CREATE TABLE IF NOT EXISTS `meal_ingredients` (
 INSERT INTO `meal_ingredients` (`id`, `serving_size_g`, `total_sugar_g`, `total_calories`, `total_protein_g`, `total_carbohydrates_total_g`, `total_fat_saturated_g`, `total_fat_total_g`, `total_fiber_g`, `total_cholesterol_mg`, `mealsid`, `ingredientsid`) VALUES
 (1, 100, 0, 291.9, 26.6, 0, 7.8, 19.7, 0, 87, 1, 1),
 (2, 100, 0.4, 147, 12.5, 0.7, 3.1, 9.7, 0, 371, 1, 2),
-(3, 100, 0.3, 312.5, 3.4, 42.1, 2.3, 14.4, 3.8, 0, 1, 3);
+(3, 100, 0.3, 312.5, 3.4, 42.1, 2.3, 14.4, 3.8, 0, 1, 3),
+(4, 100, 1, 144.8, 6.4, 32.5, 0, 0.7, 2, 0, 3, 8),
+(5, 100, 5.7, 261.6, 8.8, 50.2, 0.7, 3.4, 2.7, 0, 3, 7),
+(16, 300, 2.2, 245.3, 4, 82.2, 0.4, 1.3, 52.1, 0, 9, 6),
+(25, 100, 0.1, 127.4, 2.7, 28.4, 0.1, 0.3, 0.4, 0, 9, 5);
 
 -- --------------------------------------------------------
 
@@ -392,25 +407,17 @@ CREATE TABLE IF NOT EXISTS `reservations` (
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_id` (`userprofilesid`),
   KEY `fk_table_id` (`tableid`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reservations`
 --
 
 INSERT INTO `reservations` (`id`, `reservedday`, `reservedtime`, `userprofilesid`, `tableid`) VALUES
-(21, '2022-01-31', 'jantar', 2, 1),
-(22, '2022-02-09', 'almoco', 5, 1),
 (23, '2022-02-10', 'almoco', 3, 1),
-(24, '2022-02-11', 'jantar', 3, 2),
 (25, '2022-02-12', 'almoco', 3, 1),
-(28, '2022-02-18', 'almoco', 3, 2),
-(29, '2022-02-22', 'almoco', 3, 4),
-(30, '2022-02-24', 'almoco', 3, 1),
 (31, '2022-01-05', 'almoco', 7, 4),
-(32, '2022-02-12', 'almoco', 7, 2),
-(33, '2022-04-16', 'almoco', 7, 1),
-(34, '2022-02-24', 'jantar', 7, 3);
+(37, '2022-02-15', 'jantar', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -428,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_id_reviews` (`userprofilesid`),
   KEY `fk_meals_id` (`mealsid`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reviews`
@@ -437,10 +444,8 @@ CREATE TABLE IF NOT EXISTS `reviews` (
 INSERT INTO `reviews` (`id`, `rating`, `review`, `userprofilesid`, `mealsid`) VALUES
 (1, '5', 'Optima', 1, 1),
 (2, '5', 'estava boa', 1, 1),
-(3, '5', 'estava boa', 1, 1),
-(4, '5', 'estava boa', 1, 1),
-(6, '4', 'Teste com 4', 4, 9),
-(7, '5', 'muito bom!', 6, 1);
+(7, '5', 'muito bom!', 6, 1),
+(10, '5', 'Bom', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -460,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `sales` (
   `userprofilesid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_userprofile_id_sales` (`userprofilesid`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sales`
@@ -468,7 +473,6 @@ CREATE TABLE IF NOT EXISTS `sales` (
 
 INSERT INTO `sales` (`id`, `salesday`, `precototal`, `discount`, `paidamount`, `paymentmethod`, `paymentstate`, `userprofilesid`) VALUES
 (1, '2022-01-06 01:31:06', '15.00', '0.00', '15.00', 'card', 'paid', 3),
-(2, '2022-01-06 02:48:44', '2.50', '0.00', '2.50', 'card', 'paid', 4),
 (3, '2022-01-09 16:27:39', '27.00', NULL, '27.00', 'card', 'paid', 1),
 (4, '2022-01-09 16:37:44', '27.00', NULL, '27.00', 'card', 'paid', 1),
 (5, '2022-01-09 18:12:45', '27.00', NULL, '27.00', 'card', 'paid', 1),
@@ -491,7 +495,17 @@ INSERT INTO `sales` (`id`, `salesday`, `precototal`, `discount`, `paidamount`, `
 (22, '2022-02-12 17:14:09', '17.49', '0.00', '17.49', 'card', 'paid', 6),
 (23, '2022-02-12 18:02:35', '15.00', '0.00', '15.00', 'cash', 'paid', 6),
 (24, '2022-02-12 18:12:11', '3.50', '0.00', '3.50', 'card', 'paid', 6),
-(25, '2022-02-12 18:12:45', '10.00', '0.00', '10.00', 'card', 'paid', 6);
+(25, '2022-02-12 18:12:45', '10.00', '0.00', '10.00', 'card', 'paid', 6),
+(26, '2022-02-13 11:30:48', '41.99', '0.00', '41.99', 'card', 'paid', 3),
+(27, '2022-02-14 22:53:39', '20.49', '0.00', '20.49', 'card', 'paid', 6),
+(28, '2022-02-15 09:02:53', '20.49', '0.00', '20.49', 'card', 'paid', 6),
+(29, '2022-02-15 09:03:58', '0.00', '0.00', '0.00', 'card', 'paid', 6),
+(30, '2022-02-15 09:04:26', '17.49', '0.00', '17.49', 'card', 'paid', 6),
+(31, '2022-02-15 10:36:26', '20.49', '0.00', '20.49', 'card', 'paid', 6),
+(32, '2022-02-15 10:41:04', '45.48', '0.00', '45.48', 'card', 'paid', 6),
+(33, '2022-02-15 11:41:38', '29.98', '0.00', '29.98', 'card', 'paid', 6),
+(34, '2022-02-15 11:41:55', '29.98', '0.00', '29.98', 'card', 'paid', 6),
+(35, '2022-02-15 15:48:08', '14.99', '0.00', '14.99', 'card', 'paid', 6);
 
 -- --------------------------------------------------------
 
@@ -511,7 +525,7 @@ CREATE TABLE IF NOT EXISTS `sales_meals` (
   PRIMARY KEY (`id`),
   KEY `fk_meal_id_salesmeals` (`mealid`),
   KEY `fk_sales_id_salesmeals` (`salesid`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sales_meals`
@@ -519,7 +533,6 @@ CREATE TABLE IF NOT EXISTS `sales_meals` (
 
 INSERT INTO `sales_meals` (`id`, `salesid`, `mealid`, `sellingprice`, `itemquantity`, `state`, `mesa`) VALUES
 (1, 1, 9, '5.99', 1, 'done', '1'),
-(2, 2, 9, '2.50', 2, 'done', '1'),
 (3, 3, 1, '13.50', 2, 'done', '1'),
 (4, 4, 1, '13.50', 2, 'done', '1'),
 (5, 5, 1, '13.50', 2, 'done', '2'),
@@ -532,15 +545,33 @@ INSERT INTO `sales_meals` (`id`, `salesid`, `mealid`, `sellingprice`, `itemquant
 (12, 20, 4, '5.50', 1, 'done', '1'),
 (13, 20, 6, '5.50', 1, 'done', '1'),
 (14, 20, 7, '1.00', 1, 'done', '1'),
-(15, 21, 1, '14.99', 1, 'waiting', '1'),
-(16, 21, 4, '5.50', 1, 'waiting', '1'),
-(17, 22, 1, '14.99', 1, 'waiting', '1'),
-(18, 22, 3, '2.50', 1, 'waiting', '1'),
-(19, 23, 1, '15.00', 1, 'waiting', 'takeaway'),
-(20, 24, 7, '1.00', 1, 'waiting', '4'),
-(21, 24, 9, '2.50', 1, 'waiting', '4'),
-(22, 25, 3, '2.50', 1, 'waiting', '3\n'),
-(23, 25, 5, '7.50', 1, 'waiting', '3\n');
+(15, 21, 1, '14.99', 1, 'preparing', '1'),
+(16, 21, 4, '5.50', 1, 'preparing', '1'),
+(17, 22, 1, '14.99', 1, 'preparing', '1'),
+(18, 22, 3, '2.50', 1, 'preparing', '1'),
+(19, 23, 1, '15.00', 1, 'done', 'takeaway'),
+(20, 24, 7, '1.00', 1, 'done', '4'),
+(21, 24, 9, '2.50', 1, 'preparing', '4'),
+(22, 25, 3, '2.50', 1, 'preparing', '3\n'),
+(23, 25, 5, '7.50', 1, 'done', '3\n'),
+(24, 27, 1, '14.99', 1, 'done', 'takeaway'),
+(25, 27, 6, '5.50', 1, 'done', 'takeaway'),
+(26, 28, 1, '14.99', 1, 'done', 'takeaway'),
+(27, 28, 4, '5.50', 1, 'done', 'takeaway'),
+(28, 30, 1, '14.99', 1, 'done', 'takeaway'),
+(29, 30, 3, '2.50', 1, 'done', 'takeaway'),
+(30, 31, 1, '14.99', 1, 'done', '2'),
+(31, 31, 6, '5.50', 1, 'done', '2'),
+(32, 32, 1, '14.99', 1, 'done', '2'),
+(33, 32, 2, '14.99', 1, 'done', '2'),
+(34, 32, 3, '2.50', 1, 'waiting', '2'),
+(35, 32, 4, '5.50', 1, 'waiting', '2'),
+(36, 32, 5, '7.50', 1, 'waiting', '2'),
+(37, 33, 1, '14.99', 1, 'done', 'takeaway'),
+(38, 33, 2, '14.99', 1, 'waiting', 'takeaway'),
+(39, 34, 1, '14.99', 1, 'done', 'takeaway'),
+(40, 34, 2, '14.99', 1, 'waiting', 'takeaway'),
+(41, 35, 1, '14.99', 1, 'waiting', 'takeaway');
 
 -- --------------------------------------------------------
 
@@ -555,14 +586,15 @@ CREATE TABLE IF NOT EXISTS `schedules` (
   `userprofilesid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_userprofiles_id` (`userprofilesid`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `schedules`
 --
 
 INSERT INTO `schedules` (`id`, `day`, `userprofilesid`) VALUES
-(7, '2022-01-10 09:40:35', 1);
+(7, '2022-01-10 09:40:35', 1),
+(8, '2022-02-15 09:52:54', 3);
 
 -- --------------------------------------------------------
 
@@ -609,7 +641,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `user`
@@ -619,22 +651,9 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 (2, 'testeuser', 'IA_ROg-7282xyzU7Eb0x9Ip0z6PhW9ZK', '$2y$13$DpRGCCjE5qk2RqGRWrsL1.8UF9LpQSJx5duJTPnQD9rb7Y3zN3NNG', NULL, 'tiago.gil277@gmail.com', 10, 1634293795, 1634293795, '0HHcgxm6BfuNjOH9vwHra6rj9MLPdlOW_1634293795'),
 (5, 'admin', 'GmkIltBSetHrfbFpRL2669P7WqWGshGG', '$2y$13$osVyRKNcEjuJECi0Oja/SOEQ1w5nl43EO/xVEhjnvFE/uEJGETPGC', NULL, 'admin@hoje.pt', 10, 1636112894, 1636112894, 'ewMU_207-OoIxy63axz_h5Yl2rh2NK-C_1636112894'),
 (9, 'Pedro', '873xUmF4aWMTVH8wl-iUdJPCxGhorKcv', '$2y$13$b/XsHQcekFuVzyf5fhAqj.1/hL4ga4MioTaqwtBVF68UbqUPaXacC', NULL, 'pedro@hoje.teste', 10, 1636545266, 1636545266, '-9wWSBIU44B7PvO7mwiklcVD_hATzKJl_1636545266'),
-(10, 'defesa', 'JqarnlK4bpe8b8iqDhKanoxb9pEO9vRW', '$2y$13$lBp8KR48Pm1kUgvcrX1ak.SBWk5eo/g8k.W1MIHRuT8BOO2eqJtle', NULL, 'wieuvbn@sdvs.pt', 10, 1636558188, 1636558188, '6QZEdWRFEiVfxJ0g6aer-8s6NSOM5Ngs_1636558188'),
-(11, 'qweqw', 'n7AGM3RxIS0RAVtwrLjAx8GATbF0qbNP', '$2y$13$sKlqllcUOzrjkFSnANk1POhfhL8aOGcLA1rcuyIH35.ltvGPFdjqa', NULL, 'wqew2@sda.pe', 0, 1637596605, 1637596605, 'MtTHjDEESQjCVQDXdnhK67u_qumAokXs_1637596605'),
-(12, 'qweqwa', 'mtV85qYOD6D-RWmb7EsNkCMLH2DB79ra', '$2y$13$gApIsGdW5CTqAnig8KFYF.cVwr.mE8QKxTK6p1R3CvJ5kH7tvNdLm', NULL, 'wqew2@sda.pea', 0, 1637596695, 1637596695, 'POXFBmzmgDDqYzUddTTWDIrPDinQGgz8_1637596695'),
-(13, 'aqweqwa', 'sDM1kj0KrLx1Pq9uuEZbKi4iWLw9S5Xs', '$2y$13$qxebr.BGZ/CLyVB7F8AVy.X.slwndLJCJYB/a19bcljELSfpjEclO', NULL, 'wqew2@sda.peaa', 0, 1637597156, 1637597156, 'KIUzYjeCZMZDnJWhtf5c-GzCw5xgVbXv_1637597156'),
-(14, 'asda', 'o6TUBCcALIDlrOSmTDZEHGrreK7q1_N3', '$2y$13$CBYn09vBmqBVDVnLghZ1tOmvAFl8hkTZX6EAc4yMWTTDLs2dBz6a.', NULL, 'qwerty@asda.poa', 0, 1637599697, 1637599697, '0-sBEJjYf4pdP5BPOTk6wlkhQA9Vqvlk_1637599697'),
-(15, 'testenovo', 'rS0fkhvZmhizOTi6g37dRjbwPTs1kuHW', '$2y$13$JpRGiDIbsVtrS2.T.GcU.u8tqzbMfuWKcA1XpbZ/cUCB82K6gSR96', NULL, 'testenovo@escola.pt', 0, 1637602659, 1637602659, 'xn9nUVQCi0ullaHMYCBuZqvWLzBDf8vp_1637602659'),
-(16, 'UserTest', 'leCoTDhnSejhSl5rghOawbAy1diLQmAV', '$2y$13$4qtHeoCeLq7GSxvRXeRA3uyjRPqvB0U06dFG1O3M0NwWhTq47eul.', NULL, 'aulateste@teste.pt', 10, 1638458790, 1638458790, 'XYeKLunbyQSULf3Ig-zaGY-SKi8bMNEY_1638458790'),
 (18, 'leonor', 'e3tSNN8a4abo0xr1R9vedvq121Ms698y', '$2y$13$DEa/aaSZCMHRmvfz7x.OzuK0j0N8Ir1rLf.Il1fM6bqgmWCakaofq', NULL, 'leonor@leonor.pt', 10, 1641418438, 1641418438, 'DXwk-pyoMfZcc7NKfNDZLg60gqCXt1xj_1641418438'),
-(20, 'testedeutilizador', 'qWwxMhsCOxCSroV5WLV5wdQcj5gORX75', '$2y$13$bQsgfhkjxWOIOEW5bN5XPudEE2WUwJfeCrFddGUwg1A1WE6RBd9qi', NULL, 'testenovo@teste.pt', 10, 1641436573, 1641436573, 'ZEvPXc2Bhu7nyxlsQHB1bTEMF5KiOvV__1641436573'),
-(21, 'defesa_1', 'KklJKvvXxF4n54L8hGjDqR4pacAl9Hhg', '$2y$13$Yb8IHb/GGNacC0/tjZNWjubBQi/Slyw5QzTpfoh71Z3ZAyWWWSpeG', NULL, 'defesa@1.pt', 10, 1641549961, 1641549961, 'w40mtv8d0tcgEWF75IP_ldiTTZkmMf_d_1641549961'),
-(22, 'defesa_2', 'aDKhbkfI8hShX95mAyiB6KY-vMOeuH6Z', '$2y$13$7jRJaLykLzEtYJ3BdWPdpe1H5tsbdpqcxziIX7OuPL1iFY1EfwFfG', NULL, 'defesa@2.pt', 10, 1641549987, 1641549987, '2iDHeyFaaL7ViNVzC47B4kPOQ5_oNJdv_1641549987'),
-(23, 'defesa_3', '0qJ_aoKZT_f96fLf6QTKkezzk1BggERQ', '$2y$13$IEzBGV3N7LnJI4DN6KuOwO2Bqu4zhBOmXlcmc.3CERqZsF6wi1pTW', NULL, 'defesa@3.pt', 10, 1641550026, 1641550026, 'smKX1CiL5ekqXP-9heV_1dbHVV9qtN7I_1641550026'),
-(26, 'curlDELETE', 'ycHHq6xSlqsvkgy81xixh9h32sI6Ne_s', '$2y$13$9YrvDhxQz4ADOpjeoaweNOGk.eL/M2ZgJqqFY0YcV8Ayc/u5uzhby', NULL, 'curl@DELETE.pt', 10, 1641749328, 1641749328, 'FQ0gPgjC-LVWDOzu3zEkEmqyTsEUsX8-_1641749328'),
 (27, 'tonnyjohnny213', 'q6_m2ZBUJnT1B7rr54aIdI01-gVBizn3', '$2y$13$Z8UKI4D1wBn3oTuefmmT5umUQ002WOBDq0s/uaAOmeOwHOJxTXq3.', NULL, 'tonny.mail@testing.com', 10, 1642873961, 1642873961, '4rZw62nPLe_5I8qoI2rkTXl-UJ02eO4b_1642873961'),
 (28, 'manufixe', 'eZi27CzxcY7mcOtv6PU69ZJDxWgV_7Vr', '$2y$13$RQXWTxTP9vS./FmdAjYXBeNsHIAojjJCdNA6ZQGZyFeG8lTUBXwYu', NULL, 'manu@fixe.pt', 10, 1644575277, 1644575277, 'QBfEU-IQo7NNbtp4zX1gwX90sYftZ0Pv_1644575277'),
-(29, 'testeniceplsnokill', 'BGiIdMp1KcB732mAMli0gvnNV7ostuKy', '$2y$13$YDflecow7IHsINkU69qct.ZugeEITermq.mQEq9UvcaaL/OpjySJi', NULL, 'eznice@teste.pt', 10, 1644690936, 1644690936, '-j3YVYZaq56STy1bAV_ZzzsJ3reiPtcY_1644690936'),
 (30, 'Lisse8400', 'xqIwDhiOV1G10MEcM6LnGboihbh3sU3O', '$2y$13$Z28S5CcJkyOk86NwL7v50.kH1dU8lDrbnYoMvB0LEESBrP4cINTzC', NULL, 'leonor95@gmail.com', 10, 1644702320, 1644702320, 'qXMec3aurr1oODFDqNSiNN34EZT6QOAs_1644702320');
 
 -- --------------------------------------------------------
@@ -665,11 +684,8 @@ CREATE TABLE IF NOT EXISTS `userprofiles` (
 
 INSERT INTO `userprofiles` (`id`, `nif`, `name`, `cellphone`, `street`, `door`, `floor`, `city`, `nib`, `userid`) VALUES
 (1, 987654321, 'pedro Lourenço', 987654321, 'fewf', 21, NULL, 'Leiria', NULL, 9),
-(2, 987654321, 'Miguel', 987654321, 'fewf', 21, 1, 'Leiria', NULL, 9),
-(3, 123456789, 'Tiago Gil', 123456789, 'Rua Dom João IV', 45, 0, 'Almeirim', NULL, 5),
-(4, 987654321, 'Manuel', 789456123, 'Rua Dom João IV', 45, 2, 'Santarém', NULL, 20),
-(5, 987654321, 'Pedro Lourenço', 987654321, 'fewf', 21, NULL, 'Leiria', NULL, 9),
-(6, 235236235, 'Manuel Jorge', 960309940, 'Morro do Lena 2', 45, 45, 'Uranus', NULL, 28),
+(3, 123456789, 'Tiago Gil', 123456789, 'Rua Dom João IV', 45, 0, 'Santarém', NULL, 5),
+(6, 235236235, 'Manuel Jorge', 960309940, 'Morro do Lena 2', 45, 45, 'Abrantes', NULL, 28),
 (7, 854654121, 'leonorz', 934926598, 'Rua Doutor ', 45, 15, 'Vila Nova de Famalicão', NULL, 30);
 
 -- --------------------------------------------------------
@@ -686,14 +702,15 @@ CREATE TABLE IF NOT EXISTS `userschedulesregistry` (
   `schedulesid` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_schedules_id` (`schedulesid`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `userschedulesregistry`
 --
 
 INSERT INTO `userschedulesregistry` (`id`, `employee_entry`, `employee_exit`, `schedulesid`) VALUES
-(28, '2022-01-10 09:40:35', '2022-01-10 09:40:45', 7);
+(28, '2022-01-10 09:40:35', '2022-01-10 09:40:45', 7),
+(29, '2022-02-15 09:52:54', NULL, 8);
 
 --
 -- Constraints for dumped tables
