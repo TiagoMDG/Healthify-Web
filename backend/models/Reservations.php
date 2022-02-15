@@ -69,7 +69,8 @@ class Reservations extends \yii\db\ActiveRecord
 
     public static function getReservesTotalCount()
     {
-        $reservations = Reservations::find()->all();
+        $reservations = Reservations::find()->andFilterCompare('reservedday', date("Y/m/d"), '>=')->all();
+
 
         $count = count($reservations);
 
@@ -78,8 +79,8 @@ class Reservations extends \yii\db\ActiveRecord
 
     public static function getReservesChartData()
     {
-        $almoco = count(Reservations::find()->where(['reservedtime'=>'almoco'])->all());
-        $jantar = count(Reservations::find()->where(['reservedtime'=>'jantar'])->all());
+        $almoco = count(Reservations::find()->where(['reservedtime' => 'almoco'])->all());
+        $jantar = count(Reservations::find()->where(['reservedtime' => 'jantar'])->all());
 
         $contagem = array($almoco, $jantar);
 
