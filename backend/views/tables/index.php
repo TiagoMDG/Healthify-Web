@@ -1,7 +1,8 @@
 <?php
 
+use dominus77\sweetalert2\Alert;
+use kartik\grid\GridView;
 use yii\helpers\Html;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\TablesSearch */
@@ -10,6 +11,8 @@ use yii\grid\GridView;
 $this->title = 'Mesas';
 ?>
 <div class="tables-index">
+
+    <?= Alert::widget(['useSessionFlash' => true]) ?>
 
     <p>
         <?= Html::a('Criar Mesa', ['create'], ['class' => 'btn btn-success']) ?>

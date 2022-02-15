@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 use app\models\Tables;
 use app\models\TablesSearch;
+use dominus77\sweetalert2\Alert;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -64,6 +66,7 @@ class TablesController extends Controller
     {
         $searchModel = new TablesSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 11];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -95,6 +98,7 @@ class TablesController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Mesa Criada!');
                 return $this->redirect(['index']);
             }
         } else {
@@ -118,6 +122,7 @@ class TablesController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Mesa Atualizada!');
             return $this->redirect(['index']);
         }
 
@@ -136,6 +141,8 @@ class TablesController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+
+        Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Mesa Apagada!');
 
         return $this->redirect(['index']);
     }

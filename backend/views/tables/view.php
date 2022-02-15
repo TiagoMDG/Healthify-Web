@@ -6,14 +6,10 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tables */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tables', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Mesa: ' . $model->id;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="tables-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -30,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'ocupancy_state',
+            'state',
         ],
     ]) ?>
 
