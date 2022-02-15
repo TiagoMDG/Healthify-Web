@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Category;
+use dominus77\sweetalert2\Alert;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -19,6 +20,9 @@ $this->title = $model->name;
 \yii\web\YiiAsset::register($this);
 
 ?>
+
+<?= Alert::widget(['useSessionFlash' => true]) ?>
+
 <div class="meals-view">
 
     <p>

@@ -27,7 +27,7 @@ $listCategories = ArrayHelper::map($category, 'id', 'name');
     <?= $form->field($model, 'categoryid')->dropDownList($listCategories, ['prompt' => 'Select...']); ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

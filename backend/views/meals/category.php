@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Category;
+use dominus77\sweetalert2\Alert;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -8,14 +9,15 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\MealsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Meals';
+$this->title = ucfirst($categoryname);
 ?>
+
+<?= Alert::widget(['useSessionFlash' => true]) ?>
+
 <div class="meals-index">
 
-    <h1><?= Html::encode(ucfirst($categoryname)) ?></h1>
-
     <p>
-        <?= Html::a('Create Meal', ['create', 'categoryid' => $categoryid, 'categoryname' => $categoryname], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar ' . ucfirst($categoryname), ['create', 'categoryid' => $categoryid, 'categoryname' => $categoryname], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

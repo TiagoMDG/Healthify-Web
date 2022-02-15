@@ -5,6 +5,8 @@ namespace backend\controllers;
 use app\models\Category;
 use app\models\Meals;
 use backend\models\MealsSearch;
+use dominus77\sweetalert2\Alert;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -112,7 +114,8 @@ class MealsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Refeição criada!');
+                return $this->redirect(['category', 'categoryid' => $categoryid, 'categoryname' => $categoryname]);
             }
         } else {
             $model->loadDefaultValues();
@@ -137,6 +140,7 @@ class MealsController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Refeição atualizada!');
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -156,6 +160,7 @@ class MealsController extends Controller
     {
         $this->findModel($id)->delete();
 
+        Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Refeição apagada!');
         return $this->redirect(['category', 'categoryid' => $categoryid, 'categoryname' => $categoryname]);
     }
 

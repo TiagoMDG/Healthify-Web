@@ -12,7 +12,7 @@ use yii\grid\GridView;
 
 
 
-$this->title = 'Meals';
+$this->title = 'Refeições';
 
 
 ?>
@@ -33,7 +33,7 @@ $this->title = 'Meals';
                         <i class="ion ion-stats-bars"></i>
                     </div>
 
-                    <?= Html::a('More Info <i class="fas fa-arrow-circle-right"></i>', ['meals/category', 'categoryid' => Category::getCategoriaIDByName($name), 'categoryname' => $name], ['data-method' => 'post', 'class' => 'small-box-footer']) ?>
+                    <?= Html::a('Mais Informação <i class="fas fa-arrow-circle-right"></i>', ['meals/category', 'categoryid' => Category::getCategoriaIDByName($name), 'categoryname' => $name], ['data-method' => 'post', 'class' => 'small-box-footer']) ?>
 
                 </div>
             </div>
