@@ -81,6 +81,7 @@ class MealsController extends Controller
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         $dataProvider->query->andWhere(['categoryid'=>$categoryid]);
+        $dataProvider->pagination = ['pageSize' => 11];
 
         return $this->render('category', [
             'searchModel' => $searchModel,
