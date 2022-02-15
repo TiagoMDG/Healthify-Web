@@ -10,7 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Preparação de pedidos';
 
 ?>
-<div class="mealprep-index" style="overflow: auto;">
+<div class="mealprep-index" style="overflow: auto; width: auto">
 
     <?php
     if ($mealsToPrep == null) { ?>
@@ -58,44 +58,46 @@ $this->title = 'Preparação de pedidos';
         <?php } ?>
     <?php } ?>
 
+    <?php foreach ($takeawayids as $id) { ?>
 
-        <?php foreach ($takeawayids as $id) { ?>
+            <div class="column" style="width: auto; margin-right: 50px">
 
-        <div class="column" style="width: auto">
-            <h1>Takeaway <?php echo($id) ?></h1>
+                <h1> Takeaway <?= $id; ?></h1>
+                <?php foreach ($mealsToPrep as $prep) { ?>
+                    <?php if ($prep->salesid == $id) { ?>
 
-        <?php foreach ($mealsToPrep as $prep) { ?>
+                        <div class="row">
+                            <div class="card" style="width: 200px">
+                                <h4><b><?= Meals::nameByID($prep->mealid) ?></b></h4>
 
-            <?php if ($prep->salesid == $id) { ?>
+                                <button type="button" class="collapsible">Ingredientes</button>
+                                <div class="ingredients">
+                                    <?php foreach ($mealIngredients as $mealIngredient) { ?>
+                                        <?php if ($prep->mealid == $mealIngredient->mealsid) { ?>
 
-                <div class="row">
-                    <div class="card" style="width: 200px">
-                        <h4><b><?= Meals::nameByID($prep->mealid) ?></b></h4>
+                                            <?= Ingredients::nameByID($mealIngredient->ingredientsid) ?><br>
 
-                        <button type="button" class="collapsible">Ingredientes</button>
-                        <div class="ingredients">
-                            <?php foreach ($mealIngredients as $mealIngredient) { ?>
-                                <?php if ($prep->mealid == $mealIngredient->mealsid) { ?>
+                                        <?php }
+                                    } ?>
+                                </div>
 
-                                    <?= Ingredients::nameByID($mealIngredient->ingredientsid) ?><br>
+                                <br>
 
-                                <?php }
-                            } ?>
+                                <?php if ($prep->state == 'waiting') { ?>
+                                    <?= Html::a('Em Preparação', ['preparing', 'mealId' => $prep->id], ['class' => 'btn btn-danger']) ?>
+                                <?php } else { ?>
+                                    <?= Html::a('A Sair', ['deliver', 'mealId' => $prep->id], ['class' => 'btn btn-success']) ?>
+                                <?php } ?>
+
+                            </div>
                         </div>
+                    <?php }
+                } ?>
+            </div>
+        <?php } ?>
 
-                        <br>
 
-                        <?php if ($prep->state == 'waiting') { ?>
-                            <?= Html::a('Em Preparação', ['preparing', 'mealId' => $prep->id], ['class' => 'btn btn-danger']) ?>
-                        <?php } else { ?>
-                            <?= Html::a('A Sair', ['deliver', 'mealId' => $prep->id], ['class' => 'btn btn-success']) ?>
-                        <?php } ?>
 
-                    </div>
-                </div>
-            <?php }
-        } } ?>
-    </div>
 
 </div>
 
