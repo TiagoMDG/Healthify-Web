@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 use app\models\Sales;
 use app\models\SalesSearch;
+use dominus77\sweetalert2\Alert;
+use Yii;
 use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -112,7 +114,8 @@ class SalesController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, "Pagamento feito com sucesso!\n\n");
+            return $this->redirect(['pagamento']);
         }
 
         return $this->render('update', [

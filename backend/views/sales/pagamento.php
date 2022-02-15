@@ -1,5 +1,6 @@
 <?php
 
+use dominus77\sweetalert2\Alert;
 use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -11,6 +12,9 @@ use yii\grid\ActionColumn;
 
 $this->title = 'Caixa de Pagamento';
 ?>
+
+<?= Alert::widget(['useSessionFlash' => true]) ?>
+
 <div class="sales-pagamento">
 
     <?= GridView::widget([
