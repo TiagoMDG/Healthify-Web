@@ -34,7 +34,7 @@ class ReviewsController extends Controller
                         [
                             'actions' => ['index'],
                             'allow' => true,
-                            'roles' => ['admin', 'staff'],
+                            'roles' => ['admin', 'staff', 'chef'],
                         ],
                         [
                             'actions' => ['delete'],

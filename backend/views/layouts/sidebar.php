@@ -60,7 +60,14 @@ $categories = Category::getCategorias();
                 </li>
 
                 <li class="nav-item">
-                    <?= Html::a('Reservas', ['reservations/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                    <button class="dropdown-btn nav-link"><?= Html::a('Gerir Reservas', [''], ['data-method' => 'post']) ?>
+                        <i id="dropdownCaret" class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-container">
+                        <?= Html::a('Ativas', ['reservations/activereserves', 'title' => 'Ativas', 'action' => 'activereserves'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('Futuras', ['reservations/futurereserves', 'title' => 'Futuras', 'action' => 'futurereserves'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                        <?= Html::a('Histórico', ['reservations/pastreserves', 'title' => 'Histórico', 'action' => 'pastreserves'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                    </div>
                 </li>
 
                 <li class="nav-item">
@@ -84,6 +91,7 @@ $categories = Category::getCategorias();
                         } ?>
                     </div>
                 </li>
+
                 <li class="nav-item">
                     <?= Html::a('Zona de preparação', ['mealprep/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                 </li>

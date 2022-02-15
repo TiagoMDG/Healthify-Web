@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 use app\models\Reservations;
 use app\models\ReservationsSearch;
+use dominus77\sweetalert2\Alert;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -30,7 +32,7 @@ class ReservationsController extends Controller
                             'allow' => true,
                         ],
                         [
-                            'actions' => ['index', 'activereserves', 'futurereserves', 'pastreserves', 'view', 'create', 'update', 'delete'],
+                            'actions' => ['activereserves', 'futurereserves', 'pastreserves', 'view', 'create', 'update', 'delete'],
                             'allow' => true,
                             'roles' => ['admin', 'chef', 'staff'],
                         ],
@@ -55,55 +57,49 @@ class ReservationsController extends Controller
      * Lists all Reservations models.
      * @return mixed
      */
-    public function actionIndex()
-    {
-        return $this->render('index', [
-        ]);
-    }
 
-    public function actionActivereserves()
+    public function actionActivereserves($title, $action)
     {
         $searchModel = new ReservationsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         $dataProvider->query->Where(['reservedday' => date("Y/m/d")]);
 
-        $this->layout = false;
-
-
         return $this->render('reserves', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'action' => $action,
+            'title' => $title,
         ]);
     }
 
-    public function actionPastreserves()
+    public function actionPastreserves($title, $action)
     {
         $searchModel = new ReservationsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         $dataProvider->query->andFilterCompare ( 'reservedday', date("Y/m/d"), '<' );
 
-        $this->layout = false;
-
         return $this->render('reserves', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'action' => $action,
+            'title' => $title,
         ]);
     }
 
-    public function actionFuturereserves()
+    public function actionFuturereserves($title, $action)
     {
         $searchModel = new ReservationsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         $dataProvider->query->andFilterCompare ( 'reservedday', date("Y/m/d"), '>' );
 
-        $this->layout = false;
-
         return $this->render('reserves', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'action' => $action,
+            'title' => $title,
         ]);
     }
 
@@ -113,10 +109,12 @@ class ReservationsController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id, $action, $title)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'action' => $action,
+            'title' => $title,
         ]);
     }
 
@@ -125,7 +123,7 @@ class ReservationsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($action, $title)
     {
         $model = new Reservations();
 
@@ -137,7 +135,8 @@ class ReservationsController extends Controller
                     $model->addError('', 'This table is already booked!');
                 } else {
                     $model->save();
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Reserva Criada!');
+                    return $this->redirect(['view', 'id' => $model->id, 'action' => $action, 'title' => $title]);
                 }
             }
         } else {
@@ -146,6 +145,8 @@ class ReservationsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'action' => $action,
+            'title' => $title,
         ]);
     }
 
@@ -156,16 +157,19 @@ class ReservationsController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $action, $title)
     {
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Reserva Atualizada!');
+            return $this->redirect(['view', 'id' => $model->id, 'action' => $action, 'title' => $title]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'action' => $action,
+            'title' => $title,
         ]);
     }
 
@@ -176,11 +180,12 @@ class ReservationsController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $action, $title)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Reserva Apagada!');
+        return $this->redirect([$action, 'action' => $action, 'title' => $title]);
     }
 
     /**
