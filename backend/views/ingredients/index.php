@@ -1,7 +1,9 @@
 <?php
 
+use dominus77\sweetalert2\Alert;
+use kartik\grid\GridView;
 use yii\helpers\Html;
-use yii\grid\GridView;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\IngredientsSearch */
@@ -9,6 +11,9 @@ use yii\grid\GridView;
 
 $this->title = 'Ingredientes';
 ?>
+
+<?= Alert::widget(['useSessionFlash' => true]) ?>
+
 <div class="ingredients-index">
 
     <p>

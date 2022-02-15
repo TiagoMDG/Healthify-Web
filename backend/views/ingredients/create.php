@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Ingredients */
 
-$this->title = 'Create Ingredients';
+$this->title = 'Criar Ingrediente';
 ?>
 <div class="ingredients-create">
 
