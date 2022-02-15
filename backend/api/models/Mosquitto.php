@@ -14,7 +14,8 @@ class Mosquitto
         $password = ""; // set your password
         $client_id = "phpMQTT-publisher"; // unique!
         $mqtt = new phpMQTT($server, $port, $client_id);
-        if ($mqtt->connect(true, NULL, $username, $password)) {
+
+        if (@$mqtt->connect(true, NULL, $username, $password)) {
             $mqtt->publish($canal, $msg, 0);
             $mqtt->close();
         } else {
