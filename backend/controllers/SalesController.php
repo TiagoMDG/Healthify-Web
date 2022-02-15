@@ -37,11 +37,6 @@ class SalesController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
-    {
-        return $this->render('index', [
-        ]);
-    }
 
     public function actionPagamento()
     {
@@ -49,8 +44,6 @@ class SalesController extends Controller
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         $dataProvider->query->andFilterCompare('paymentstate', 'paid', '!=');
-
-        $this->layout = false;
 
         return $this->render('pagamento', [
             'searchModel' => $searchModel,
@@ -63,9 +56,8 @@ class SalesController extends Controller
         $searchModel = new SalesSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        $dataProvider->query->where(['paymentstate' => 'paid']);
-
-        $this->layout = false;
+        $dataProvider->query->andFilterCompare('paymentstate', 'paid', '=');
+        $dataProvider->pagination = ['pageSize' => 12];
 
         return $this->render('pedidos', [
             'searchModel' => $searchModel,

@@ -64,7 +64,11 @@ $categories = Category::getCategorias();
                 </li>
 
                 <li class="nav-item">
-                    <?= Html::a('Histórico de Pedidos', ['sales/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                    <?= Html::a('Histórico de Pedidos', ['sales/historico'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                </li>
+
+                <li class="nav-item">
+                    <?= Html::a('Caixa de Pagamento', ['sales/pagamento'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                 </li>
 
                 <li class="nav-item">
