@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 
 use voime\GoogleMaps\Map;
+use yii\helpers\Html;
 
 $this->title = 'Healthify - Home';
 
@@ -19,7 +20,7 @@ $this->title = 'Healthify - Home';
         <span class="w3-text-black" style="font-size:90px">Healthify</span>
     </div>
     <div class="w3-display-bottomright w3-center w3-padding-large">
-        <span class="w3-tag">15 Adr street, 5015</span>
+        <span class="w3-tag">Morro do Lena, 2, Leiria</span>
     </div>
 </header>
 
@@ -124,7 +125,7 @@ $this->title = 'Healthify - Home';
     <div class="w3-container" id="where" style="padding-bottom:32px;">
         <div class="w3-content" style="max-width:700px">
             <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">WHERE TO FIND US</span></h5>
-            <p>Find us at some address at <strong>15 Adr street, 5015, NY</strong>.</p>
+            <p>Find us at some address at <strong>Morro do Lena, 2, Leiria</strong>.</p>
 
             <?php
             echo Map::widget([
@@ -135,7 +136,7 @@ $this->title = 'Healthify - Home';
                 'height' => '400px',
                 'mapType' => Map::MAP_TYPE_HYBRID,
                 'markers' => [
-                    ['position' => [39.735650,-8.821667], 'title' => 'We are here!!!', 'content' => 'Healthify Restaurant, Morro do Lena 2', 'options' => ["icon" => "'http://maps.google.com/mapfiles/ms/icons/red-dot.png'"]],
+                    ['position' => [39.735650, -8.821667], 'title' => 'We are here!!!', 'content' => 'Healthify Restaurant, Morro do Lena 2', 'options' => ["icon" => "'http://maps.google.com/mapfiles/ms/icons/red-dot.png'"]],
                 ],
                 'markerFitBounds' => true
             ]); ?>
@@ -144,6 +145,9 @@ $this->title = 'Healthify - Home';
             <p><span class="w3-tag">FYI!</span> We offer full-service catering for any event, large or small. We
                 understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look
                 and taste.</p>
+
+            <?= Html::a('<p><span class="w3-tag">CONTACT US!</span></p>', ['contact'], ['class' => '']) ?>
+
         </div>
     </div>
 
