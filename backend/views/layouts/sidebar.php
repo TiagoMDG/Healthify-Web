@@ -25,7 +25,7 @@ $categories = Category::getCategorias();
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <table style="width: 100%" align="center">
                 <tr>
-                    <td rowspan="2" align="center"><img src="<?= $assetDir ?>/img/user2-160x160.jpg"
+                    <td rowspan="2" align="center"><img src="<?= $assetDir ?>/img/user8-128x128.jpg"
                                                         class="img-circle elevation-2" alt="User Image" width="120px"
                                                         height="120px"></td>
                     <td><a href="#" class="d-block"><?= Yii::$app->getUser()->identity->getName() ?></td>

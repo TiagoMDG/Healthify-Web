@@ -35,7 +35,7 @@ $this->title = 'Zona Administrativa';
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <?= Html::a('More Info <i class="fas fa-arrow-circle-right"></i>', ['reservations/index'], ['data-method' => 'post', 'class' => 'small-box-footer']) ?>
+            <?= Html::a('More Info <i class="fas fa-arrow-circle-right"></i>', ['reservations/activereserves', 'title' => 'Ativas', 'action' => 'activereserves'], ['data-method' => 'post', 'class' => 'small-box-footer']) ?>
         </div>
 
         <?php
