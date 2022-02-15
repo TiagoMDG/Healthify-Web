@@ -5,7 +5,7 @@ use voime\GoogleMaps\Map;
 use yii\helpers\Html;
 
 $this->title = 'Zona Administrativa';
-$this->params['breadcrumbs'] = [['label' => $this->title]];
+
 ?>
 
 <div class="container-fluid">
@@ -69,7 +69,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                     'title' => ['text' => 'Numero Total']
                 ],
                 'series' => [
-                    ['name' => 'vendas', 'data' => [$vendasContagem,$pedidosContagem]],
+                    ['name' => 'Vendas', 'data' => [$vendasContagem,$pedidosContagem]],
                 ],
                 'credits' => ['enabled' => false],
             ]

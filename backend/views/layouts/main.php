@@ -33,6 +33,7 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
 <body class="hold-transition sidebar-mini">
 <?php $this->beginBody() ?>
 
+
 <div class="wrapper">
     <!-- Navbar -->
 

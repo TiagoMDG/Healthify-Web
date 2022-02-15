@@ -49,10 +49,10 @@ class Reservations extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID da Reserva',
-            'reservedday' => 'Dia Reservado',
-            'reservedtime' => 'Hora Reservada',
-            'userprofilesid' => 'Cliente',
-            'tableid' => 'ID Mesa',
+            'reservedday' => 'Dia da Reserva',
+            'reservedtime' => 'Horário Reservado',
+            'userprofilesid' => 'ID do Cliente',
+            'tableid' => 'Nº da mesa',
         ];
     }
 

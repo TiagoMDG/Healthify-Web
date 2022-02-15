@@ -5,7 +5,9 @@ namespace backend\controllers;
 use app\models\AuthAssignment;
 use common\models\User;
 use backend\models\UserCreateForm;
+use dominus77\sweetalert2\Alert;
 use Yii;
+use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -70,17 +72,20 @@ class UserController extends Controller
 
     public function actionIndex()
     {
-        $allUsers = User::find()
-            ->indexBy('id')
-            ->all();
-        foreach ($allUsers as $user) {
+        $currentUser = Yii::$app->getUser()->identity->getName();
 
-            if ($user->getAttribute('status') == 10 && $user->getRole($user->id)->item_name != 'admin') {
-                $filterUsers[] = $user;
-            }
-        }
+        $query = User::find()->Where(['status' => 10])->andFilterCompare ( 'username', $currentUser, '!=' );
+
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount' => $count, 'defaultPageSize' => 10]);
+
+        $models = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
         return $this->render('index', [
-            'filterUsers' => $filterUsers,
+            'filterUsers' => $models,
+            'pagination' => $pagination,
         ]);
     }
 
@@ -108,7 +113,7 @@ class UserController extends Controller
     {
         $model = new UserCreateForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, "Utilizador Criado com Sucesso!\n\n");
             return $this->redirect(['index']);
         }
 
@@ -139,6 +144,7 @@ class UserController extends Controller
             Yii::$app->authManager->revokeAll($model->id);
             $authRole = $auth->getRole($redefinedRole['AuthAssignment']['item_name']);
             $auth->assign($authRole, $model->id);
+            Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, "Utilizador Atualizado com Sucesso!\n\n");
             return $this->redirect(['index']);
         }
 
@@ -163,6 +169,7 @@ class UserController extends Controller
         $model = $this->findModel($id);
         $model->status = \common\models\User::STATUS_DELETED;
         $model->save();
+        Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, "Utilizador Apagado com Sucesso!\n\n");
         return $this->redirect(['index']);
     }
 

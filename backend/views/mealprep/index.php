@@ -12,7 +12,7 @@ $this->title = 'Preparação de pedidos';
 
 ?>
 <div class="mealprep-index">
-    
+
     <?php
     if ($mealsToPrep == null) { ?>
         <div>

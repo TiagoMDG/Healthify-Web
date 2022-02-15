@@ -1,5 +1,7 @@
 <?php
 
+use dominus77\sweetalert2\Alert;
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -7,6 +9,9 @@ use yii\helpers\Html;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $this->title = 'Utilizadores';
 ?>
+
+<?= Alert::widget(['useSessionFlash' => true]) ?>
+
 <div class="user-index">
 
     <p>
@@ -18,6 +23,7 @@ $this->title = 'Utilizadores';
         <th><h3>Id</h3></th>
         <th><h3>Name</h3></th>
         <th><h3>Role</h3></th>
+        <th><h3>Operações</h3></th>
         </thead>
         <?php foreach ($filterUsers as $user) { ?>
             <tr>
@@ -29,13 +35,20 @@ $this->title = 'Utilizadores';
                 <td>
                     <?= Html::a('Editar Utilizador', ['update', 'id' => $user->id], ['class' => 'btn btn-primary']) ?>
                     <?= Html::a('Apagar', ['delete', 'id' => $user->id], ['class' => 'btn btn-danger', 'data' => [
-                        'confirm' => 'Are you sure you want to delete this item?',
+                        'confirm' => 'Tem a certeza que deseja apagar este utilizador: ' . $user->username . ' ?',
                         'method' => 'post',
                     ],]) ?>
                 </td>
             </tr>
         <?php } ?>
     </table>
+
+    <?php
+    // display pagination
+    echo LinkPager::widget([
+        'pagination' => $pagination,
+    ]);
+    ?>
 
 
 </div>

@@ -31,7 +31,7 @@ function addIngredientstoMeal(mealId) {
             if (result == '200') {
                 alert('successfuly inserted');
             } else {
-                alert('some error occured: ' + result);
+                reload();
             }
         }
     });
@@ -70,4 +70,3 @@ function reload() {
     var content = container.innerHTML;
     container.innerHTML = content;
 }
-

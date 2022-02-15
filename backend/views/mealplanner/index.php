@@ -7,7 +7,5 @@ use yii\grid\GridView;
 
 $this->title = 'Planeamento de Ementas Index';
 ?>
-<div class="mealplaner-index">
-
-
-</div>
+<?php
+?>

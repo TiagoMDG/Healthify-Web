@@ -27,14 +27,19 @@ $listTables = ArrayHelper::map($tables, 'id', 'id');
 
     <?= $form->field($model, 'reservedday')->widget(DatePicker::classname(), [
         'dateFormat' => 'yyyy-MM-dd',
-        'options' => ['class' => 'form-control'],
-    ])->label('Reserve Day') ?>
+        'options' => ['class' => 'form-control', 'autocomplete'=>'off',],
 
-    <?= $form->field($model, 'reservedtime')->dropDownList([ 'almoco' => 'Almoço', 'jantar' => 'Jantar', ], ['prompt' => 'Select...'])->label('Time of Reservation') ?>
+        'clientOptions' => [
+            'minDate' => 0,
+            'autocomplete' => 'off',
+        ]
+    ]) ?>
 
-    <?= $form->field($model, 'userprofilesid')->dropDownList($listUsers, ['prompt' => 'Select...'])->label('Client'); ?>
+    <?= $form->field($model, 'reservedtime')->dropDownList([ 'almoco' => 'Almoço', 'jantar' => 'Jantar', ], ['prompt' => '...']) ?>
 
-    <?= $form->field($model, 'tableid')->dropDownList($listTables, ['prompt' => 'Select...'])->label('Table'); ?>
+    <?= $form->field($model, 'userprofilesid')->dropDownList($listUsers, ['prompt' => '...']) ?>
+
+    <?= $form->field($model, 'tableid')->dropDownList($listTables, ['prompt' => '...']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

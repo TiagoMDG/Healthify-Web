@@ -7,18 +7,13 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\IngredientsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ingredients';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Ingredientes';
 ?>
 <div class="ingredients-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Create Ingredients', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar Ingrediente', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

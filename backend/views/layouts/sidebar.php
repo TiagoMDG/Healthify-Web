@@ -48,7 +48,7 @@ $categories = Category::getCategorias();
                 </li>
 
                 <li class="nav-item">
-                    <?= HTML::a('Reviews', ['reviews/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
+                    <?= HTML::a('Críticas', ['reviews/index'], ['data-method' => 'post', 'class' => 'nav-link']) ?>
                 </li>
 
                 <li class="nav-item">

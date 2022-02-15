@@ -48,9 +48,9 @@ class Reviews extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'rating' => 'Rating',
-            'review' => 'Review',
-            'userprofilesid' => 'Userprofilesid',
+            'rating' => 'Pontuação',
+            'review' => 'Comentário',
+            'userprofilesid' => 'Nº de cliente',
             'mealsid' => 'Mealsid',
         ];
     }

@@ -8,14 +8,13 @@ use yii\jui\Tabs;
 /* @var $searchModel app\models\ReservationsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Reservations';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Reservas';
 ?>
 <div class="reservations-index">
 
 
     <p>
-        <?= Html::a('Create Reservations', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar Reserva', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
