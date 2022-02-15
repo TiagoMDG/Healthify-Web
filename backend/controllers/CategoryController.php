@@ -4,6 +4,9 @@ namespace backend\controllers;
 
 use app\models\Category;
 use app\models\CategorySearch;
+use app\models\Meals;
+use dominus77\sweetalert2\Alert;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -59,6 +62,7 @@ class CategoryController extends Controller
     {
         $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 11];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -113,7 +117,8 @@ class CategoryController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Categoria atualizada!');
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -130,8 +135,15 @@ class CategoryController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $meals = Meals::find()->where(['categoryid' => $id])->one();
 
+        if($meals == null){
+            $this->findModel($id)->delete();
+            Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Categoria apagada!');
+            return $this->redirect(['index']);
+        }
+
+        Yii::$app->session->setFlash(Alert::TYPE_ERROR, 'Tens que remover os pratos da categoria antes de a eliminar!');
         return $this->redirect(['index']);
     }
 
