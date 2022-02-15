@@ -25,7 +25,7 @@ $this->title = 'Mesas';
             'id',
             'state',
 
-            ['class' => 'yii\grid\ActionColumn', 'template'=>''],
+            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
