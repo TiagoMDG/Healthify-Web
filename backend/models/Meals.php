@@ -51,9 +51,9 @@ class Meals extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'price' => 'Price',
-            'description' => 'Description',
+            'name' => 'Nome',
+            'price' => 'Preço',
+            'description' => 'Descrição',
             'categoryid' => 'ID da Categoria',
         ];
     }
