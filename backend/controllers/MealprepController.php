@@ -51,12 +51,23 @@ class MealprepController extends \yii\web\Controller
     {
         $mealsToPrep = SalesMeals::find()->where(['not', ['state' => 'done']])->all();
         $tables = Tables::find()->all();
+
+        $takeawaySales = SalesMeals::find()->where(['not', ['state' => 'done']])->andWhere(['mesa' => 'takeaway'])->all();
+
+
+        foreach ($takeawaySales as $takeaway) {
+            $takeawayids[] = $takeaway->salesid;
+        }
+
+        $takeawayids = array_unique($takeawayids, SORT_NUMERIC);
+
         $mealIngredients = Mealingredients::find()->all();
 
         return $this->render('index', [
             'mealsToPrep' => $mealsToPrep,
-            'tables'=> $tables,
+            'tables' => $tables,
             'mealIngredients' => $mealIngredients,
+            'takeawayids' => $takeawayids
         ]);
     }
 

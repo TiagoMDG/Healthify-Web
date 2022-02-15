@@ -2,7 +2,6 @@
 
 use app\models\Meals;
 use backend\models\Ingredients;
-use dominus77\sweetalert2\Alert;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -11,7 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Preparação de pedidos';
 
 ?>
-<div class="mealprep-index">
+<div class="mealprep-index" style="overflow: auto;">
 
     <?php
     if ($mealsToPrep == null) { ?>
@@ -60,11 +59,14 @@ $this->title = 'Preparação de pedidos';
     <?php } ?>
 
 
-    <div class="column" style="width: auto">
+        <?php foreach ($takeawayids as $id) { ?>
 
-        <h1>Takeaway</h1>
+        <div class="column" style="width: auto">
+            <h1>Takeaway <?php echo($id) ?></h1>
+
         <?php foreach ($mealsToPrep as $prep) { ?>
-            <?php if ($prep->mesa == 'takeaway') { ?>
+
+            <?php if ($prep->salesid == $id) { ?>
 
                 <div class="row">
                     <div class="card" style="width: 200px">
@@ -92,7 +94,7 @@ $this->title = 'Preparação de pedidos';
                     </div>
                 </div>
             <?php }
-        } ?>
+        } } ?>
     </div>
 
 </div>
