@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'paidamount')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'paymentmethod')->dropDownList([ 'card' => 'Cartão', 'dinheiro' => 'Dinheiro'], ['prompt' => '']) ?>
+    <?= $form->field($model, 'paymentmethod')->dropDownList([ 'card' => 'Cartão', 'cash' => 'Dinheiro'], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'paymentstate')->hiddenInput(['value' => 'paid'])->label(false) ?>
 
