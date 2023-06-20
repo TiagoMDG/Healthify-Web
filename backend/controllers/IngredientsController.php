@@ -2,8 +2,11 @@
 
 namespace backend\controllers;
 
-use app\models\Ingredients;
-use app\models\IngredientsSearch;
+use backend\models\Ingredients;
+use backend\models\IngredientsSearch;
+use dominus77\sweetalert2\Alert;
+use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -21,6 +24,30 @@ class IngredientsController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['login', 'error'],
+                            'allow' => true,
+                        ],
+                        [
+                            'actions' => ['create', 'update', 'delete'],
+                            'allow' => true,
+                            'roles' => ['admin', 'chef'],
+                        ],
+                        [
+                            'actions' => ['index', 'view'],
+                            'allow' => true,
+                            'roles' => ['admin', 'chef', 'staff'],
+                        ],
+                        [
+                            'actions' => ['logout'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -39,6 +66,7 @@ class IngredientsController extends Controller
     {
         $searchModel = new IngredientsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 11];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -70,7 +98,8 @@ class IngredientsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Ingrediente Criado!');
+                return $this->redirect(['index']);
             }
         } else {
             $model->loadDefaultValues();

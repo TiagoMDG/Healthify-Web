@@ -39,4 +39,6 @@ $this->title = $model->name;
         ],
     ]) ?>
 
+    <?= Html::a('Back to Index', ['index'], ['class' => 'btn btn-primary']) ?>
+
 </div>

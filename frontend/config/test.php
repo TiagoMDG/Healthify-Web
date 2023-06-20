@@ -11,5 +11,8 @@ return [
         'request' => [
             'cookieValidationKey' => 'test',
         ],
+        'db' => array(
+            'dsn'=> 'mysql:host=localhost;dbname=healthify_tests',
+        )
     ],
 ];

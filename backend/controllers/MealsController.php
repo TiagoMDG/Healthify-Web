@@ -2,8 +2,12 @@
 
 namespace backend\controllers;
 
+use app\models\Category;
 use app\models\Meals;
 use backend\models\MealsSearch;
+use dominus77\sweetalert2\Alert;
+use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -21,6 +25,30 @@ class MealsController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        [
+                            'actions' => ['login', 'error'],
+                            'allow' => true,
+                        ],
+                        [
+                            'actions' => ['create', 'update', 'delete'],
+                            'allow' => true,
+                            'roles' => ['admin', 'chef'],
+                        ],
+                        [
+                            'actions' => ['index', 'category', 'view'],
+                            'allow' => true,
+                            'roles' => ['admin', 'chef', 'staff'],
+                        ],
+                        [
+                            'actions' => ['logout'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -37,62 +65,29 @@ class MealsController extends Controller
      */
     public function actionIndex()
     {
-        $meals = Meals::find()->all();
+        $count = Meals::countItemsByCategory();//contagem do numero de refeiçoes po categoria
+        $names = Category::getCategoryNamesArray();//nome das categorias
 
-        $mealCount = array (
-            array("meat",0),
-            array("fish",0),
-            array("dessert",0),
-            array("drinks",0),
-            array("vegan",0),
-            array("entree",0),
-            array("soup",0)
-        );
-
-        foreach ($meals as $meal){
-            foreach ($meal as $field){
-                switch ($field){
-                    case 'meat':
-                        $mealCount[0][1]++;
-                        break;
-                    case 'fish':
-                        $mealCount[1][1]++;
-                        break;
-                    case 'dessert':
-                        $mealCount[2][1]++;
-                        break;
-                    case 'drinks':
-                        $mealCount[3][1]++;
-                        break;
-                    case 'vegan':
-                        $mealCount[4][1]++;
-                        break;
-                    case 'entree':
-                        $mealCount[5][1]++;
-                        break;
-                    case 'soup':
-                        $mealCount[6][1]++;
-                        break;
-                }
-            }
-        }
+        $mealCount = array_combine($names, $count);//combina os arrays num so
 
         return $this->render('index', [
-            'mealCount' => $mealCount
+            'mealCount' => $mealCount,
         ]);
     }
 
-    public function actionCategory($meal)
+    public function actionCategory($categoryid, $categoryname)
     {
         $searchModel = new MealsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        $dataProvider->query->andWhere(['category'=>$meal]);
+        $dataProvider->query->andWhere(['categoryid'=>$categoryid]);
+        $dataProvider->pagination = ['pageSize' => 11];
 
         return $this->render('category', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'meal' => $meal
+            'categoryid' => $categoryid,
+            'categoryname' => $categoryname
         ]);
     }
 
@@ -114,13 +109,14 @@ class MealsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($category)
+    public function actionCreate($categoryid, $categoryname)
     {
         $model = new Meals();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Refeição criada!');
+                return $this->redirect(['category', 'categoryid' => $categoryid, 'categoryname' => $categoryname]);
             }
         } else {
             $model->loadDefaultValues();
@@ -128,7 +124,8 @@ class MealsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'category' =>$category
+            'categoryid' =>$categoryid,
+            'categoryname' =>$categoryname
         ]);
     }
 
@@ -144,6 +141,7 @@ class MealsController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Refeição atualizada!');
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -159,16 +157,18 @@ class MealsController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $categoryid, $categoryname)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        Yii::$app->session->setFlash(Alert::TYPE_SUCCESS, 'Refeição apagada!');
+        return $this->redirect(['category', 'categoryid' => $categoryid, 'categoryname' => $categoryname]);
     }
 
     /**
      * Finds the Meals model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param int $id ID
      * @param int $id ID
      * @return Meals the loaded model
      * @throws NotFoundHttpException if the model cannot be found

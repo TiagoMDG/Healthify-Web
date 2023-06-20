@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use backend\api\models\SalesMeals;
+use backend\models\Mealingredients;
 use Yii;
 
 /**
@@ -9,16 +11,11 @@ use Yii;
  *
  * @property int $id
  * @property string $name
- * @property float $totalcalories
- * @property float $totalproteins
- * @property float $totalcarbohidrates
- * @property float $totalfats
- * @property float $totalfibers
  * @property float $price
  * @property string|null $description
- * @property string $category
+ * @property int $categoryid
  *
- * @property CartMeals[] $cartMeals
+ * @property Category $category
  * @property MealIngredients[] $mealIngredients
  * @property SalesMeals[] $salesMeals
  */
@@ -38,11 +35,12 @@ class Meals extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'price', 'category'], 'required'],
+            [['name', 'price', 'categoryid'], 'required'],
             [['price'], 'number'],
-            [['category'], 'string'],
+            [['categoryid'], 'integer'],
             [['name'], 'string', 'max' => 40],
             [['description'], 'string', 'max' => 100],
+            [['categoryid'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['categoryid' => 'id']],
         ];
     }
 
@@ -53,21 +51,44 @@ class Meals extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'price' => 'Price',
-            'description' => 'Description',
-            'category' => 'Category',
+            'name' => 'Nome',
+            'price' => 'Preço',
+            'description' => 'Descrição',
+            'categoryid' => 'ID da Categoria',
         ];
     }
 
     /**
-     * Gets query for [[CartMeals]].
+     * Gets query for [[Category]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCartMeals()
+    public function getCategory()
     {
-        return $this->hasMany(CartMeals::className(), ['mealsid' => 'id']);
+        return $this->hasOne(Category::className(), ['id' => 'categoryid']);
+    }
+
+    public static function countItemsByCategory(){
+
+        $ids = Category::getCategoryIDArray();//retorna todos os ids de categoria
+
+
+        foreach ($ids as $id){
+            $array[] = Meals::find()->where(['categoryid'=>$id])->count();
+        }
+
+        return $array;
+    }
+
+    public static function nameByID($id){
+
+        $names = Meals::find()->where(['id'=>$id])->all();
+
+        foreach ($names as $category) {
+            $categoryNamesArray[] = $category['name'];
+        }
+
+        return $categoryNamesArray[0];
     }
 
     /**

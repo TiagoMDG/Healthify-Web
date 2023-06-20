@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Meals */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="meals-form">
@@ -18,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category')->hiddenInput(['value'=>$category])->label(false); ?>
+    <?= $form->field($model, 'categoryid')->hiddenInput(['value'=>$categoryid])->label(false); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

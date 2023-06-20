@@ -5,7 +5,6 @@ namespace backend\models;
 use common\models\User;
 use Yii;
 use yii\base\Model;
-use yii\web\Controller;
 
 /**
  * Login form
@@ -67,7 +66,7 @@ class LoginForm extends Model
 
             } else {
                 Yii::$app->user->logout();
-                Yii::$app->response->redirect('../../frontend/web/');
+                Yii::$app->response->redirect('../../../frontend/web/');
                 return false;
             }
 

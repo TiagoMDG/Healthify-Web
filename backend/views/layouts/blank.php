@@ -14,7 +14,11 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="../../web/css/adminlte.min.css">
+
     <?php $this->registerCsrfMetaTags() ?>
+
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>

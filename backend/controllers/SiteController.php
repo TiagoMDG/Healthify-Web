@@ -2,6 +2,10 @@
 
 namespace backend\controllers;
 
+use app\models\Category;
+use app\models\Reservations;
+use app\models\Sales;
+use app\models\SalesMeals;
 use backend\models\LoginForm;
 use common\models\User;
 use Yii;
@@ -70,7 +74,26 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $categorias = Category::getCategoriesCount();
+        $reservas = Reservations::getReservesTotalCount();
+        $reservascont = Reservations::getReservesChartData();
+
+        $allsales = Sales::find()->all();
+        $salescount = count($allsales);
+        $salesValue = 0;
+        foreach ($allsales as $one) {
+            $salesValue = $salesValue + $one->getAttribute('paidamount');
+        }
+        $salesMealsCount = count(SalesMeals::find()->all());
+
+        return $this->render('index', [
+            'numCategorias' => $categorias,
+            'numReservas' => $reservas,
+            'reservasContagem' => $reservascont,
+            'vendasContagem' => $salescount,
+            'pedidosContagem' => $salesMealsCount,
+            'valorVendas' => $salesValue,
+        ]);
     }
 
     /**

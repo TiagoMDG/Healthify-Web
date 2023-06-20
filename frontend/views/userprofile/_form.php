@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
                                  class="rounded-circle" width="150">
                             <div class="mt-3">
 
-                                <p class="text-secondary mb-1"><?php echo $username?></p>
+                                <p class="text-black mb-1"><?php echo $username?></p>
                             </div>
                         </div>
                     </div>
@@ -33,40 +33,28 @@ use yii\widgets\ActiveForm;
                     <div class="card-body">
 
                         <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Full Name</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
+                            <div class="col-sm-9 text-black">
                                 <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
                             </div>
                         </div>
                         <hr>
 
                         <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Nif</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
+                            <div class="col-sm-9 text-black">
                                 <?= $form->field($model, 'nif')->textInput() ?>
                             </div>
                         </div>
                         <hr>
 
                         <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Phone</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
+                            <div class="col-sm-9 text-black">
                                  <?= $form->field($model, 'cellphone')->textInput() ?>
                             </div>
                         </div>
                         <hr>
 
                         <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Address</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
+                            <div class="col-sm-9 text-black">
                                 <?= $form->field($model, 'street')->textInput(['maxlength' => true]) ?>
 
                                 <?= $form->field($model, 'door')->textInput() ?>

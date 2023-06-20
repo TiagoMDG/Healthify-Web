@@ -4,17 +4,6 @@
     object-fit: contain;
 }
 
-#float{
-    background:cyan;
-    height:25vh;
-    position:fixed;
-    right:0;
-    top:0;
-    bottom: 0;
-    right: 0;
-    margin: auto;
-}
-
 body, html {
     height: 100%;
     font-family: "Inconsolata", sans-serif;
@@ -28,6 +17,14 @@ html {
     background-position: center;
     background-size: cover;
     min-height: 75%;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
 }
 
 .menu {
@@ -457,7 +454,7 @@ a {
     color: #000
 }
 
-.w3-dropdown-hover:hover > .w3-button:first-child, .w3-dropdown-click:hover > .w3-button:first-child {
+.w3-dropdown-hover:hover>.w3-button:first-child, .w3-dropdown-click:hover>.w3-button:first-child {
     background-color: #ccc;
     color: #000
 }
@@ -1013,7 +1010,7 @@ a {
     border-radius: 32px
 }
 
-.w3-row-padding, .w3-row-padding > .w3-half, .w3-row-padding > .w3-third, .w3-row-padding > .w3-twothird, .w3-row-padding > .w3-threequarter, .w3-row-padding > .w3-quarter, .w3-row-padding > .w3-col {
+.w3-row-padding, .w3-row-padding>.w3-half, .w3-row-padding>.w3-third, .w3-row-padding>.w3-twothird, .w3-row-padding>.w3-threequarter, .w3-row-padding>.w3-quarter, .w3-row-padding>.w3-col {
     padding: 0 8px
 }
 
@@ -1063,6 +1060,7 @@ a {
     0% {
         transform: rotate(0deg)
     }
+
     100% {
         transform: rotate(359deg)
     }
@@ -1076,9 +1074,11 @@ a {
     0% {
         opacity: 0
     }
+
     50% {
         opacity: 1
     }
+
     100% {
         opacity: 0
     }
@@ -1092,6 +1092,7 @@ a {
     from {
         opacity: 0
     }
+
     to {
         opacity: 1
     }
@@ -1107,6 +1108,7 @@ a {
         top: -300px;
         opacity: 0
     }
+
     to {
         top: 0;
         opacity: 1
@@ -1123,6 +1125,7 @@ a {
         left: -300px;
         opacity: 0
     }
+
     to {
         left: 0;
         opacity: 1
@@ -1139,6 +1142,7 @@ a {
         right: -300px;
         opacity: 0
     }
+
     to {
         right: 0;
         opacity: 1
@@ -1155,6 +1159,7 @@ a {
         bottom: -300px;
         opacity: 0
     }
+
     to {
         bottom: 0;
         opacity: 1
@@ -1169,6 +1174,7 @@ a {
     from {
         transform: scale(0)
     }
+
     to {
         transform: scale(1)
     }

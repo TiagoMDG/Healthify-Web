@@ -19,7 +19,7 @@ use Yii;
  * @property string $category
  *
  * @property CartMeals[] $cartMeals
- * @property MealIngredients[] $mealIngredients
+ * @property MealIngredients[] $meal-ingredients
  * @property SalesMeals[] $salesMeals
  */
 class Meals extends \yii\db\ActiveRecord
@@ -94,4 +94,5 @@ class Meals extends \yii\db\ActiveRecord
     {
         return $this->hasMany(SalesMeals::className(), ['mealid' => 'id']);
     }
+
 }

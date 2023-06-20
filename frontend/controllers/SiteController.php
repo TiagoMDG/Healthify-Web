@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use app\models\Category;
 use app\models\Meals;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -76,18 +77,24 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        if (!Yii::$app->user->identity != 'guest'){
-            $this->layout = 'loggedclient';
-        }
         //$menu = $this->actionMenuShow();
 
-        $entree = Meals::find()->where(['category' =>'entree'])->all();
-        $soup = Meals::find()->where(['category' =>'soup'])->all();
-        $dessert = Meals::find()->where(['category' =>'dessert'])->all();
-        $drinks = Meals::find()->where(['category' =>'drinks'])->all();
-        $mains = Meals::find()->where(['category' =>'meat'])->orWhere(['category' =>'fish'])->orWhere(['category' =>'vegan'])->orderBy('category')->all();
+        $entree = Meals::find()->where(['categoryid' =>1])->all();
+        $soup = Meals::find()->where(['categoryid' =>2])->all();
+        $dessert = Meals::find()->where(['categoryid' =>6])->all();
+        $mains = Meals::find()->where(['not',['categoryid'=>1]])->andWhere(['not',['categoryid'=>2]])->andWhere(['not',['categoryid'=>7]])->andWhere(['not',['categoryid'=>6]])->all();
 
-        return $this->render('index',['entradas'=>$entree,'pratos'=>$mains,'sopas'=>$soup,'sobremesas'=>$dessert,'bebidas'=>$drinks]);
+
+        foreach ($mains as $main){
+            $main['categoryid'] = Category::getCategoriaById($main['categoryid'])->name;
+        }
+
+       /* foreach (Category::find()->all() as $category){
+            $result = Category::getCategoriaById($category->getAttribute('id'));
+            var_dump($result->getMeals()->all());
+        }*/
+
+        return $this->render('index',['entradas'=>$entree,'pratos'=>$mains,'sopas'=>$soup,'sobremesas'=>$dessert]);
     }
 
     /**
@@ -103,7 +110,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect(['userprofile/user']);
         }
 
         $model->password = '';
@@ -135,9 +142,9 @@ class SiteController extends Controller
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
+                Yii::$app->session->setFlash('success', 'Obrigado por nos contactar. Vamos responder o mais breve possível.');
             } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
+                Yii::$app->session->setFlash('error', 'Erro ao enviar mensagem.');
             }
 
             return $this->refresh();
@@ -163,7 +170,6 @@ class SiteController extends Controller
         $nome = Yii::$app->getUser()->identity->getName();
         $email = Yii::$app->getUser()->identity->getEmail();
 
-        $this->layout = 'loggedclient';
         return $this->render('profile', ['nome'=> $nome, 'email'=> $email]);
     }
 
@@ -177,7 +183,9 @@ class SiteController extends Controller
         $model = new SignupForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Obrigado pelo seu registo. Por favor complete as suas informaçoes.');
+
+            Yii::$app->getSession()->addFlash('success', 'Obrigado pelo seu registo! Pode fazer login.');
+            return Yii::$app->getResponse()->redirect(['site/login']);
 
         }
         return $this->render('signup', [

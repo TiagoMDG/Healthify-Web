@@ -18,6 +18,7 @@ $this->registerCssFile('https://fonts.googleapis.com/css?family=Source+Sans+Pro:
 AppAsset::register($this);
 
 $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -32,6 +33,7 @@ $assetDir = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/admi
 </head>
 <body class="hold-transition sidebar-mini">
 <?php $this->beginBody() ?>
+
 
 <div class="wrapper">
     <!-- Navbar -->

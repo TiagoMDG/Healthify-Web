@@ -4,58 +4,62 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Ingredients */
+/* @var $model backend\models\Ingredients */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<table>
-    <tr>
-        <th>
-            <div>
-                <h3>Pesquisa de Ingredientes</h3>
-                <input type="text" name="Pesquisa" id="idPesquisa" placeholder="Pesquisa..">
-                <button class="btn-pesquisa icon" id="idBtSearch"><img src="../web/img/search.svg" onclick="pesquisa();"></button>
-            </div>
-        </th>
-        <th>
-            <div class="ingredients-form col-lg-9">
+<div class="column" style="width: auto">
 
-                <?php $form = ActiveForm::begin(); ?>
+    <h3>Pesquisa de Ingredientes</h3>
 
-                <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-            <table id="tableIngredients">
-                <th>
-                    <div>
-                        <?= $form->field($model, 'sugar_g')->textInput() ?>
+    <table>
+        <tr>
+            <td><form>
+                    <label for="idPesquisa"></label><input type="text" name="Pesquisa" id="idPesquisa" placeholder="Pesquisa..">
+                </form></td>
+            <td><button id="idBtSearch" onclick="pesquisa();"><i class="fas fa-arrow-circle-right"></i></button></td>
+        </tr>
+    </table>
 
-                        <?= $form->field($model, 'calories')->textInput() ?>
+    <div class="column" style="width: auto">
 
-                        <?= $form->field($model, 'protein_g')->textInput() ?>
+        <?php $form = ActiveForm::begin(); ?>
 
-                        <?= $form->field($model, 'carbohydrates_total_g')->textInput() ?>
-                    </div>
-                </th>
-                <th>
-                    <div>
-                        <?= $form->field($model, 'fat_saturated_g')->textInput() ?>
+        <table class="table" id="tableIngredients">
+            <thead>
+            <tr>
+                <th colspan="2"><?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><?= $form->field($model, 'sugar_g')->textInput() ?></td>
+                <td><?= $form->field($model, 'calories')->textInput() ?></td>
+            </tr>
+            <tr>
+                <td><?= $form->field($model, 'protein_g')->textInput() ?></td>
+                <td><?= $form->field($model, 'carbohydrates_total_g')->textInput() ?></td>
+            </tr>
+            <tr>
+                <td><?= $form->field($model, 'fat_saturated_g')->textInput() ?></td>
+                <td><?= $form->field($model, 'fat_total_g')->textInput() ?></td>
+            </tr>
+            <tr>
+                <td><?= $form->field($model, 'fiber_g')->textInput() ?></td>
+                <td><?= $form->field($model, 'cholesterol_mg')->textInput() ?></td>
+            </tr>
+            </tbody>
+        </table>
 
-                        <?= $form->field($model, 'fat_total_g')->textInput() ?>
-
-                        <?= $form->field($model, 'fiber_g')->textInput() ?>
-
-                        <?= $form->field($model, 'cholesterol_mg')->textInput() ?>
-                    </div>
-                </th>
-            </table>
         <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
     </div>
-        </th>
-    </tr>
-</table>
+</div>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
-<script type="text/javascript" src="../web/js/customJs.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+<script type="text/javascript" src="../../web/js/customJs.js"></script>

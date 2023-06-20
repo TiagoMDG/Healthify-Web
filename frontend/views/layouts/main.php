@@ -6,12 +6,14 @@
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
 use frontend\assets\CustomCss;
+use kartik\icons\FontAwesomeAsset;
 use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 
 AppAsset::register($this);
+FontAwesomeAsset::register($this);
 
 //$customCss = CustomCss::register($this);
 
@@ -22,8 +24,12 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../web/css/customCss.css">
+    <link rel="stylesheet" href="../../web/css/customCss.css">
+    <link rel="stylesheet" href="../../web/css/profile.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -43,12 +49,17 @@ AppAsset::register($this);
 
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Reviews', 'url' => ['/reviews/index']],
     ];
 
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+
     } else {
+        $menuItems[] = ['label' => 'Perfil', 'url' => ['/userprofile/user']];
+        $menuItems[] = ['label' => 'Reservas', 'url' => ['/reservations/index']];
+        $menuItems[] = ['label' => 'Pedidos', 'url' => ['/sales/index']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
             . Html::submitButton(

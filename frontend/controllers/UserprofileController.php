@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-use app\models\Userprofile;
+use frontend\models\Userprofile;
 use app\models\UserprofileSearch;
 use common\models\User;
 use Yii;
@@ -82,16 +82,20 @@ class UserprofileController extends Controller
     {
         $model = new Userprofile();
 
+
         $userid = Yii::$app->user->identity->getId();
         $username = Yii::$app->user->identity->username;
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post()) && $model->validate()) {
+                $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
+            $errors = $model->errors;
         }
+
 
         return $this->render('create', [
             'model' => $model,

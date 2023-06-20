@@ -1,24 +1,24 @@
 <?php
 
+use dominus77\sweetalert2\Alert;
+use kartik\grid\GridView;
 use yii\helpers\Html;
-use yii\grid\GridView;
+
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\IngredientsSearch */
+/* @var $searchModel backend\models\IngredientsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ingredients';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Ingredientes';
 ?>
+
+<?= Alert::widget(['useSessionFlash' => true]) ?>
+
 <div class="ingredients-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Create Ingredients', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar Ingrediente', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -31,11 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'sugar_g',
             'calories',
             'protein_g',
-            //'carbohydrates_total_g',
-            //'fat_saturated_g',
-            //'fat_total_g',
-            //'fiber_g',
-            //'cholesterol_mg',
+            'carbohydrates_total_g',
+            'fat_saturated_g',
+            'fat_total_g',
+            'fiber_g',
+            'cholesterol_mg',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
