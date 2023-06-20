@@ -16,7 +16,7 @@ for (i = 0; i < dropdown.length; i++) {
 
 function pesquisa(){
     var valorPesquisa = $('#idPesquisa').val();
-    var apiKey = 'GiK7y+Gve0eExGd5SaB6QA==TewdC6kAdnR9dj6V';
+    var apiKey = 'userYourOwn';
     if (valorPesquisa!=="") {
         $.ajax({
             method: 'GET',
